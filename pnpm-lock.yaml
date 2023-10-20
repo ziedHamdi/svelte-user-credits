@@ -11,6 +11,9 @@ dependencies:
   '@tsconfig/svelte':
     specifier: ^5.0.2
     version: 5.0.2
+  user-credits:
+    specifier: ../UserCredits
+    version: link:../UserCredits
 
 devDependencies:
   '@playwright/test':

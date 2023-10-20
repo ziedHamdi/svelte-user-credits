@@ -1,18 +1,15 @@
 <script>
-  import { IOffer } from 'user-credits';
   import { getContext } from 'svelte';
 
-  import { IResourceResolver } from '../ioc/IResourceResolver';
   import { buildClass } from '../core/util';
   import { NAME } from '../ioc/resolverContext';
-  import { IOfferProps } from '../model/IOfferProps'; // Adjust the import path
 
-  let resolver: IResourceResolver = getContext(NAME); // To store the current value of resolver
+  let resolver = getContext(NAME); // To store the current value of resolver
 
   // Subscribe to changes in the resolver store
-  export let offer: IOffer;
+  export let offer;
   // let offerProps: IOfferProps = $resolver.getObject<IOfferProps>({ type:'OfferProps' } as ResourceDomain, offer) as IOfferProps;
-  let offerProps: IOfferProps = $resolver.getObject({ type:'Offer' }, offer);
+  let offerProps = $resolver.getObject({ type:'Offer' }, offer);
 </script>
 
 <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
