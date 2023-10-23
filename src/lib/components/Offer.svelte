@@ -4,6 +4,7 @@
   import { buildClass } from '../core/util';
   import { NAME } from '../ioc/resolverContext';
   import Gen from '../core/Gen.svelte';
+  import GenList from '../core/GenList.svelte';
 
   let resolver = getContext(NAME); // To store the current value of resolver
 
@@ -23,6 +24,7 @@
     <Gen data={offerProps.name} comp="h4" cls="font-medium text-lg text-gray-800 dark:text-gray-200" />
     <Gen data={offerProps.price} comp="span" cls="mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200"/>
     <Gen data={offerProps.description} comp="p" cls="mt-2 text-sm text-gray-500" />
+    <GenList data={offerProps.advantages} comp="ul" cls="mt-2 text-sm text-gray-500" />
 
     {#if offerProps.advantages}
       {#if offerProps.container}

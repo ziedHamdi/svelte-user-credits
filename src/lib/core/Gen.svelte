@@ -5,7 +5,15 @@
 	export let comp;
 	export let cls;
 
-	const { comp:element, _class:clazz, value, ...props } = buildElementProps(comp, data, cls)
+	let element, clazz, value, props, rest;
+	$: {
+		({ comp: element, _class: clazz, value, ...props } = buildElementProps(comp, data, cls));
+		rest = $$props; // Capture undeclared attributes
+	}
 </script>
 
-<svelte:element this={element} class={clazz} {...props} >{value}</svelte:element>
+{#if data}
+	{props.prefixElement ?? ''}
+	<svelte:element this={element} class={clazz} {...props} {...rest}>{value}</svelte:element>
+	{props.suffixElement ?? ''}
+{/if}
