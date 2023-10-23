@@ -1,6 +1,6 @@
-import { IListValuePresentation, IValuePresentation, IRestrictedPresentationProperties } from '../ioc/IResourceResolver';
+import { IListValuePresentation, IValuePresentation, IGeneratorData } from '../ioc/IResourceResolver';
 
-export interface IOfferProps extends IRestrictedPresentationProperties<IOfferProps>{
+export interface IOfferProps extends IGeneratorData<IOfferProps>{
 	name: IValuePresentation | null;
 	price: IValuePresentation | null;
 	description: IValuePresentation | null;

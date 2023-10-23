@@ -3,6 +3,7 @@
 
   import { buildClass } from '../core/util';
   import { NAME } from '../ioc/resolverContext';
+  import Gen from '../core/Gen.svelte';
 
   let resolver = getContext(NAME); // To store the current value of resolver
 
@@ -13,15 +14,16 @@
 </script>
 
 <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
+  <pre>
+    {JSON.stringify(offer)}
+    {JSON.stringify(offerProps, null, "  ")}
+  </pre>
   <!-- Card -->
   <div class="flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700">
-    {#if offerProps.name}
-      <h4 class={buildClass('font-medium text-lg text-gray-800 dark:text-gray-200', offerProps.name)}>{offerProps.name.value}</h4>
-    {/if}
-    <span class="mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200">{offerProps.price?.value}</span>
-    {#if offerProps.description}
-      <p class="mt-2 text-sm text-gray-500">{offerProps.description.value}</p>
-    {/if}
+    <Gen data={offerProps.name} comp="h4" cls="font-medium text-lg text-gray-800 dark:text-gray-200" />
+    <Gen data={offerProps.price} comp="span" cls="mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200"/>
+    <Gen data={offerProps.description} comp="p" cls="mt-2 text-sm text-gray-500" />
+
     {#if offerProps.advantages}
       {#if offerProps.container}
         <ul class={buildClass('mt-7 space-y-2.5 text-sm', offerProps.container)}>
