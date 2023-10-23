@@ -38,7 +38,7 @@ export class OfferProps implements IOfferProps {
 
 	protected presentAdvantage(t: string) {
 		const toReturn = new ValuePresenter(t);
-		toReturn.prefixElement = "greenCheck";
+		toReturn.prefixElement = "blueCheck";
 		return toReturn;
 	}
 }

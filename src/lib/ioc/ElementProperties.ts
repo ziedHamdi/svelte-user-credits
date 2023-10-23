@@ -1,8 +1,9 @@
 export class ElementProperties {
 	prefixElement;
 	suffixElement;
+	props;
 
-	constructor(public comp: string, protected _class: string, public value: string) {
+	constructor(public element: string, protected _class: string, public value: object) {
 	}
 
 	get class(): string {

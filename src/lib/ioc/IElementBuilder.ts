@@ -23,6 +23,7 @@ export interface IElementBuilder {
 	 * @param value
 	 */
 	asString(value:object): string;
+
 }
 
 
