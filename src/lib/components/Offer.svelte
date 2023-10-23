@@ -2,11 +2,11 @@
   import { getContext } from 'svelte';
 
   import { buildClass } from '../core/util';
-  import { NAME } from '../ioc/resolverContext';
+  import { RESOLVER } from '../ioc/resolverContext';
   import Gen from '../core/Gen.svelte';
   import GenList from '../core/GenList.svelte';
 
-  let resolver = getContext(NAME); // To store the current value of resolver
+  let resolver = getContext(RESOLVER); // To store the current value of resolver
 
   // Subscribe to changes in the resolver store
   export let offer;

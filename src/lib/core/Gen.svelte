@@ -1,13 +1,15 @@
 <script>
-	import { buildElementProps } from '../ioc/GeneratorPropsBuilder';
+	import { getContext } from 'svelte';
+	import { ELEMENT_BUILDER } from '../ioc/elementBuilderContext';
 
 	export let data;
 	export let comp;
 	export let cls;
 
+	let elementBuilder = getContext(ELEMENT_BUILDER)
 	let element, clazz, value, props, rest;
 	$: {
-		({ comp: element, _class: clazz, value, ...props } = buildElementProps(comp, data, cls));
+		({ comp: element, _class: clazz, value, ...props } = $elementBuilder.buildElementProps(comp, data, cls));
 		rest = $$props; // Capture undeclared attributes
 	}
 </script>

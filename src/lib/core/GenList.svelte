@@ -1,14 +1,18 @@
 <script>
-	import { buildListBlockProps } from '../ioc/GeneratorPropsBuilder';
+	import { buildListBlockProps } from '../ioc/IElementBuilder';
 	import Gen from './Gen.svelte';
+	import { getContext } from 'svelte';
+	import { ELEMENT_BUILDER } from '../ioc/elementBuilderContext';
 
 	export let data;
 	export let comp;
 	export let cls;
 
+	let elementBuilder = getContext(ELEMENT_BUILDER)
+
 	let element, clazz, props, rest;
 	$: {
-		({ comp: element, _class: clazz, ...props } = buildListBlockProps(comp, data, cls));
+		({ comp: element, _class: clazz, ...props } = $elementBuilder.buildListBlockProps(comp, data, cls));
 		rest = $$props; // Capture undeclared attributes
 	}
 </script>
