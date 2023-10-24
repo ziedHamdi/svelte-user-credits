@@ -1,9 +1,10 @@
 import { IOffer } from 'user-credits';
 
 import { IOfferProps } from '../../../model/IOfferProps';
-import { IListValuePresentation, IValuePresentation } from '../../../ioc/IResourceResolver';
 import { ValuePresenter } from '../../../impl/ioc/ValuePresenter';
 import { ListValuePresenter } from '../../../impl/ioc/ListValuePresenter';
+import { IValuePresentation } from '../../../ioc/IValuePresentation';
+import { IListValuePresentation } from '../../../ioc/IListValuePresentation';
 
 export class OfferProps implements IOfferProps {
 	advantages: IListValuePresentation | null;

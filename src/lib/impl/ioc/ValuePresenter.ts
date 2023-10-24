@@ -1,4 +1,4 @@
-import { IValuePresentation } from '../../ioc/IResourceResolver';
+import { IValuePresentation } from '../../ioc/IValuePresentation';
 
 export class ValuePresenter implements IValuePresentation {
 	value: object | null;

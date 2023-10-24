@@ -1,52 +1,6 @@
-/**
- * The representation of a field along with classes (to override or to complete), prefixing or suffixing icons etc...
- */
-export interface IValuePresentation {
-	/**
-	 * The raw value for the field
-	 */
-	value: object | null;
-
-	/**
-	 * Classes: these are appended after the default classes
-	 */
-	cls: string | null;
-
-	/**
-	 * The UI component to represent this data (a string because a factory will construct this component when the time comes for it)
-	 */
-	comp: string | null;
-
-	/**
-	 * List of classes to use exclusively, resetting the default values and using only these
-	 */
-	replaceCls: boolean | null;
-
-	/**
-	 *
-	 */
-	prefixElement?: string | null;
-	suffixElement?: string | null;
-}
-
-/**
- * A list of values along with its container and header specification
- */
-export interface IListValuePresentation {
-	buildItems<T extends IGeneratorData<T>>( data:T[], transform:(t:T) => IValuePresentation ):void;
-	/**
-	 * Specs for the container: typically a <ul> or <ol> element in html
-	 */
-	container: IValuePresentation;
-	/**
-	 * Specs for the header that announces the list
-	 */
-	header: IValuePresentation;
-	/**
-	 * The list, ready to be used by an atomic presenting component
-	 */
-	items: IValuePresentation[] | null;
-}
+import { IValuePresentation } from './IValuePresentation';
+import { IListValuePresentation } from './IListValuePresentation';
+import { IResourceDomain } from './IResourceDomain';
 
 /**
  * A field of IRestrictedPresentationProperties type
@@ -62,13 +16,6 @@ export type IPresentationField = IValuePresentation | IListValuePresentation;
 export type IGeneratorData<T> = {
 	[K in keyof T]: IPresentationField;
 };
-
-/**
- * Implementations of this interface should be enum like interfaces restricting the possible return types. Eg: 'Offer', 'Order', 'UserCredits', 'CreditsTimetable'
- */
-export interface IResourceDomain {
-	type: string;
-}
 
 /**
  * A central concept to resolve any resource

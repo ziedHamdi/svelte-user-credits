@@ -1,4 +1,6 @@
-import { IGeneratorData, IListValuePresentation, IValuePresentation } from '../../ioc/IResourceResolver';
+import { IGeneratorData} from '../../ioc/IResourceResolver';
+import { IValuePresentation } from '../../ioc/IValuePresentation';
+import { IListValuePresentation } from '../../ioc/IListValuePresentation';
 
 export class ListValuePresenter implements IListValuePresentation {
 	protected _container: IValuePresentation | null;

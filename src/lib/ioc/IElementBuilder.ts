@@ -1,5 +1,6 @@
-import { IListValuePresentation, IValuePresentation } from './IResourceResolver';
 import { ElementProperties } from './ElementProperties';
+import { IValuePresentation } from './IValuePresentation';
+import { IListValuePresentation } from './IListValuePresentation';
 
 export interface IElementBuilder {
 	/**

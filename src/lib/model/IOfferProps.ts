@@ -1,4 +1,6 @@
-import { IListValuePresentation, IValuePresentation, IGeneratorData } from '../ioc/IResourceResolver';
+import { IGeneratorData } from '../ioc/IResourceResolver';
+import { IValuePresentation } from '../ioc/IValuePresentation';
+import { IListValuePresentation } from '../ioc/IListValuePresentation';
 
 export interface IOfferProps extends IGeneratorData<IOfferProps>{
 	name: IValuePresentation | null;

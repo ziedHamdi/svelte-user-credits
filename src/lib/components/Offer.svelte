@@ -15,10 +15,6 @@
 </script>
 
 <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
-  <pre>
-    {JSON.stringify(offer)}
-    {JSON.stringify(offerProps, null, "  ")}
-  </pre>
   <!-- Card -->
   <div class="flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700">
     <Gen data={offerProps.name} comp="h4" cls="font-medium text-lg text-gray-800 dark:text-gray-200" />
