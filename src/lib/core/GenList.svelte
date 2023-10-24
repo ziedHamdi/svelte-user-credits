@@ -1,5 +1,4 @@
 <script>
-	import { buildListBlockProps } from '../ioc/IElementBuilder';
 	import Gen from './Gen.svelte';
 	import { getContext } from 'svelte';
 	import { ELEMENT_BUILDER } from '../ioc/elementBuilderContext';

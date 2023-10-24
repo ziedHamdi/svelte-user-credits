@@ -1,12 +1,12 @@
-import { Element, IElementProperties } from '../../ioc/IElementProperties';
+import { Element, FRAGMENT, IElementProperties } from '../../ioc/IElementProperties';
 
 
 export class ElementProperties implements IElementProperties {
 	private _props: Record<string, string>;
 	private _children: ElementProperties[] | null;
 
-	constructor(public readonly element: Element);
-	constructor(public readonly element: Element | string, protected _class: string, public value: object);
+	constructor(public readonly _element: Element);
+	constructor(public readonly _element: Element | string, protected _class: string, public value: object);
 	constructor(public _element: Element | string, protected _class?: string, public _value?: object) {
 	}
 
@@ -50,6 +50,5 @@ export class ElementProperties implements IElementProperties {
 		this._value = value;
 	}
 
-	FRAGMENT: Element;
 
 }

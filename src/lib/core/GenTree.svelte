@@ -2,23 +2,26 @@
 	import { getContext } from 'svelte';
 	import { ELEMENT_BUILDER } from '../ioc/elementBuilderContext';
 	import GenTree from './GenTree.svelte';
-	import { ElementProperties } from '../impl/ioc/ElementProperties';
+	import { FRAGMENT } from '../ioc/IElementProperties';
 
-	export let element;
-	export let clazz;
-	export let value;
-	export let props;
-	export let children;
+	export let elementProperties;
+	let element;
+	let clazz;
+	let value;
+	let props;
+	let children;
 
+	({ element, _class: clazz, value, children, ...props } = elementProperties);
+	if (!element)
+		console.log(elementProperties);
 	let elementBuilder = getContext(ELEMENT_BUILDER);
 </script>
 
 {#if element}
-	{#if element == ElementProperties.FRAGMENT}
+	{#if element == FRAGMENT}
 		{#if children}
 			{#each children as child (child)}
-				<GenTree element={child.element} clazz={child.class} value={child.value} props={child.props}
-								 children={child.children} />
+				<GenTree elementProperties={child} />
 			{/each}
 		{/if}
 	{:else}
@@ -31,8 +34,7 @@
 
 			{#if children}
 				{#each children as child (child)}
-					<GenTree element={child.element} clazz={child.class} value={child.value} props={child.props}
-									 children={child.children} />
+					<GenTree elementProperties={child} />
 				{/each}
 			{/if}
 		</svelte:element>

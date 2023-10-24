@@ -9,5 +9,4 @@ export interface IElementProperties {
 	props: Record<string, string>;
 	children: ElementProperties[] | null;
 	value: object;
-	FRAGMENT: Element;
 }

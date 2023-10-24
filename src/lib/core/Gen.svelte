@@ -8,16 +8,14 @@
 	export let cls;
 
 	let elementBuilder = getContext(ELEMENT_BUILDER);
-	let element, clazz, value, props, rest;
+	let rest;
 	let elementProperties;
 	$: {
 		elementProperties = $elementBuilder.buildElementProps(comp, data, cls);
-		({ element, _class: clazz, value, ...props } = elementProperties);
 		rest = $$props; // Capture undeclared attributes
-		console.log("elem: ", elementProperties)
 	}
 </script>
 
 {#if data}
-	<GenTree {element} {clazz} {value} {...props} {...rest} />
+	<GenTree {elementProperties} {...rest} />
 {/if}

@@ -2,6 +2,7 @@ import { IElementBuilder } from '../../ioc/IElementBuilder';
 import { ElementProperties } from './ElementProperties';
 import { IValuePresentation } from '../../ioc/IValuePresentation';
 import { IListValuePresentation } from '../../ioc/IListValuePresentation';
+import { FRAGMENT } from '../../ioc/IElementProperties';
 
 export class ElementBuilder implements IElementBuilder {
 
@@ -15,7 +16,7 @@ export class ElementBuilder implements IElementBuilder {
 		let toReturn = new ElementProperties(data.comp ?? comp, data.replaceCls ? cls : `${cls} ${data.cls}`, data.value);
 		if (data.prefixElement || data.suffixElement) {
 			const middleChild = toReturn;
-			toReturn = new ElementProperties(ElementProperties.FRAGMENT);
+			toReturn = new ElementProperties(FRAGMENT);
 			const children: ElementProperties[] = [];
 			toReturn.children = children;
 			if (data.prefixElement) {
