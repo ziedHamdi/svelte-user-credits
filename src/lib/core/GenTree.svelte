@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import { ELEMENT_BUILDER } from '../ioc/elementBuilderContext';
 	import GenTree from './GenTree.svelte';
-	import { ElementProperties } from '../ioc/ElementProperties';
+	import { ElementProperties } from '../impl/ioc/ElementProperties';
 
 	export let element;
 	export let clazz;

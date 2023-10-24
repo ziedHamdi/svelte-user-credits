@@ -14,9 +14,10 @@
 		elementProperties = $elementBuilder.buildElementProps(comp, data, cls);
 		({ element, _class: clazz, value, ...props } = elementProperties);
 		rest = $$props; // Capture undeclared attributes
+		console.log("elem: ", elementProperties)
 	}
 </script>
 
 {#if data}
-	<GenTree {element} class={clazz} {value} {...props} {...rest} />
+	<GenTree {element} {clazz} {value} {...props} {...rest} />
 {/if}

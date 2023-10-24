@@ -1,5 +1,5 @@
 import { IElementBuilder } from '../../ioc/IElementBuilder';
-import { ElementProperties } from '../../ioc/ElementProperties';
+import { ElementProperties } from './ElementProperties';
 import { IValuePresentation } from '../../ioc/IValuePresentation';
 import { IListValuePresentation } from '../../ioc/IListValuePresentation';
 
