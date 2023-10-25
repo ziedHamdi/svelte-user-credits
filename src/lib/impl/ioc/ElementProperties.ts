@@ -1,6 +1,5 @@
 import { Element, FRAGMENT, IElementProperties } from '../../ioc/IElementProperties';
 
-
 export class ElementProperties implements IElementProperties {
 	private _props: Record<string, string>;
 	private _children: ElementProperties[] | null;

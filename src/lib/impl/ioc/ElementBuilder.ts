@@ -4,7 +4,7 @@ import { IValuePresentation } from '../../ioc/IValuePresentation';
 import { IListValuePresentation } from '../../ioc/IListValuePresentation';
 import { FRAGMENT } from '../../ioc/IElementProperties';
 
-export class ElementBuilder implements IElementBuilder {
+export class ElementBuilder implements IElementBuilder<ElementProperties> {
 
 	/**
 	 * Creates properties to be used by a <svelete:element {...returnedProps}>
@@ -32,7 +32,7 @@ export class ElementBuilder implements IElementBuilder {
 		return toReturn;
 	}
 
-	private resolveDecorator(data: string): ElementProperties {
+	protected resolveDecorator(data: string): ElementProperties {
 		if (data == 'blueCheck') {
 			const decorator = new ElementProperties('svg',
 				'flex-shrink-0 h-5 w-5 text-blue-600',
@@ -49,12 +49,6 @@ export class ElementBuilder implements IElementBuilder {
 				xmlns: 'http://www.w3.org/2000/svg',
 				class: 'flex-shrink-0 h-5 w-5 text-blue-600'
 			};
-			return decorator;
-		}
-		if (data == 'priceDollar') {
-			const decorator = new ElementProperties('span',
-				'font-bold text-2xl -mr-2',
-'$');
 			return decorator;
 		}
 		throw new Error( "Unrecognized format : '"+ data +"'");

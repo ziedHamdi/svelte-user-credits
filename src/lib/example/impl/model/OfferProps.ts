@@ -40,12 +40,40 @@ export class OfferProps implements IOfferProps {
 				this.price = new ValuePresenter('39' as object);
 				this.advantages = new ListValuePresenter();
 				this.advantages.buildItems(
-					['2 users',
+					['10 users',
 						'Plan features',
 						'Product support'],
 					this.presentAdvantage
 				);
-				this.callToAction = new ValuePresenter('Create account');
+				this.callToAction = new ValuePresenter('Sign up');
+				break;
+			}
+			case 'scaleup': {
+				this.name = new ValuePresenter("Scaleup");
+				this.description = new ValuePresenter('Everything you need for a growing business' as object);
+				this.price = new ValuePresenter('99' as object);
+				this.advantages = new ListValuePresenter();
+				this.advantages.buildItems(
+					['50 users',
+						'Plan features',
+						'Product support'],
+					this.presentAdvantage
+				);
+				this.callToAction = new ValuePresenter('Sign up');
+				break;
+			}
+			case 'enterprise': {
+				this.name = new ValuePresenter("Enterprise");
+				this.description = new ValuePresenter('Advanced features for international businesses' as object);
+				this.price = new ValuePresenter('249' as object);
+				this.advantages = new ListValuePresenter();
+				this.advantages.buildItems(
+					['150 users',
+						'Plan features',
+						'Product support'],
+					this.presentAdvantage
+				);
+				this.callToAction = new ValuePresenter('Sign up');
 				break;
 			}
 		}
