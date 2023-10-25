@@ -148,7 +148,7 @@ UserCredits-UI offers a practical example for implementing offer-related screens
 
 ## Contributing
 
-UserCredits-UI is an open-source project, and we welcome contributions from the community. If you'd like to contribute, please follow our [contribution guidelines](CONTRIBUTING.md).
+UserCredits-UI is an open-source project, and we welcome contributions from the community. If you'd like to contribute, please follow the standard [contribution guidelines](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
 
 ## License
 
@@ -160,11 +160,10 @@ Happy coding with UserCredits-UI! 🚀
 
 ---
 
-[GitHub Repository](https://github.com/ziedHamdi/user-credits-ui)
+[GitHub Repository](https://github.com/ziedHamdi/svelte-user-credits)
 
-[API Documentation](https://user-credits-ui-docs.com/api)
+Some code will be moved to a [front-end agnostic library project](https://github.com/ziedHamdi/user-credits-ui)
 
-[User Guide](https://user-credits-ui-docs.com/guide)
-```
+[comment]: <> ([API Documentation]&#40;https://user-credits-ui-docs.com/api&#41;)
 
-This revised readme.md file includes the additional information about customizing data presentation with `IGeneratorData`, `IValuePresentation`, and `IListValuePresentation`.
+[comment]: <> ([User Guide]&#40;https://user-credits-ui-docs.com/guide&#41;)
