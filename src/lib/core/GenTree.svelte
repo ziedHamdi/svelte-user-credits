@@ -19,24 +19,31 @@
 
 {#if element}
 	{#if element == FRAGMENT}
+		<slot name='prefix'/>
+		<slot name='prefixChildren'/>
 		{#if children}
 			{#each children as child (child)}
 				<GenTree elementProperties={child} />
 			{/each}
 		{/if}
+		<slot name='suffix'/>
+		<slot/>
 	{:else}
 		<svelte:element this={element} class={clazz} {...props}>
+			<slot/>
+			<slot name='prefix'/>
 			{#if value?.__elem__}
 				<svelte:element this={value.__elem__} {...value} />
 			{:else}
 				{$elementBuilder.asString(value)}
 			{/if}
-
+			<slot name='prefixChildren'/>
 			{#if children}
 				{#each children as child (child)}
 					<GenTree elementProperties={child} />
 				{/each}
 			{/if}
+			<slot name='suffix'/>
 		</svelte:element>
 	{/if}
 {/if}

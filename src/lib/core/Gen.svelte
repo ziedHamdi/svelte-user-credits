@@ -17,5 +17,9 @@
 </script>
 
 {#if data}
-	<GenTree {elementProperties} {...rest} />
+	<GenTree {elementProperties} {...rest}>
+		<slot name='prefix' slot='prefix' />
+		<slot name='prefixChildren' slot='prefixChildren'/>
+		<slot name='suffix' slot='suffix'/>
+	</GenTree>
 {/if}

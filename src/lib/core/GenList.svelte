@@ -9,10 +9,12 @@
 
 	let elementBuilder = getContext(ELEMENT_BUILDER)
 
-	let element, clazz, props, rest;
+	let element, clazz, props, rest, _element;
 	$: {
-		({ element, _class: clazz, ...props } = $elementBuilder.buildListBlockProps(comp, data, cls));
-		rest = $$props; // Capture undeclared attributes
+		// (_element is only removed from props)
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		({ element, _class: clazz, _element, ...props } = $elementBuilder.buildListBlockProps(comp, data, cls));
+		({ data, comp, cls,...rest} = $$props); // Capture undeclared attributes
 	}
 </script>
 

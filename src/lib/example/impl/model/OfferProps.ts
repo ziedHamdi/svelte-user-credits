@@ -19,21 +19,35 @@ export class OfferProps implements IOfferProps {
 
 	constructor(data: IOffer<string>) {
 		const name = data.name;
-		if (name == 'free') {
-			this.name = new ValuePresenter(name);
-			this.description = new ValuePresenter('Forever free' as object);
-			this.price = new ValuePresenter('Free' as object);
-			this.advantages = new ListValuePresenter();
-			this.advantages.buildItems(
-				['1 user',
-					'Plan features',
-					'Product support'],
-				this.presentAdvantage
-			);
-			this.callToAction = new ValuePresenter('Create account');
-
-		} else {
-			this.name = new ValuePresenter(name);
+		switch (name) {
+			case 'free': {
+				this.name = new ValuePresenter(name);
+				this.description = new ValuePresenter('Forever free' as object);
+				this.price = new ValuePresenter('Free' as object);
+				this.advantages = new ListValuePresenter();
+				this.advantages.buildItems(
+					['1 user',
+						'Plan features',
+						'Product support'],
+					this.presentAdvantage
+				);
+				this.callToAction = new ValuePresenter('Create account');
+				break;
+			}
+			case 'startup': {
+				this.name = new ValuePresenter("Startup");
+				this.description = new ValuePresenter('All the basics for starting a new business' as object);
+				this.price = new ValuePresenter('39' as object);
+				this.advantages = new ListValuePresenter();
+				this.advantages.buildItems(
+					['2 users',
+						'Plan features',
+						'Product support'],
+					this.presentAdvantage
+				);
+				this.callToAction = new ValuePresenter('Create account');
+				break;
+			}
 		}
 	}
 

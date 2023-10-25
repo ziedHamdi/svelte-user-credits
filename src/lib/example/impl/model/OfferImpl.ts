@@ -23,9 +23,10 @@ export class OfferImpl implements IOffer<string | null> {
 	tokenCount: number | null;
 	weight: number;
 
-	constructor(id: string, name: string, price: number) {
+	constructor(id: string, name: string, price: number, weight: number) {
 		this._id = id;
 		this.name = name;
 		this.price = price;
+		this.weight = weight;
 	}
 }

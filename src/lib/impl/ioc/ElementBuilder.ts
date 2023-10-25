@@ -13,7 +13,7 @@ export class ElementBuilder implements IElementBuilder {
 	 * @param cls
 	 */
 	buildElementProps(comp: string, data: IValuePresentation, cls: string): ElementProperties {
-		let toReturn = new ElementProperties(data.comp ?? comp, data.replaceCls ? cls : `${cls} ${data.cls}`, data.value);
+		let toReturn = new ElementProperties(data.comp ?? comp, data.replaceCls ? cls : `${cls} ${data.cls ?? ''}`, data.value);
 		if (data.prefixElement || data.suffixElement) {
 			const middleChild = toReturn;
 			toReturn = new ElementProperties(FRAGMENT);
@@ -51,6 +51,12 @@ export class ElementBuilder implements IElementBuilder {
 			};
 			return decorator;
 		}
+		if (data == 'priceDollar') {
+			const decorator = new ElementProperties('span',
+				'font-bold text-2xl -mr-2',
+'$');
+			return decorator;
+		}
 		throw new Error( "Unrecognized format : '"+ data +"'");
 	}
 
@@ -62,7 +68,7 @@ export class ElementBuilder implements IElementBuilder {
 	 */
 	buildListBlockProps(comp: string, data: IListValuePresentation, cls: string): ElementProperties {
 		const container = data.container?.comp ?? comp ?? 'ul';
-		const clazz = data.replaceCls ? cls : `${cls} ${data.cls}`;
+		const clazz = data.replaceCls ? cls : `${cls} ${data.cls ?? ''}`;
 
 		return new ElementProperties(container, clazz, null);
 	}
