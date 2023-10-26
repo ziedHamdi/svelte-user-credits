@@ -1,6 +1,8 @@
 import { IValuePresentation } from './IValuePresentation';
 import { IListValuePresentation } from './IListValuePresentation';
 import { IResourceDomain } from './IResourceDomain';
+import { MinimalId, BaseEntity } from 'user-credits';
+import { EntityDto } from '../core/dto/EntityDto';
 
 /**
  * A field of IRestrictedPresentationProperties type
@@ -31,6 +33,6 @@ export interface IResourceResolver {
 	 * @param <D> the type of possible objects (an enum like implementation)
 	 * return <T> the type the user expects as an output
 	 */
-	getObject<T extends IGeneratorData<T>, D extends IResourceDomain>(domain: D, data: object): T;
+	getObject<D extends IResourceDomain, K extends MinimalId, M extends BaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
 
 }
