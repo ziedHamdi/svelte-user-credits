@@ -47,7 +47,7 @@ export class Resolver implements IResourceResolver {
 					case 'enterprise': {
 						offerDto.description = 'Advanced features for international businesses';
 						offerDto.advantages = new Map();
-						offerDto.advantages.set('1 user', null);
+						offerDto.advantages.set('200 users', null);
 						offerDto.advantages.set('Plan features', null);
 						offerDto.advantages.set('Product support', null);
 						offerDto.callToAction = 'Sign up';
