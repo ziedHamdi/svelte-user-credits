@@ -5,6 +5,7 @@ export class OfferDto<K extends MinimalId> extends EntityDto<K, IOffer<K>> {
 	description: string;
 	advantages: Map<string, string>;
 	callToAction: string;
+	highlightingMessage: string;
 	constructor(offer: IOffer<K>) {
 		super(offer);
 	}
@@ -15,6 +16,10 @@ export class OfferDto<K extends MinimalId> extends EntityDto<K, IOffer<K>> {
 
 	get price(): string {
 		return this.delegate.price == 0 ? "free" : ""+this.delegate.price
+	}
+
+	get higlighted(): boolean {
+		return this.delegate.weight > 0;
 	}
 
 }

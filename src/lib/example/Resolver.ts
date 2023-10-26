@@ -13,6 +13,8 @@ export class Resolver implements IResourceResolver {
 			case 'Offer': {
 				const offerDto: OfferDto<K> = new OfferDto<K>(data as unknown as IOffer<string>);
 				toReturn = offerDto as EntityDto<K, M>
+				if(offerDto.higlighted)
+					offerDto.highlightingMessage = "MOST POPULAR";
 
 				switch (offerDto.name) {
 					case 'free': {
