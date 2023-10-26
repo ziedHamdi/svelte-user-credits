@@ -1,23 +1,7 @@
-import { IValuePresentation } from './IValuePresentation';
-import { IListValuePresentation } from './IListValuePresentation';
 import { IResourceDomain } from './IResourceDomain';
 import { MinimalId, BaseEntity } from 'user-credits';
 import { EntityDto } from '../core/dto/EntityDto';
 
-/**
- * A field of IRestrictedPresentationProperties type
- */
-export type IPresentationField = IValuePresentation | IListValuePresentation;
-
-/**
- * A data object containing a list of properties along with information about how to present them:
- * either a single value IValuePresentation or a list IListValuePresentation
- * @param <T> the actual real implementation (this allows typescript to check that it is composed of
- * properties that are exclusively of the allowed types)
- */
-export type IGeneratorData<T> = {
-	[K in keyof T]: IPresentationField;
-};
 
 /**
  * A central concept to resolve any resource
