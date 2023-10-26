@@ -14,8 +14,8 @@ export class OfferDto<K extends MinimalId> extends EntityDto<K, IOffer<K>> {
 		return this.delegate.name
 	};
 
-	get price(): string {
-		return this.delegate.price == 0 ? "free" : ""+this.delegate.price
+	get price(): number {
+		return this.delegate.price
 	}
 
 	get higlighted(): boolean {

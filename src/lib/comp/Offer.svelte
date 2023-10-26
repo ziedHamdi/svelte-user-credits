@@ -19,8 +19,18 @@
 			class='inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs uppercase font-semibold bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-white'>{offerDto.highlightingMessage}</span>
 		</p>
 	{/if}
-	<h4 class='font-medium text-lg text-gray-800 dark:text-gray-200'>{offerDto.name}</h4>
-	<span class='mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200'>{offerDto.price}</span>
+	<h4 class='font-medium text-lg text-gray-800 dark:text-gray-200 capitalize'>{offerDto.name}</h4>
+
+	{#if offerDto.price == 0}
+		<span class='mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200'>
+			Free
+		</span>
+	{:else}
+		<span class='mt-7 font-bold text-5xl text-gray-800 dark:text-gray-200'>
+			<span class='font-bold text-2xl -mr-2'>$</span>
+			{offerDto.price}
+		</span>
+	{/if}
 	<p class='mt-2 text-sm text-gray-500'>{offerDto.description}</p>
 	<ul class='mt-7 space-y-2.5 text-sm'>
 		{#each offerDto.advantages as advantage, index (index)}
