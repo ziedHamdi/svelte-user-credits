@@ -1,4 +1,4 @@
-import { IOffer, OfferCycle } from 'user-credits';
+import type { IOffer, OfferCycle } from 'user-credits';
 
 export class OfferImpl implements IOffer<string | null> {
 	_id: string;

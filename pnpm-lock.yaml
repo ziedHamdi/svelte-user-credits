@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.9.0
     version: 1.9.0
   user-credits:
-    specifier: link:..\UserCredits
-    version: link:../UserCredits
+    specifier: link:..\test-vite-ts
+    version: link:../test-vite-ts
 
 devDependencies:
   '@playwright/test':

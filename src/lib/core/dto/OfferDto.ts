@@ -1,4 +1,4 @@
-import { MinimalId, IOffer } from 'user-credits';
+import type { MinimalId, IOffer } from 'user-credits';
 import { EntityDto } from './EntityDto';
 
 export class OfferDto<K extends MinimalId> extends EntityDto<K, IOffer<K>> {

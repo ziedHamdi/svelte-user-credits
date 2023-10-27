@@ -1,5 +1,5 @@
-import { IResourceDomain } from './IResourceDomain';
-import { MinimalId, BaseEntity } from 'user-credits';
+import type { IResourceDomain } from './IResourceDomain';
+import type { MinimalId, BaseEntity } from 'user-credits';
 import { EntityDto } from '../core/dto/EntityDto';
 
 

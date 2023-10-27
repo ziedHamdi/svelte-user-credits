@@ -1,8 +1,8 @@
 // You can initialize the resolver store here if needed.
 // For example:
-import { IResourceResolver } from '../ioc/IResourceResolver';
-import { BaseEntity, IOffer, MinimalId } from 'user-credits';
-import { IResourceDomain } from '../ioc/IResourceDomain';
+import type { IResourceResolver } from '../ioc/IResourceResolver';
+import type { BaseEntity, IOffer, MinimalId } from 'user-credits';
+import type { IResourceDomain } from '../ioc/IResourceDomain';
 import { OfferDto } from '../core/dto/OfferDto';
 import { EntityDto } from '../core/dto/EntityDto';
 
