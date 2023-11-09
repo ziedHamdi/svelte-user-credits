@@ -1,6 +1,6 @@
-import type { BaseEntity, MinimalId } from 'user-credits';
+import type { IBaseEntity, IMinimalId } from "@user-credits/core";
 
-export class EntityDto<K extends MinimalId, M extends BaseEntity<K>> {
+export class EntityDto<K extends IMinimalId, M extends IBaseEntity<K>> {
 	constructor( protected delegate: M ) {
 	}
 

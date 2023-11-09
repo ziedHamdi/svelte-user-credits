@@ -1,9 +1,16 @@
-import type { IOffer, OfferCycle } from 'user-credits';
+import type { IOffer, IOfferCycle } from "@user-credits/core";
 
-export class OfferImpl implements IOffer<string | null> {
+export class OfferImpl implements Partial<IOffer<string | null>> {
+	constructor(id: string, name: string, price: number, weight: number) {
+		this._id = id;
+		this.name = name;
+		this.price = price;
+		this.weight = weight;
+	}
+
 	_id: string;
 	customCycle: number | null;
-	cycle: OfferCycle;
+	cycle: IOfferCycle;
 	/**indicates information about exclusive offers. Designed to be a boolean*/
 	hasSubOffers: unknown;
 	kind: "subscription" | "tokens" | "expertise";
@@ -22,11 +29,4 @@ export class OfferImpl implements IOffer<string | null> {
 	quantityLimit: number | null;
 	tokenCount: number | null;
 	weight: number;
-
-	constructor(id: string, name: string, price: number, weight: number) {
-		this._id = id;
-		this.name = name;
-		this.price = price;
-		this.weight = weight;
-	}
 }

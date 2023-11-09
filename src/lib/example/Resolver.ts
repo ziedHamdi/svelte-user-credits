@@ -1,13 +1,13 @@
 // You can initialize the resolver store here if needed.
 // For example:
 import type { IResourceResolver } from '../ioc/IResourceResolver';
-import type { BaseEntity, IOffer, MinimalId } from 'user-credits';
+import type { IBaseEntity, IOffer, IMinimalId } from "@user-credits/core";
 import type { IResourceDomain } from '../ioc/IResourceDomain';
 import { OfferDto } from '../core/dto/OfferDto';
 import { EntityDto } from '../core/dto/EntityDto';
 
 export class Resolver implements IResourceResolver {
-	getObject<D extends IResourceDomain, K extends MinimalId, M extends BaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
+	getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
 		let toReturn: EntityDto<K, M>;
 		switch (domain.type) {
 			case 'Offer': {
@@ -55,7 +55,6 @@ export class Resolver implements IResourceResolver {
 					}
 					default:
 						throw new Error("Cannot resolve offer "+ offerDto)
-					break;
 				}
 				return toReturn;
 			}

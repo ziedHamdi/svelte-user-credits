@@ -1,7 +1,7 @@
-import type { MinimalId, IOffer } from 'user-credits';
+import type { IMinimalId, IOffer } from "@user-credits/core";
 import { EntityDto } from './EntityDto';
 
-export class OfferDto<K extends MinimalId> extends EntityDto<K, IOffer<K>> {
+export class OfferDto<K extends IMinimalId> extends EntityDto<K, IOffer<K>> {
 	description: string;
 	advantages: Map<string, string>;
 	callToAction: string;
