@@ -35,7 +35,7 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'scaleup': {
+					case 'scaleUp': {
 						offerDto.description = 'Everything you need for a growing business';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('50 users', null);
