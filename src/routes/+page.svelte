@@ -16,5 +16,5 @@
 
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save up to 10%' on:modified={switchOffers}/>
-	<Pricing slot='offers' offerList={[freeOffer, startupOffer, scaleUpOffer, enterpriseOffer]} />
+	<Pricing slot='offers' offerList={[freeOffer, startupOffer, enterpriseOffer, scaleUpOffer]} />
 </PricingPage>
