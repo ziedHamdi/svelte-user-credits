@@ -12,7 +12,7 @@ export let service: IService<Types.ObjectId>;
 export let serviceProxy: ServiceProxy<Types.ObjectId>;
 
 export async function before() {
-	const connection: Connection = await connectToDb("mongodb+srv://weallymail:jyMuwzGFJmVkQnmk@cluster0.4rjswei.mongodb.net/?retryWrites=true&w=majority", "user-credits")
+	const connection: Connection = await connectToDb("mongodb://localhost:27001", "user-credits")
 	// Connect to MongoDB
 	const mongooseDaoFactory = new MongooseDaoFactory(connection);
 	const paymentClient = await resolveStripeClient();

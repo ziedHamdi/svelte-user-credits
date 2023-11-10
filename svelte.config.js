@@ -6,6 +6,9 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: [vitePreprocess({})],
+	resolve: {
+		extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+	},
 
 	kit: {
 		// default options are shown
