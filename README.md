@@ -2,7 +2,9 @@
 
 ## Introduction
 
-svelte-ui is an open-source library designed to streamline the management 
+A demo of this library is [available at this link](https://user-credits.dev)
+
+**svelte-ui** is an open-source library designed to streamline the management 
 of user credits. It ships with user interface components for handling offers, 
 order management, payment tracking, and credit consumption in web applications.
 Whether you're developing a subscription-based service, a digital marketplace, 

@@ -3,11 +3,11 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.0.3-alpha",
+	"version": "0.0.4-alpha",
 	"publishConfig": {
 		"access": "public"
 	},
-	"description": "Work in progress: Svelte components [demo](user-credits.dev) to manage payment and user credits: based on the @user-credits libraries for its backend",
+	"description": "Work in progress: Svelte components demo at user-credits.dev to manage payment and user credits: based on the @user-credits libraries for its backend",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
