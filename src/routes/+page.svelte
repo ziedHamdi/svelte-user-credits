@@ -1,8 +1,8 @@
 <script>
 	import { OfferImpl } from '../lib/example/impl/model/OfferImpl';
-	import Pricing from '../lib/comp/Pricing.svelte';
+	import Pricing from '../lib/comp/offer/Pricing.svelte';
 	import PricingPage from '../lib/example/components/PricingPage.svelte';
-	import OfferSwitch from '../lib/comp/OfferSwitch.svelte';
+	import OfferSwitch from '../lib/comp/offer/OfferSwitch.svelte';
 
 	const freeOffer = new OfferImpl("000", "free", 0, 0);
 	const startupOffer = new OfferImpl("001", "startup", 49, 1);

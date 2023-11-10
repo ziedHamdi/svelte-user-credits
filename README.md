@@ -1,16 +1,21 @@
-# user-credits-ui Library Readme
+# @user-credits/svelte-ui Library Readme
 
 ## Introduction
 
-user-credits-ui is an open-source library designed to streamline the creation of user interface components for handling offers, offer groups, order management, payment tracking, and credit consumption in web applications. Whether you're developing a subscription-based service, a digital marketplace, or an e-commerce platform, user-credits-ui offers flexible and technology-agnostic solutions for your user interface needs. While the primary implementation is in Svelte, the library is adaptable to other view technologies, making it a versatile choice for your projects.
+svelte-ui is an open-source library designed to streamline the management 
+of user credits. It ships with user interface components for handling offers, 
+order management, payment tracking, and credit consumption in web applications.
+Whether you're developing a subscription-based service, a digital marketplace, 
+or an e-commerce platform, svelte-ui is built on top of @user-credits/core and
+relies on its implementations server side (like @user-credits/stripe-mongoose) 
+to allow flexible and technology-agnostic solutions for your billing offer needs.
+While the primary implementation is in Svelte, the library is adaptable to other
+view technologies, making it a versatile choice for your projects.
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Customizing Data Presentation](#customizing-data-presentation)
-- [Example Implementation](#example-implementation)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -46,105 +51,75 @@ user-credits-ui allows you to display orders and prices in multiple currencies, 
 
 ## Getting Started
 
-To start using user-credits-ui in your project, follow the installation and usage instructions in the documentation. Additionally, you'll need to implement and inject two critical interfaces: `IResourceResolver` and `IElementBuilder`, as described below.
+To start using user-credits-ui in your project, you'll need to implement and inject two critical interfaces: `IResourceResolver` and `IElementBuilder`, as described below.
+### Installing
+use your package manager to install
+>`pnpm add @user-credits/svelte-ui`
+
+>`yarn add @user-credits/svelte-ui`
+
+>`npm install @user-credits/svelte-ui`
+
 
 ### Implementing `IResourceResolver`
+The interfaces defined in @user-credits/core that are returned by all 
+@user-credits implementations only specify the strict necessary fields
+to be able to apply its logical operation. For example, the `IOffer` interface
+only contains a `name` field that is actually a unique name that allows you to
+recognize the offer and compete it with relevant related resources as description, 
+icons, features it proposes, etc.... 
 
-In order to transform raw data into view specification objects, you'll need to create your own implementation of the `IResourceResolver` interface. This implementation should provide the logic for converting your data into the desired view specification objects.
+> Some fields are designed to be interpreted or used as is. For example, the `IOffer` 
+> interface includes the fields `currency` and `price`. The resolver has the possibility 
+> to use that data to handle converting the price to your website visitor's currency.
 
-For example, `IResourceResolver` may return view specifications like the following:
+Therefore you'll need to create your own implementation of the `IResourceResolver` interface. 
+
+For example, `IResourceResolver` converts an offer from an `IOffer` instance containing `name`,`currency` and `price` and returns OfferDto which is our view specifications of an offer like follows:
 
 ```typescript
-import { IValuePresentation } from './IValuePresentation';
-import { IListValuePresentation } from './IListValuePresentation';
+export class OfferDto<K extends IMinimalId> extends EntityDto<K, IOffer<K>> {
+	description: string;
+	advantages: Map<string, string>;
+	callToAction: string;
+	highlightingMessage: string;
+	constructor(offer: IOffer<K>) {
+		super(offer);
+	}
 
-export interface IOfferProps {
-    name: IValuePresentation | null;
-    price: IValuePresentation | null;
-    description: IValuePresentation | null;
-    users: IValuePresentation | null;
-    planFeatures: IValuePresentation | null;
-    support: IValuePresentation | null;
-    signUpLink: IValuePresentation | null;
-    callToAction: IValuePresentation | null;
-    advantages: IListValuePresentation | null;
+	get name(): string {
+		return this.delegate.name
+	};
+
+	get price(): number {
+		return this.delegate.price
+	}
+
+	get higlighted(): boolean {
+		return this.delegate.weight > 0;
+	}
+
 }
 ```
 
-### Implementing `IElementBuilder`
+You may decide to extend `OfferDto` and build your own Svelte representation of an offer.
 
-The `IElementBuilder` interface is responsible for customizing the data presentation in your user interface components. It allows you to specify classes, UI components, and additional styling attributes for individual data fields, lists, and containers.
+So `IResourceResolver` is kept simple: it receives any data instance from `@user-credits/core/db/model` and transforms it into one of the available `@user-credits/svelte-ui/lib/core/dto/EntityDto` child classes or to your child class dedicated to display it
+```typescript
+export interface IResourceResolver {
+    getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
+}
+```
 
-### Customization with IElementBuilder
+### Displaying screens:
+Once your data is transformed and ready for display, you can use the according 
+component to represent it, or build/compose your own. 
 
-user-credits-ui provides an optional and opinionated implementation of `IElementBuilder` to help you transform your raw data into concrete view representations. This implementation allows you to tailor the presentation of your data in great detail.
+A set of components is available under `lib/comp`
 
-By default, the `IElementBuilder` implementation offers features such as:
+> A more advanced project still as a draft introduces an additional abstraction layer between your DTO and your view, allowing to build a common base from multiple view technologies
+> The project is still under construction and called [user-credits-ui](https://github.com/ziedHamdi/user-credits-ui)
 
-- Applying classes to elements based on your data specifications.
-- Adding nested components or content (by including a `value.__elem__` field, e.g., `value= {__elem__:'svg', d:'C10', other:'PropToInclude'}).
-- Handling prefix and suffix elements to add components before or after your data.
-- Resolving SVG icons and other components as specified in your data, making it easy to include dynamic elements in your view.
-
-Here's a closer look at how this works:
-
-#### Prefix and Suffix Elements
-
-You can use `IValuePresentation` to specify elements that should be added before and after your data. This is particularly useful for adding custom icons, labels, or any other components to enhance the presentation of your data. The `IElementBuilder` implementation uses the method `resolveDecorator(prefixOrSuffix)` to resolve these abstract names to more concrete structures.
-
-#### Resolving SVG Icons
-
-The implementation includes a centralized method for resolving SVG icons, making it effortless to include SVG icons in your UI. By specifying `'blueCheck'` or other recognized formats, you can easily add icons to your data presentation. This feature is extensible, allowing you to override the default icon resolution to include custom icons or other components.
-
-#### Handling Lists and Containers
-
-When dealing with lists, user-credits-ui offers an opinionated approach for creating list elements with specific styling and classes. You can use `IListValuePresentation` to customize your list's container, header, and individual list items, ensuring a consistent and stylish presentation of your data.
-
-#### Extensive View Customization
-
-`IElementProperties` is a fundamental part of the opinionated `IElementBuilder` implementation. It provides an abstract representation of your view and allows you to add children components, specify classes, and manage prefix and suffix elements like icons, even if they are not explicitly specified in your `IValuePresentation`. This powerful feature gives you full control over how your data is presented and allows you to create rich, dynamic views that match your unique requirements.
-
-#### The FRAGMENT Element
-
-The FRAGMENT element type, denoted by `FRAGMENT`, allows you to include nested components and content within your view. It enables the creation of more complex, hierarchical structures, enhancing the presentation of your data.
-
-#### Ready-to-Use Components
-
-user-credits-ui offers ready-to-use components designed to interpret the output of the default `IElementBuilder` implementation. These components make it easy to integrate your view specifications into your web application, saving you time and effort in the development process.
-
-Overall, the opinionated `IElementBuilder` implementation, along with `IElementProperties`, offers a robust toolkit for presenting your data in a highly detailed and flexible manner. While it's available for your convenience, you can also choose to implement your own `IElementBuilder` from scratch if you prefer a more custom approach. This gives you the freedom to create unique views according to your specific requirements.
-
-### Injecting the Interfaces
-
-Once you have implemented `IResourceResolver` and `IElementBuilder`, you need to inject them at startup to enable user-credits-ui to correctly use these implementations for data presentation.
-
-With these interfaces correctly implemented and injected, you can harness the full potential of user-credits-ui and tailor the presentation of your data to your specific needs, regardless of the front-end technology you choose to use.
-
-This addition explains the necessity of implementing the `IResourceResolver` and `IElementBuilder` interfaces and injecting them at startup to correctly use the library.
-
-
-
-user-credits-ui provides a versatile set of features for creating screens and process flows related to offers, offer groups, order management, and payment processing. It's designed to be adaptable to various view technologies, making it a valuable addition to your web application projects.
-
-## Customizing Data Presentation
-
-user-credits-ui offers extensive customization options for data presentation in the UI. This is accomplished through the use of `IGeneratorData`, `IValuePresentation`, and `IListValuePresentation` objects. These objects allow you to define classes, UI components, and additional styling attributes for individual data fields, lists, and containers.
-
-### IValuePresentation
-
-The `IValuePresentation` interface allows you to customize the presentation of individual data fields. It includes attributes such as `value`, `cls`, `comp`, `replaceCls`, `prefixElement`, and `suffixElement` to give you full control over how the data is displayed.
-
-### IListValuePresentation
-
-The `IListValuePresentation` interface deals with lists of values, providing control over container specifications and list headers. It offers attributes for building list items, container specifications, list headers, and the list itself.
-
-Importantly, the usage of these customization options is not tied to any specific front-end technology. You can use the `cls` attribute to control how data is displayed, even to the level of specifying the styling for native mobile widgets. To achieve this, you can provide a unique `IResourceResolver` for each platform at startup, making it versatile and adaptable for various technologies.
-
-The flexibility provided by these objects allows you to tailor the presentation of your data to your specific needs, regardless of the front-end technology you choose to use.
-
-## Example Implementation
-
-user-credits-ui offers a practical example for implementing offer-related screens in a UI-agnostic way. You can adapt this example to your specific use case. For full details, please refer to the example implementation in the source code.
 
 ## Contributing
 
