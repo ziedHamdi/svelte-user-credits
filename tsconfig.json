@@ -2,7 +2,7 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"module": "CommonJS",
-		"moduleResolution": "NodeNext",
+		"moduleResolution": "Node",
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
@@ -12,11 +12,10 @@
 		"sourceMap": true,
 		"strict": true,
 		"paths": {
-			"user-credits": ["../../UserCredits"],
 			"$lib":["./src/lib"],
 			"$lib/*":["./src/lib/*"]
-
-		}
+		},
+		"baseUrl": "."
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
