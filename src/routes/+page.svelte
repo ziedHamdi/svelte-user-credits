@@ -1,20 +1,22 @@
 <script>
-	import { OfferImpl } from '../lib/example/impl/model/OfferImpl';
+	// import { OfferImpl } from '../lib/example/impl/model/OfferImpl';
 	import Pricing from '../lib/comp/offer/Pricing.svelte';
 	import PricingPage from '../lib/example/components/PricingPage.svelte';
 	import OfferSwitch from '../lib/comp/offer/OfferSwitch.svelte';
 
-	const freeOffer = new OfferImpl("000", "free", 0, 0);
-	const startupOffer = new OfferImpl("001", "startup", 49, 1);
-	const enterpriseOffer = new OfferImpl("002", "enterprise", 99, 0);
-	const scaleUpOffer = new OfferImpl("003", "scaleUp", 249, 0);
+	// const freeOffer = new OfferImpl("000", "free", 0, 0);
+	// const startupOffer = new OfferImpl("001", "startup", 49, 1);
+	// const enterpriseOffer = new OfferImpl("002", "enterprise", 99, 0);
+	// const scaleUpOffer = new OfferImpl("003", "scaleUp", 249, 0);
 
 	function switchOffers( value ) {
 		console.log( "checked: ", value )
 	}
+
+	export let data;
 </script>
 
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save up to 10%' on:modified={switchOffers}/>
-	<Pricing slot='offers' offerList={[freeOffer, startupOffer, enterpriseOffer, scaleUpOffer]} />
+	<Pricing slot='offers' offerList={data.offers} />
 </PricingPage>

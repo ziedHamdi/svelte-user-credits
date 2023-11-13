@@ -16,7 +16,10 @@ export class Resolver implements IResourceResolver {
 				if(offerDto.higlighted)
 					offerDto.highlightingMessage = "MOST POPULAR";
 
-				switch (offerDto.name) {
+				if( !offerDto.name )
+					console.error( "Offer has no name: ",JSON.stringify( offerDto ))
+
+				switch (offerDto.name.toLowerCase()) {
 					case 'free': {
 						offerDto.description = 'Forever free';
 						offerDto.advantages = new Map();
@@ -35,7 +38,7 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'scaleUp': {
+					case 'scaleup': {
 						offerDto.description = 'Everything you need for a growing business';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('50 users', null);
@@ -54,7 +57,7 @@ export class Resolver implements IResourceResolver {
 						break;
 					}
 					default:
-						throw new Error("Cannot resolve offer "+ offerDto)
+						throw new Error("Cannot resolve offer "+ JSON.stringify(offerDto))
 				}
 				return toReturn;
 			}
