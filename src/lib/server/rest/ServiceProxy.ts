@@ -1,5 +1,4 @@
-import { error } from '@sveltejs/kit';
-import { IMinimalId, IOrder, IService, IUserCredits } from '@user-credits/core';
+import { IMinimalId, IService } from '@user-credits/core';
 
 export class ServiceProxy<K extends IMinimalId> {
 	constructor(protected service: IService<K>, protected _envTags: string[] = []) {
@@ -37,7 +36,7 @@ export class ServiceProxy<K extends IMinimalId> {
 	async loadUserCredits({url}): Promise<Response> {
 		const userId = url.searchParams.get('userId') ?? null;
 
-		const userCredits = await this.service.loadUserCredits(offerId, userId);
+		const userCredits = await this.service.loadUserCredits(userId);
 		return  new Response(JSON.stringify(userCredits));
 	}
 

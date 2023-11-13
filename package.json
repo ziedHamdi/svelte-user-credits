@@ -8,6 +8,11 @@
 		"access": "public"
 	},
 	"description": "Work in progress: Svelte components demo at user-credits.dev to manage payment and user credits: based on the @user-credits libraries for its backend",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ziedHamdi/svelte-user-credits"
+	},
+
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -41,13 +46,14 @@
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
 		"vite": "^4.5.0",
+		"vite-plugin-node": "^3.1.0",
 		"vitest": "^0.32.4"
 	},
 	"dependencies": {
 		"@sveltejs/adapter-node": "1.3.1",
 		"@tsconfig/svelte": "^5.0.2",
 		"@user-credits/core": "^0.12.10-alpha",
-		"@user-credits/stripe-mongoose": "0.12.8-alpha",
+		"@user-credits/stripe-mongoose": "link:..\\..\\work\\UserCredits",
 		"awilix": "^9.0.0",
 		"mongoose": "^8.0.0",
 		"preline": "^1.9.0"

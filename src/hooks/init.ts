@@ -3,32 +3,49 @@ import { MongooseStripeContainerSingleton, connectToDb, disconnectFromDb, resolv
 import { ServiceProxy } from '../lib/server/rest/ServiceProxy';
 import { AwilixContainer } from "awilix/lib/container";
 import { IService, PaymentService } from '@user-credits/core';
-import { IConfigReader } from '@user-credits/stripe-mongoose/dist/service';
+import type { IConfigReader } from '@user-credits/stripe-mongoose';
 import { asValue } from 'awilix';
 
-export let ioc: AwilixContainer<object>;
-export let iConfigReader: IConfigReader;
-export let service: IService<Types.ObjectId>;
-export let serviceProxy: ServiceProxy<Types.ObjectId>;
+let ioc: AwilixContainer<object>;
+let iConfigReader: IConfigReader;
+let service: IService<Types.ObjectId>;
+let serviceProxy: ServiceProxy<Types.ObjectId>;
+
+let initializationPromise = null;
+let isInitializing = false;
 
 export function isInitialized(): boolean {
 	return ioc != null;
 }
 
+async function init(): Promise<void> {
+	console.log('Initializing container...');
+	ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
+	const connection: Connection = await connectToDb('mongodb://localhost:27001', 'user-credits');
+	// Connect to MongoDB
+	const mongooseDaoFactory = new MongooseDaoFactory(connection);
+	const paymentClient = await resolveStripeClient();
+	iConfigReader = await resolveConfigReader();
+	service = new PaymentService(mongooseDaoFactory, paymentClient, iConfigReader.currency() ?? 'usd') as unknown as IService<Types.ObjectId>;
+	ioc.register({ service: asValue(service) });
+	serviceProxy = new ServiceProxy<Types.ObjectId>(service);
+	ioc.register({ serviceProxy: asValue(serviceProxy) });
+	console.log('Connected to MongoDB');
+}
+
 export async function beforeStartup() {
-	if(!isInitialized()) {
-		ioc = await MongooseStripeContainerSingleton.getInstance();
-		const connection: Connection = await connectToDb("mongodb://localhost:27001", "user-credits")
-		// Connect to MongoDB
-		const mongooseDaoFactory = new MongooseDaoFactory(connection);
-		const paymentClient = await resolveStripeClient();
-		iConfigReader = await resolveConfigReader();
-		service = new PaymentService(mongooseDaoFactory, paymentClient, iConfigReader.currency() ?? "usd") as unknown as IService<Types.ObjectId>;
-		serviceProxy = new ServiceProxy<Types.ObjectId>(service);
-		ioc.register( {service: asValue(service)} );
-		ioc.register( {serviceProxy: asValue(serviceProxy)} );
-		console.log('Connected to MongoDB');
+	if (!isInitialized() && !isInitializing) {
+		isInitializing = true;
+
+		// Create a new promise only if it's not already in progress
+		initializationPromise = init().then(() => {
+			// Reset the initialization flag once initialization is complete
+			isInitializing = false;
+		}).catch((err)=>console.error(err));
 	}
+
+	// Wait for the initialization to complete, even if it's in progress
+	await initializationPromise;
 }
 
 export async function onShutDown() {

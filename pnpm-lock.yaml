@@ -15,8 +15,8 @@ dependencies:
     specifier: ^0.12.10-alpha
     version: 0.12.10-alpha
   '@user-credits/stripe-mongoose':
-    specifier: 0.12.8-alpha
-    version: 0.12.8-alpha
+    specifier: link:..\..\work\UserCredits
+    version: link:../UserCredits
   awilix:
     specifier: ^9.0.0
     version: 9.0.0
@@ -88,6 +88,9 @@ devDependencies:
   vite:
     specifier: ^4.5.0
     version: 4.5.0(@types/node@20.9.0)
+  vite-plugin-node:
+    specifier: ^3.1.0
+    version: 3.1.0(vite@4.5.0)
   vitest:
     specifier: ^0.32.4
     version: 0.32.4
@@ -472,6 +475,14 @@ packages:
       rollup: 3.29.4
     dev: false
 
+  /@rollup/pluginutils@4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    dev: true
+
   /@rollup/pluginutils@5.0.5(rollup@3.29.4):
     resolution: {integrity: sha512-6aEYR910NyP73oHiJglti74iRyOwgFU4x3meH/H8OJx6Ry0j6cOVZ5X/wTvub7G7Ao6qaHBEaNsV3GLJkSsF+Q==}
     engines: {node: '>=14.0.0'}
@@ -775,25 +786,6 @@ packages:
     resolution: {integrity: sha512-UpEc7mN3tfaNYcGacBRenFAMmRo231arD/V7EqSA4mmUKs0WI0kAeHNT7stPIyRbPijK9SCLm8bqLx+LOx+Qpw==}
     engines: {node: '>=18'}
     dependencies:
-      awilix: 9.0.0
-      bson: 6.2.0
-      dotenv: 16.3.1
-      mongoose: 7.6.4
-      stripe: 13.11.0
-    transitivePeerDependencies:
-      - '@aws-sdk/credential-providers'
-      - '@mongodb-js/zstd'
-      - kerberos
-      - mongodb-client-encryption
-      - snappy
-      - supports-color
-    dev: false
-
-  /@user-credits/stripe-mongoose@0.12.8-alpha:
-    resolution: {integrity: sha512-l99+A/O4tp1GG9+AQFnUjBfKF9VWt79uBnjvLHeNfOMQOxXiTwdKsvev8cdmsbxjLbzBe4zfXaAoflrjlh61Ew==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@user-credits/core': 0.12.10-alpha
       awilix: 9.0.0
       bson: 6.2.0
       dotenv: 16.3.1
@@ -1411,7 +1403,6 @@ packages:
 
   /estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: false
 
   /estree-walker@3.0.3:
     resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
@@ -2907,6 +2898,23 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vite-plugin-node@3.1.0(vite@4.5.0):
+    resolution: {integrity: sha512-LN9byKedZaokEWcH+DTdeV7YLN34dWH7Em2ldHZ77oVGvC/uxHnK43AGPrV9+9CoOh1x9X3Yc55vW/OQYssFDQ==}
+    peerDependencies:
+      '@swc/core': ^1.2.153
+      vite: ^4.0.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      chalk: 4.1.2
+      debug: 4.3.4
+      vite: 4.5.0(@types/node@20.9.0)
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /vite@4.5.0(@types/node@20.9.0):

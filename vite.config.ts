@@ -9,7 +9,7 @@ export default defineConfig({
 	build: {
 		target: 'es2020',
 		deps: {
-			inline: ['user-credits'],
+			inline: ['@user-credits/stripe-mongoose'],
 		},
 	},
 });
