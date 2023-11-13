@@ -20,13 +20,13 @@ export function isInitialized(): boolean {
 
 async function init(): Promise<void> {
 	console.log('Initializing container...');
+	iConfigReader = await resolveConfigReader();
 	ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
-	const connection: Connection = await connectToDb('mongodb://localhost:27001', 'user-credits');
+	const connection: Connection = await connectToDb(iConfigReader.dbUrl, iConfigReader.dbName);
 	// Connect to MongoDB
 	const mongooseDaoFactory = new MongooseDaoFactory(connection);
 	const paymentClient = await resolveStripeClient();
-	iConfigReader = await resolveConfigReader();
-	service = new PaymentService(mongooseDaoFactory, paymentClient, iConfigReader.currency() ?? 'usd') as unknown as IService<Types.ObjectId>;
+	service = new PaymentService(mongooseDaoFactory, paymentClient, iConfigReader.currency ?? 'usd') as unknown as IService<Types.ObjectId>;
 	ioc.register({ service: asValue(service) });
 	serviceProxy = new ServiceProxy<Types.ObjectId>(service);
 	ioc.register({ serviceProxy: asValue(serviceProxy) });
