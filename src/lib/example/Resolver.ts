@@ -38,8 +38,8 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'scaleup': {
-						offerDto.description = 'Everything you need for a growing business';
+					case 'enterprise': {
+						offerDto.description = 'Advanced features for international businesses';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('50 users', null);
 						offerDto.advantages.set('Plan features', null);
@@ -47,8 +47,8 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'enterprise': {
-						offerDto.description = 'Advanced features for international businesses';
+					case 'scaleup': {
+						offerDto.description = 'Everything you need for a growing business';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('200 users', null);
 						offerDto.advantages.set('Plan features', null);

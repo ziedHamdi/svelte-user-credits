@@ -53,6 +53,17 @@ user-credits-ui allows you to display orders and prices in multiple currencies, 
 
 ## Getting Started
 
+### Prerequisits:
+To be able to run this project, you'll have to provide a .env file with the following constants:
+```
+STRIPE_PUBLIC_KEY=pk_live_XYZ
+STRIPE_PRIVATE_KEY=sk_live_XYZ
+STRIPE_API_VERSION=2023-08-16
+DB_URL=mongodb+srv://yourdb
+DB_NAME=user-credits
+CURRENCY=usd
+```
+
 To start using user-credits-ui in your project, you'll need to implement and inject two critical interfaces: `IResourceResolver` and `IElementBuilder`, as described below.
 ### Installing
 use your package manager to install
