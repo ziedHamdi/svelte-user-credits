@@ -8,12 +8,15 @@
 		goto(`/offers/${event.detail.checked ? 'yearly' : 'monthly'}`, { replaceState: true });
 	}
 
+	function purchaseIntent({detail}) {
+		console.log( "Purchasing ", detail )
+	}
 	export let data;
 </script>
 
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save 2 months'
 							 on:modified={switchOffers} checked={data.period === "yearly"} />
-	<Pricing slot='offers' offerList={data.offers} />
-	<Pricing slot='specialOffers' offerList={data.ebOffers} columns='3'/>
+	<Pricing on:purchaseIntent={purchaseIntent} slot='offers' offerList={data.offers}/>
+	<Pricing on:purchaseIntent={purchaseIntent} slot='specialOffers' offerList={data.ebOffers} columns='3'/>
 </PricingPage>
