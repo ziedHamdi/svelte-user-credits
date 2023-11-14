@@ -52,8 +52,8 @@
 	"dependencies": {
 		"@sveltejs/adapter-node": "1.3.1",
 		"@tsconfig/svelte": "^5.0.2",
-		"@user-credits/core": "^0.12.10-alpha",
-		"@user-credits/stripe-mongoose": "^0.12.10-alpha",
+		"@user-credits/core": "^0.12.11-alpha",
+		"@user-credits/stripe-mongoose": "^0.12.11-alpha",
 		"awilix": "^9.0.0",
 		"mongoose": "^8.0.0",
 		"preline": "^1.9.0"
