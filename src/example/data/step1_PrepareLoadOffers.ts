@@ -84,15 +84,26 @@ const MOCKS: MockType = {
   ScaleUp: {
     common: {},
     monthly: {
-      price: 99,
+      price: 249,
       tags: ["subscription", "standard", "monthly"]
     },
     yearly: {
-      price: 990,
+      price: 2490,
       tags: ["subscription", "standard", "yearly"]
     }
   },
   EbStartup: {
+    common: {},
+    monthly: {
+      price: 25,
+      tags: ["subscription", "EarlyBird", "monthly"]
+    },
+    yearly: {
+      price: 250,
+      tags: ["subscription", "EarlyBird", "yearly"]
+    }
+  },
+  EbEnterprise: {
     common: {},
     monthly: {
       price: 49,
@@ -100,17 +111,6 @@ const MOCKS: MockType = {
     },
     yearly: {
       price: 490,
-      tags: ["subscription", "EarlyBird", "yearly"]
-    }
-  },
-  EbEnterprise: {
-    common: {},
-    monthly: {
-      price: 99,
-      tags: ["subscription", "EarlyBird", "monthly"]
-    },
-    yearly: {
-      price: 990,
       tags: ["subscription", "EarlyBird", "yearly"]
     }
   },
@@ -213,17 +213,16 @@ async function preparePredefinedOffer(
       };
     }
   }
-  const offer = offerDao.build({
+  // this is an offer
+  return offerDao.build({
     ...baseRootOffer,
     ...common,
     ...otherFields,
   });
-
-  return offer;
 }
 
 /**
- * This test reproduces the structure described in {@link /docs/offers_explained}
+ * This test reproduces the structure described in {@link https://github.com/ziedHamdi/user-credits/blob/master/docs/offers_explained.md}
  *
  * It returns an object containing all offers, along with unlockedBy group names for each of the 'conditional' offers unlocked by the purchase of another offer.
  *   return {

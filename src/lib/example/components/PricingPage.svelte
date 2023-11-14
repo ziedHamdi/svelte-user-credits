@@ -1182,10 +1182,10 @@
 							scope='col'>Startup
 					</th>
 					<th class='w-1/4 pb-4 px-6 text-lg leading-6 font-medium text-gray-800 text-center dark:text-white'
-							scope='col'>Scaleup
+							scope='col'>Enterprise
 					</th>
 					<th class='w-1/4 pb-4 px-6 text-lg leading-6 font-medium text-gray-800 text-center dark:text-white'
-							scope='col'>Enterprise
+							scope='col'>Scaleup
 					</th>
 				</tr>
 				</thead>
