@@ -101,7 +101,7 @@
 							<td class="h-px w-px whitespace-nowrap">
 								<div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
 									<div class="flex items-center gap-x-3">
-										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description">
+										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Platform User">
 										<div class="grow">
 											<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Christina Bersh</span>
 											<span class="block text-sm text-gray-500">christina@site.com</span>
@@ -161,7 +161,7 @@
 							<td class="h-px w-px whitespace-nowrap">
 								<div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
 									<div class="flex items-center gap-x-3">
-										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description">
+										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Platform User">
 										<div class="grow">
 											<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">David Harrison</span>
 											<span class="block text-sm text-gray-500">david@site.com</span>
@@ -283,7 +283,7 @@
 							<td class="h-px w-px whitespace-nowrap">
 								<div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
 									<div class="flex items-center gap-x-3">
-										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80" alt="Image Description">
+										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80" alt="Platform User">
 										<div class="grow">
 											<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Samia Kartoon</span>
 											<span class="block text-sm text-gray-500">samia@site.com</span>
@@ -405,7 +405,7 @@
 							<td class="h-px w-px whitespace-nowrap">
 								<div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
 									<div class="flex items-center gap-x-3">
-										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description">
+										<img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Platform User">
 										<div class="grow">
 											<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Brian Halligan</span>
 											<span class="block text-sm text-gray-500">brian@site.com</span>
