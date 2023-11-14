@@ -4,7 +4,7 @@
 		<div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
 			<!-- Announcement Banner -->
 			<div class="flex justify-center">
-				<a class="group inline-block bg-white/[.05] hover:bg-white/[.1] border border-white/[.05] p-1 ps-4 rounded-full shadow-md" href="../figma.html">
+				<a class="group inline-block bg-white/[.05] hover:bg-white/[.1] border border-white/[.05] p-1 ps-4 rounded-full shadow-md" href="https://www.npmjs.com/package/@user-credits/svelte-ui">
 					<p class="me-2 inline-block text-white text-sm">
 						Open-source multi-layer solution.
 					</p>
