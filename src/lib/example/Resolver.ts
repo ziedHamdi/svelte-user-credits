@@ -24,9 +24,9 @@ export class Resolver implements IResourceResolver {
 						offerDto.description = 'Forever free';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('1 user', null);
-						offerDto.advantages.set('Plan features', null);
-						offerDto.advantages.set('Product support', null);
-						offerDto.callToAction = 'Create account';
+						offerDto.advantages.set('Basic features', null);
+						offerDto.advantages.set('Basic support', null);
+						offerDto.callToAction = 'Join now';
 						break;
 					}
 					case 'startup': {
