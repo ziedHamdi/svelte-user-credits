@@ -13,14 +13,12 @@ export class Resolver implements IResourceResolver {
 			case 'Offer': {
 				const offerDto: OfferDto<K> = new OfferDto<K>(data as unknown as IOffer<string>);
 				toReturn = offerDto as EntityDto<K, M>
-				if(offerDto.higlighted)
-					offerDto.highlightingMessage = "MOST POPULAR";
 
 				if( !offerDto.name )
 					console.error( "Offer has no name: ",JSON.stringify( offerDto ))
 
-				switch (offerDto.name.toLowerCase()) {
-					case 'free': {
+				switch (offerDto.name) {
+					case 'Free': {
 						offerDto.description = 'Forever free';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('1 user', null);
@@ -29,7 +27,9 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Join now';
 						break;
 					}
-					case 'startup': {
+					case 'Startup':
+					case 'EbStartup':
+					{
 						offerDto.description = 'All the basics for starting a new business';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('10 users', null);
@@ -38,7 +38,9 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'enterprise': {
+					case 'Enterprise':
+					case 'EbEnterprise':
+					{
 						offerDto.description = 'Advanced features for international businesses';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('50 users', null);
@@ -47,7 +49,9 @@ export class Resolver implements IResourceResolver {
 						offerDto.callToAction = 'Sign up';
 						break;
 					}
-					case 'scaleup': {
+					case 'ScaleUp':
+					case 'EbScaleUp':
+					{
 						offerDto.description = 'Everything you need for a growing business';
 						offerDto.advantages = new Map();
 						offerDto.advantages.set('200 users', null);
@@ -59,8 +63,15 @@ export class Resolver implements IResourceResolver {
 					default:
 						throw new Error("Cannot resolve offer "+ JSON.stringify(offerDto))
 				}
+
+				if(offerDto.name == "EbEnterprise" )
+					offerDto.highlightingMessage = "MOST POPULAR";
+				if(offerDto.name == "Startup" )
+					offerDto.highlightingMessage = "ONLY 10 USERS";
+
 				return toReturn;
 			}
+
 			default: throw new Error("Cannot resolve DOMAIN "+ domain +" : "+ data);
 		}
 	}

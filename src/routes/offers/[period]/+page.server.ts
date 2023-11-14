@@ -1,10 +1,14 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
 import { AwilixContainer } from 'awilix/lib/container';
 import { ObjectId } from '../../init/+server';
-import type { IService } from '@user-credits/core';
+import type { IOffer, IService } from '@user-credits/core';
 
 let ioc: AwilixContainer<object>;
 let service: IService<ObjectId>;
+
+function asPojosAndSorted(offersRaw: IOffer<ObjectId>[]): IOffer<ObjectId>[] {
+	return offersRaw.map((item) => JSON.parse(JSON.stringify(item))).sort((a, b) => a.price - b.price);
+}
 
 export async function load({params}) {
 	if (!service) {
@@ -13,6 +17,8 @@ export async function load({params}) {
 	}
 	const period = params["period"];
 	const offersRaw = await service.loadOffers(null, ["subscription", "standard", period]);
-	const offers = offersRaw.map((item)=> JSON.parse( JSON.stringify(item) )).sort( (a, b) => a.price - b.price )
-	return { offers, period };
+	const offers = asPojosAndSorted(offersRaw)
+	const ebOffersRaw = await service.loadOffers(null, ["subscription", "EarlyBird", period]);
+	const ebOffers = asPojosAndSorted(ebOffersRaw)
+	return { offers, ebOffers, period };
 }
