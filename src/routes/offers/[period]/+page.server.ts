@@ -10,7 +10,7 @@ function asPojosAndSorted(offersRaw: IOffer<ObjectId>[]): IOffer<ObjectId>[] {
 	return offersRaw.map((item) => JSON.parse(JSON.stringify(item))).sort((a, b) => a.price - b.price);
 }
 
-export async function load({params}) {
+export async function load({params, url}) {
 	if (!service) {
 		ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
 		service = ioc.resolve('service');
@@ -20,5 +20,5 @@ export async function load({params}) {
 	const offers = asPojosAndSorted(offersRaw)
 	const ebOffersRaw = await service.loadOffers(null, ["subscription", "EarlyBird", period]);
 	const ebOffers = asPojosAndSorted(ebOffersRaw)
-	return { offers, ebOffers, period };
+	return { offers, ebOffers, period, url: url.origin };
 }

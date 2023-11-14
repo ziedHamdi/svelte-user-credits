@@ -12,7 +12,6 @@
 		"type": "git",
 		"url": "https://github.com/ziedHamdi/svelte-user-credits"
 	},
-
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -53,6 +52,7 @@
 		"@user-credits/core": "^0.12.11-alpha",
 		"@user-credits/stripe-mongoose": "^0.12.11-alpha",
 		"awilix": "^9.0.0",
+		"bson-objectid": "^2.0.4",
 		"mongoose": "^8.0.0",
 		"preline": "^1.9.0"
 	}
