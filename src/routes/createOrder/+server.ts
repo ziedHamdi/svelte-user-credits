@@ -1,5 +1,5 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
-import { ObjectId } from '../init/+server';
+import type { ObjectId } from '../init/+server';
 import { AwilixContainer } from 'awilix/lib/container';
 import { ServiceProxy } from '../../lib/server/rest/ServiceProxy';
 

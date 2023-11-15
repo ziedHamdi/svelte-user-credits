@@ -1,7 +1,10 @@
 <script>
+	import Billing from '../../../lib/comp/credits/Billing.svelte';
+
 	export let data;
 </script>
 
 <div>
-	{data.orderId} order should be highlighted in the list of user orders
+	{data.order.name} purchased successfully
+	<Billing userCredits={data.credits}/>
 </div>

@@ -1,4 +1,4 @@
-export type PurchaseInfo = {offerId: string, intentSk: string}
+export type PurchaseInfo = {orderId: string, intentSk: string}
 
 export function load({params}): PurchaseInfo {
 	const orderId = params["orderId"]

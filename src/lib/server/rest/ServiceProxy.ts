@@ -1,4 +1,4 @@
-import { IMinimalId, IService } from '@user-credits/core';
+import type { IMinimalId, IService } from '@user-credits/core';
 
 export class ServiceProxy<K extends IMinimalId> {
 	constructor(protected service: IService<K>, protected _envTags: string[] = []) {

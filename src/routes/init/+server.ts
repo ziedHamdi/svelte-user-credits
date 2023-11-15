@@ -1,5 +1,5 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
-import { IService } from '@user-credits/core';
+import type { IService } from '@user-credits/core';
 import { Types } from "mongoose";
 import { prefillOffersForTests } from '../../example/data/step1_PrepareLoadOffers';
 import { AwilixContainer } from 'awilix/lib/container';
