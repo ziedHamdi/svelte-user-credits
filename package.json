@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.0.5-alpha",
+	"version": "0.0.6-alpha",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -39,8 +39,10 @@
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
+		"stripe": "^14.4.0",
 		"svelte": "^4.2.3",
 		"svelte-check": "^3.6.0",
+		"svelte-stripe": "^0.0.25",
 		"tailwindcss": "^3.3.5",
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
@@ -49,8 +51,9 @@
 		"vitest": "^0.32.4"
 	},
 	"dependencies": {
-		"@user-credits/core": "^0.12.11-alpha",
-		"@user-credits/stripe-mongoose": "^0.12.11-alpha",
+		"@stripe/stripe-js": "^2.1.11",
+		"@user-credits/core": "link:..\\user-credits-core",
+		"@user-credits/stripe-mongoose": "link:..\\user-credits",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
 		"mongoose": "^8.0.0",

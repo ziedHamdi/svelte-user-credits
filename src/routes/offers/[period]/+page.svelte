@@ -26,7 +26,9 @@
 			const user = JSON.parse(userJson);
 			const response = await fetch(url + `/createOrder?userId=${user._id}&offerId=${detail.offer._id}`);
 			const data = await response.json();
-			console.log(data);
+			console.log( "Created order intent: ", data )
+			//{ "paymentIntentId": "pi_3OCgwmDZFldGtXtw2muSbXsH", "paymentIntentSecret": "pi_3OCgwmDZFldGtXtw2muSbXsH_secret_jN80KbfVTuyrVNKlIcVqbfnBO"}
+			await goto(`/order/purchase/${data.offerId}/${data.paymentIntentSecret}`)
 		}
 	}
 </script>
