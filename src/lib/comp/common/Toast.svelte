@@ -3,7 +3,7 @@
 </script>
 
 <!-- Toast -->
-<div class='max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700'
+<div class='max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4'
 		 role='alert'>
 	<div class='flex p-4'>
 		<div class='flex-shrink-0'>

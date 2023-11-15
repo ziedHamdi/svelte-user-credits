@@ -7,8 +7,9 @@
 
 	let error;
 	function paymentExecuted({detail}) {
+console.log( "detail: ", data)
 		if( detail.status === "error" ) {
-			error = detail.result.error
+			error = detail.result.error.message
 		} else if( detail.status === "cancel" ) {
 			goto('/offers/yearly')
 		} else if( detail.status === "success" ) {

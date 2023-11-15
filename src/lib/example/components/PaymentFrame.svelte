@@ -15,7 +15,7 @@
 				<slot name='info' />
 			</p>
 			{#if error}
-				<Toast kind='error' message={error} />
+				<Toast kind='error' message={error}/>
 			{/if}
 		</div>
 
