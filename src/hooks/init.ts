@@ -2,7 +2,8 @@ import {Connection, Types} from 'mongoose';
 import { MongooseStripeContainerSingleton, connectToDb, disconnectFromDb, resolveConfigReader, resolveStripeClient, MongooseDaoFactory } from '@user-credits/stripe-mongoose';
 import { ServiceProxy } from '../lib/server/rest/ServiceProxy';
 import { AwilixContainer } from "awilix/lib/container";
-import type { IService, PaymentService } from '@user-credits/core';
+import type { IService } from '@user-credits/core';
+import { PaymentService } from '@user-credits/core';
 import type { IConfigReader } from '@user-credits/stripe-mongoose';
 import { asValue } from 'awilix';
 

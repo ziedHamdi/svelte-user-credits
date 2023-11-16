@@ -15,7 +15,7 @@ function asPojo(obj) {
 export async function load({params}): Promise<AfterPurchaseInfo> {
 	if (!service) {
 		ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
-		service = ioc.resolve('service');
+		service = ioc.resolve("service");
 	}
 	const orderId = params["orderId"];
 	console.log(  "searching for order: ", orderId)

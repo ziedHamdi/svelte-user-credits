@@ -10,7 +10,8 @@
 	}
 
 	export let data;
-	function purchaseIntent() {
+	function getPurchaseIntentFn() {
+		// data would be null if we use the method body directly
 		const url = data.url;
 		return async ({detail}) => {
 			console.log('Purchasing ', detail);
@@ -36,6 +37,6 @@
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save 2 months'
 							 on:modified={switchOffers} checked={data.period === "yearly"} />
-	<Pricing on:purchaseIntent={purchaseIntent()} slot='offers' offerList={data.offers}/>
-	<Pricing on:purchaseIntent={purchaseIntent()} slot='specialOffers' offerList={data.ebOffers} columns='3'/>
+	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='offers' offerList={data.offers}/>
+	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='specialOffers' offerList={data.ebOffers} columns='3'/>
 </PricingPage>

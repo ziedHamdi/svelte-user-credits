@@ -5,9 +5,9 @@
 			<!-- Announcement Banner -->
 			<div class="flex justify-center">
 				<a class="group inline-block bg-white/[.05] hover:bg-white/[.1] border border-white/[.05] p-1 ps-4 rounded-full shadow-md" href="https://www.npmjs.com/package/@user-credits/svelte-ui">
-					<p class="me-2 inline-block text-white text-sm">
-						Open-source multi-layer solution.
-					</p>
+					<h2 class="me-2 inline-block text-white text-sm">
+						A Robust Open-Source with a Powerful Backend.
+					</h2>
 					<span class="group-hover:bg-white/[.1] py-1.5 px-2.5 inline-flex justify-center items-center gap-x-2 rounded-full bg-white/[.075] font-semibold text-white text-sm">
             <svg class="flex-shrink-0 w-4 h-4" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -20,13 +20,13 @@
 			<!-- Title -->
 			<div class="max-w-3xl text-center mx-auto">
 				<h1 class="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-					Easier than ever to manage pay as you go subscriptions
+					Effortless billing and pay as you go management
 				</h1>
 			</div>
 			<!-- End Title -->
 
 			<div class="max-w-3xl text-center mx-auto">
-				<p class="text-lg text-gray-400">User-credits is a large open-source project, crafted with a backend powerful structure.</p>
+				<h2 class="text-lg text-gray-400">User-credits Empowers You with a Robust Backend Structure; A Seamless Integration with Ready-to-Use SvelteKit Components</h2>
 			</div>
 
 			<!-- Buttons -->
