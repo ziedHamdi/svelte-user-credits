@@ -1,8 +1,7 @@
 <script>
 	import Subscription from './Subscription.svelte';
 
-	export let userCredits;
-	export let resolver;
+	export let userCreditsDto;
 
 </script>
 
@@ -71,8 +70,8 @@
 						</tr>
 						</thead>
 						<tbody class='divide-y divide-gray-200 dark:divide-gray-700'>
-						{#each userCredits.subscriptions as subscription (subscription._id)}
-							<Subscription {subscription} {resolver} />
+						{#each userCreditsDto.summaryList as purchase (purchase._id)}
+							<Subscription {purchase} />
 						{/each}
 						</tbody>
 					</table>

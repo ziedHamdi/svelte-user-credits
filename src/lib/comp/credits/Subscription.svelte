@@ -1,11 +1,8 @@
 <script>
 	import Tag from '../common/Tag.svelte';
 
-	export let subscription;
-	export let resolver;
+	export let purchase;
 
-	$: row = $resolver.getObject({ type: 'Subscription' }, subscription)
-	$: kind = row.status === "paid" ? "ok" : row.status === "pending" ? "warn" : "error"
 </script>
 
 <tr>
@@ -21,34 +18,34 @@
 		<div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
 			<div class="flex items-center gap-x-3">
 				<div class="grow">
-					<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{row.name}</span>
-					<span class="block text-sm text-gray-500">{row.cycle}</span>
+					<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{purchase.name}</span>
+					<span class="block text-sm text-gray-500">{purchase.cycle}</span>
 				</div>
 			</div>
 		</div>
 	</td>
 	<td class="h-px w-72 whitespace-nowrap">
 		<div class="px-6 py-3">
-			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Director</span>
-			<span class="block text-sm text-gray-500">Human resources</span>
+			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{purchase.total}</span>
+			<span class="block text-sm text-gray-500">{purchase.quantity}</span>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
-		<Tag {kind} label={row.status}/>
+		<Tag status={purchase.statusSummary} label={purchase.status}/>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
 			<div class="flex items-center gap-x-3">
-				<span class="text-xs text-gray-500">{row.credits?.percentage}%</span>
+				<span class="text-xs text-gray-500">{purchase.credits?.percentage}%</span>
 				<div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
-					<div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style="width: 25%" aria-valuenow={row.credits?.value} aria-valuemin={row.credits?.min} aria-valuemax={row.credits?.origin}></div>
+					<div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style="width: 25%" aria-valuenow={purchase.credits?.value} aria-valuemin={purchase.credits?.min} aria-valuemax={purchase.credits?.origin}></div>
 				</div>
 			</div>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
-			<span class="text-sm text-gray-500">{row.starts}</span>
+			<span class="text-sm text-gray-500">{purchase.starts}</span>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">

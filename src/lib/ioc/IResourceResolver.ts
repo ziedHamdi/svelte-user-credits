@@ -19,4 +19,6 @@ export interface IResourceResolver {
 	 */
 	getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
 
+	getSetting<D extends IResourceDomain>( domain: D );
+
 }
