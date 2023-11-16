@@ -1,6 +1,6 @@
 import { EntityDto } from '../core/dto/EntityDto';
 import { OfferDto } from '../core/dto/OfferDto';
-import { IOffer } from '../../../../user-credits-core';
+import type { IOffer } from '../../../../user-credits-core';
 
 export function resolveSubscription<M, K>(data: M): EntityDto<K, M> {
 	{
