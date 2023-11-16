@@ -157,8 +157,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		return this._activeSubscription.orderId;
 	}
 
-	get quantity(): string {
-		return (this._activeSubscription.quantity ?? 1) +"x";
+	get quantity(): number {
+		return this._activeSubscription.quantity ?? 1;
 	}
 
 	get starts(): Date {

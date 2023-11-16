@@ -3,6 +3,9 @@
 
 	export let purchase;
 
+	function formatDate(date) {
+		return new Intl.DateTimeFormat('en-US').format(new Date(date))
+	}
 </script>
 
 <tr>
@@ -27,7 +30,7 @@
 	<td class="h-px w-72 whitespace-nowrap">
 		<div class="px-6 py-3">
 			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{purchase.total}</span>
-			<span class="block text-sm text-gray-500">{purchase.quantity}</span>
+			<span class="block text-sm text-gray-500">({purchase.quantity}x)</span>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
@@ -45,7 +48,8 @@
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
-			<span class="text-sm text-gray-500">{purchase.starts}</span>
+			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{purchase.expires ?? '-'}</span>
+			<span class="block text-sm text-gray-500">{formatDate(purchase.starts)}</span>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
