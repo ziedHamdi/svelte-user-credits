@@ -1,8 +1,8 @@
 <script>
-	export let kind = 'ok', label;
+	export let status = 'ok', label;
 </script>
 
-{#if kind === 'ok'}
+{#if status === 'ok'}
 <div class="px-6 py-3">
                     <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
                       <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -11,7 +11,7 @@
 											{label}
                     </span>
 </div>
-	{:else if kind === 'warn'}
+	{:else if status === 'warn'}
 	<div class="px-6 py-3">
                     <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full dark:bg-yellow-500/10 dark:text-yellow-500">
                       <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -20,7 +20,7 @@
 											{label}
                     </span>
 	</div>
-	{:else if kind === 'error'}
+	{:else if status === 'error'}
 	<div class="px-6 py-3">
                     <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-red-100 text-red-800 rounded-full dark:bg-red-500/10 dark:text-red-500">
                       <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

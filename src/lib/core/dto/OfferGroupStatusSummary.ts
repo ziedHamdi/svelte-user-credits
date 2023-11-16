@@ -10,7 +10,7 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
  * to determine the overall status of the associated offerGroup.
  */
 export class OfferGroupStatusSummary<K extends IMinimalId> {
-	protected _status: Status;
+	protected _statusSummary: Status;
 	protected _activeSubscription: ISubscription<K>;
 
 	constructor(
@@ -18,7 +18,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		protected _active: IActivatedOffer | null = null,
 		protected userPreferences: UserPreferences = DEFAULT_USER_PREFERENCES
 	) {
-		this._status = this.calculateStatus();
+		this.calculateStatus();
 	}
 
 	/**
@@ -27,7 +27,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	 * @returns The calculated status: 'ok', 'warn', or 'error'
 	 */
 	protected calculateStatus(): Status {
-		this._status = "error" // start with an error status, and wait for subscriptions to correct that
+		this._statusSummary = "error" // start with an error status, and wait for subscriptions to correct that
 		// start with any, and override with more representative data if any
 		// NOTE: this could evolve to picking the last expiry date element (or creation date) to represent with the last active one
 		this._activeSubscription = this._purchaseGroup[0];
@@ -46,24 +46,28 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "ok" conditions, return "ok"
 				return 'ok';
-			}
-
-			// Check if any subscription has a status == "paid" and its expires date is within the threshold for a "warn" status
-			if (
-				subscription.status === 'paid' &&
+			} else if ( // it is not an error to have a pending subscription
+				// IMPROVEMENT add payment attempts count to ISubscription
+				subscription.status === 'pending')
+			{
+				this._activeSubscription = subscription;
+				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
+				this._statusSummary = 'warn';
+			} else if ( // Check if any subscription has a status == "paid" and its expires date is within the threshold for a "warn" status
+			subscription.status === 'paid' &&
 				this._active?.expires &&
 				(this.computeDateSafety() == 0 &&
 				this.computeTokenSafety(subscription) == 0)
 			) {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
-				this._status = 'warn';
+				this._statusSummary = 'warn';
 			}
 
 		}
 
 		// If none of the subscriptions meet the "ok" conditions, return the overall status
-		return this._status;
+		return this._statusSummary;
 	}
 
 	/**
@@ -106,7 +110,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	}
 
 	get statusSummary(): Status {
-		return this._status;
+		return this._statusSummary;
 	}
 
 	get purchaseGroup(): ISubscription<K>[] {
@@ -119,6 +123,10 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 
 	get activeSubscription(): ISubscription<K> {
 		return this._activeSubscription;
+	}
+
+	get _id(): K {
+		return this._activeSubscription._id;
 	}
 
 	get customCycle(): number | null {
@@ -149,8 +157,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		return this._activeSubscription.orderId;
 	}
 
-	get quantity(): number {
-		return this._activeSubscription.quantity;
+	get quantity(): string {
+		return (this._activeSubscription.quantity ?? 1) +"x";
 	}
 
 	get starts(): Date {
