@@ -46,8 +46,11 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 			) {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "ok" conditions, return "ok"
+				this._statusSummary = 'ok';
 				return 'ok';
-			} else if ( // it is not an error to have a pending subscription
+			}
+
+			if ( // it is not an error to have a pending subscription
 				// IMPROVEMENT add payment attempts count to ISubscription
 				subscription.status === 'pending')
 			{
@@ -91,8 +94,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 			return -1;
 
 		const thresholdDate = new Date(expires - delayBeforeExpiry);
-
-		return currentDate - thresholdDate;
+		return  thresholdDate - currentDate;
 	}
 
 	/**
