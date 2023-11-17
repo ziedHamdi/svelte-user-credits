@@ -8,6 +8,7 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
 /**
  * A synthesis of ongoing subscriptions and activated offers
  * to determine the overall status of the associated offerGroup.
+ * IMPROVEMENT move this file to @user-credits/core
  */
 export class OfferGroupStatusSummary<K extends IMinimalId> {
 	protected _statusSummary: Status;
@@ -85,10 +86,11 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		if( !this._active?.expires )
 			return 1;
 
-		if( currentDate.getTime() >  this._active.expires.getTime())
+		const expires = new Date(this._active.expires);
+		if( currentDate.getTime() >  expires.getTime())
 			return -1;
 
-		const thresholdDate = new Date(this._active.expires.getTime() - delayBeforeExpiry);
+		const thresholdDate = new Date(expires - delayBeforeExpiry);
 
 		return currentDate - thresholdDate;
 	}

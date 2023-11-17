@@ -40,5 +40,11 @@ export class ServiceProxy<K extends IMinimalId> {
 		return  new Response(JSON.stringify(userCredits));
 	}
 
+	async afterExecute({url}): Promise<Response> {
+		const orderId = url.searchParams.get('orderId') ?? null;
+		const order = await this.service.getDaoFactory().getOrderDao().findByIdStr(orderId);
+		const userCredits = await this.service.afterExecute(order);
+		return new Response( JSON.stringify(userCredits) );
+	}
 
 }

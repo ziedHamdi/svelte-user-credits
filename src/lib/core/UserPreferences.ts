@@ -1,3 +1,6 @@
+/**
+ * IMPROVEMENT refactor this file as an interface and move to @user-credits/core/db/model and add db DAOs
+ */
 export class UserPreferences {
 	static MINUTE = 1000 * 60
 	static HOUR = UserPreferences.MINUTE * 60

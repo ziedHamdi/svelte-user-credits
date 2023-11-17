@@ -4,7 +4,9 @@ import { EntityDto } from './EntityDto';
 import { OfferGroupStatusSummary } from './OfferGroupStatusSummary';
 import { UserPreferences } from '../UserPreferences';
 
-
+/**
+ * IMPROVEMENT move this file to @user-credits/core
+ */
 export class UserCreditsDto<K extends IMinimalId> extends EntityDto<K, IUserCredits<K>> {
 	protected _summaryList: OfferGroupStatusSummary<K>[];
 
