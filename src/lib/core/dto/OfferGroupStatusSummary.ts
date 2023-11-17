@@ -141,11 +141,11 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	}
 
 	get expires(): Date {
-		return this._active.expires
+		return this._active?.expires
 	}
 
 	get remainingTokens(): number {
-		return this._active.tokens
+		return this._active?.tokens
 	}
 
 	get activeSubscription(): ISubscription<K> {

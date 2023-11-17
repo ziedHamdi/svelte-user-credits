@@ -16,7 +16,7 @@ export function resolveSubscription<K extends IMinimalId, M extends IBaseEntity<
 
 function fillNames<K extends IMinimalId>(userCreditsDto: UserCreditsDto<K>): void {
 	userCreditsDto.summaryList.forEach((summary) => {
-		summary.name = offerGroupName(summary.active.offerGroup);
+		summary.name = offerGroupName(summary.activeSubscription.offerGroup);
 	});
 }
 function offerGroupName( name: string ): string {
