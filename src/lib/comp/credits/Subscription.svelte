@@ -4,6 +4,8 @@
 	export let purchase;
 
 	function formatDate(date) {
+		if( !date )
+			return null;
 		return new Intl.DateTimeFormat('en-US').format(new Date(date))
 	}
 </script>
@@ -39,16 +41,16 @@
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
 			<div class="flex items-center gap-x-3">
-				<span class="text-xs text-gray-500">{purchase.credits?.percentage}%</span>
+				<span class="text-xs text-gray-500">{Math.round(purchase.consumption?.percentage)}%</span>
 				<div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
-					<div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style="width: 25%" aria-valuenow={purchase.credits?.value} aria-valuemin={purchase.credits?.min} aria-valuemax={purchase.credits?.origin}></div>
+					<div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style={`width: ${purchase.consumption?.percentage}%`} aria-valuenow={purchase.consumption?.value} aria-valuemin={purchase.consumption?.min} aria-valuemax={purchase.consumption?.max}></div>
 				</div>
 			</div>
 		</div>
 	</td>
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
-			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{purchase.expires ?? '-'}</span>
+			<span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{formatDate(purchase.expires) ?? '-'}</span>
 			<span class="block text-sm text-gray-500">{formatDate(purchase.starts)}</span>
 		</div>
 	</td>

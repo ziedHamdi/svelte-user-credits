@@ -1,6 +1,7 @@
 import type { IActivatedOffer, IMinimalId, ISubscription } from '@user-credits/core';
 import { UserPreferences } from '../UserPreferences';
 import * as console from 'console';
+import { Consumption } from './Consumption';
 
 export type Status = 'ok' | 'warn' | 'error';
 const DEFAULT_USER_PREFERENCES = new UserPreferences();
@@ -14,6 +15,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	protected _statusSummary: Status;
 	protected _statusMessage: string;
 	protected _activeSubscription: ISubscription<K>;
+	protected consumption: Consumption;
 
 	constructor(
 		protected _purchaseGroup: ISubscription<K>[],
@@ -45,9 +47,10 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 				this.computeTokenSafety(subscription) > 0
 			) {
 				this._activeSubscription = subscription;
-				// If any subscription meets the "ok" conditions, return "ok"
+				// If any subscription meets the "ok" conditions, no more need to evaluate: return "ok"
 				this._statusSummary = 'ok';
 				this._statusMessage = 'Paid and active';
+				this.consumption = new Consumption( new Date(this._active.expires).getTime(), new Date(this.starts).getTime(), new Date().getTime())
 				return 'ok';
 			}
 
@@ -57,6 +60,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
 				this._statusSummary = 'warn';
+				if(!this.statusSummary ) // avoid to override another warning
+					this._statusMessage = 'not paid yet';
 			} else if ( // Check if any subscription has a status == "paid" and its expires date is within the threshold for a "warn" status
 				subscription.status === 'paid') {
 				if (this.computeDateSafety() == 0) {
@@ -71,7 +76,6 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 					this._statusSummary = 'warn';
 					// subscription['message'] = 'Tokens low';
 					this._statusMessage = 'Tokens low';
-
 				}
 			}
 
@@ -133,6 +137,10 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 
 	get active(): IActivatedOffer | null {
 		return this._active;
+	}
+
+	get expires(): Date {
+		return this._active.expires
 	}
 
 	get activeSubscription(): ISubscription<K> {
