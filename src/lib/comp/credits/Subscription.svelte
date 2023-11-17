@@ -8,6 +8,14 @@
 			return null;
 		return new Intl.DateTimeFormat('en-US').format(new Date(date))
 	}
+
+	function progressColor(value) {
+		if( value > 50 )
+			return 'teal'
+		if( value > 20 )
+			return 'amber'
+		return 'red'
+	}
 </script>
 
 <tr>
@@ -42,8 +50,9 @@
 		<div class="px-6 py-3">
 			<div class="flex items-center gap-x-3">
 				<span class="text-xs text-gray-500">{Math.round(purchase.consumption?.percentage)}%</span>
-				<div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
-					<div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style={`width: ${purchase.consumption?.percentage}%`} aria-valuenow={purchase.consumption?.value} aria-valuemin={purchase.consumption?.min} aria-valuemax={purchase.consumption?.max}></div>
+				<!-- preload used colors -->
+				<div class="flex w-full h-1.5 bg-teal-700 bg-amber-700 bg-red-700 bg-gray-200 rounded-full overflow-hidden dark:bg-teal-200 dark:bg-amber-200 dark:bg-red-200 dark:bg-gray-700">
+					<div class={`flex flex-col justify-center overflow-hidden bg-${progressColor(purchase.consumption?.percentage)}-700 dark:bg-${progressColor(purchase.consumption?.percentage)}-200`} role="progressbar" style={`width: ${purchase.consumption?.percentage}%`} aria-valuenow={purchase.consumption?.value} aria-valuemin={purchase.consumption?.min} aria-valuemax={purchase.consumption?.max}></div>
 				</div>
 			</div>
 		</div>

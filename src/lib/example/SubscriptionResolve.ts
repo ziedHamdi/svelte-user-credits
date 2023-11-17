@@ -56,7 +56,8 @@ function buildDateConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 	return new Consumption(
 		new Date(summary.expires).getTime(),
 		new Date(summary.starts).getTime(),
-		new Date().getTime()
+		new Date().getTime(),
+		true
 	);
 }
 
@@ -64,7 +65,8 @@ function buildTokenConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 	return new Consumption(
 		summary.tokens,
 		0,
-		summary.remainingTokens
+		summary.remainingTokens,
+		true
 	);
 }
 
