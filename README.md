@@ -7,9 +7,10 @@ A demo of this library is [available at this link](https://user-credits.dev)
 **svelte-ui** is an open-source library designed to streamline the management 
 of user credits. It ships with user interface components for handling offers, 
 order management, payment tracking, and credit consumption in web applications.
+
 Whether you're developing a subscription-based service, a digital marketplace, 
-or an e-commerce platform, svelte-ui is built on top of @user-credits/core and
-relies on its implementations server side (like @user-credits/stripe-mongoose) 
+or an e-commerce platform, svelte-ui is built on top of [@user-credits/core](https://www.npmjs.com/package/@user-credits/core) and
+relies on its implementations' server side (like [@user-credits/stripe-mongoose](https://www.npmjs.com/package/@user-credits/stripe-mongoose)) 
 to allow flexible and technology-agnostic solutions for your billing offer needs.
 While the primary implementation is in Svelte, the library is adaptable to other
 view technologies, making it a versatile choice for your projects.

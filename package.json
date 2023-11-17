@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.0.6-alpha",
+	"version": "0.0.7-alpha",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -12,18 +12,20 @@
 		"type": "git",
 		"url": "https://github.com/ziedHamdi/svelte-user-credits"
 	},
+	"homepage": "http://user-credits.dev",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
+		"test": "pnpm test:integration && pnpm test:unit",
 		"vitest": "vitest",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"prepublishOnly": "pnpm test & pnpm build"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.39.0",
@@ -54,8 +56,8 @@
 	},
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
-		"@user-credits/core": "link:..\\user-credits-core",
-		"@user-credits/stripe-mongoose": "link:..\\user-credits",
+		"@user-credits/core": "^0.13.1-alpha",
+		"@user-credits/stripe-mongoose": "^0.13.1-alpha",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
 		"mongoose": "^8.0.0",
