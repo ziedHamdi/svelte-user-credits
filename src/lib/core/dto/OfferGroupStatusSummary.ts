@@ -12,6 +12,7 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
  */
 export class OfferGroupStatusSummary<K extends IMinimalId> {
 	protected _statusSummary: Status;
+	protected _statusMessage: string;
 	protected _activeSubscription: ISubscription<K>;
 
 	constructor(
@@ -28,7 +29,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	 * @returns The calculated status: 'ok', 'warn', or 'error'
 	 */
 	protected calculateStatus(): Status {
-		this._statusSummary = "error" // start with an error status, and wait for subscriptions to correct that
+		this._statusSummary = 'error'; // start with an error status, and wait for subscriptions to correct that
 		// start with any, and override with more representative data if any
 		// NOTE: this could evolve to picking the last expiry date element (or creation date) to represent with the last active one
 		this._activeSubscription = this._purchaseGroup[0];
@@ -40,32 +41,38 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 			// Check if any subscription has a status == "paid" and its expires date and tokens are beyond warning signals
 			if (
 				subscription.status === 'paid' &&
-				this._active?.expires &&
 				this.computeDateSafety() > 0 &&
 				this.computeTokenSafety(subscription) > 0
 			) {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "ok" conditions, return "ok"
 				this._statusSummary = 'ok';
+				this._statusMessage = 'Paid and active';
 				return 'ok';
 			}
 
 			if ( // it is not an error to have a pending subscription
 				// IMPROVEMENT add payment attempts count to ISubscription
-				subscription.status === 'pending')
-			{
+				subscription.status === 'pending') {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
 				this._statusSummary = 'warn';
 			} else if ( // Check if any subscription has a status == "paid" and its expires date is within the threshold for a "warn" status
-			subscription.status === 'paid' &&
-				this._active?.expires &&
-				(this.computeDateSafety() == 0 &&
-				this.computeTokenSafety(subscription) == 0)
-			) {
-				this._activeSubscription = subscription;
-				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
-				this._statusSummary = 'warn';
+				subscription.status === 'paid') {
+				if (this.computeDateSafety() == 0) {
+					this._activeSubscription = subscription;
+					// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
+					this._statusSummary = 'warn';
+					this._statusMessage = 'Expires shortly';
+				}
+				if (this.computeTokenSafety(subscription) == 0) {
+					this._activeSubscription = subscription;
+					// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
+					this._statusSummary = 'warn';
+					// subscription['message'] = 'Tokens low';
+					this._statusMessage = 'Tokens low';
+
+				}
 			}
 
 		}
@@ -86,15 +93,18 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		const delayBeforeExpiry: number = this.userPreferences.warnIfExpiresIn;
 		const currentDate = new Date();
 		// if no active field is present, then we consider it's not safe to allow the user to use this offer
-		if( !this._active?.expires )
+		if (!this._active) // error, should not happen: a paid subscription must have an active peer
+			return -1;
+		if (!this._active?.expires) // this subscription has no exipry date, we just skip
 			return 1;
 
 		const expires = new Date(this._active.expires);
-		if( currentDate.getTime() >  expires.getTime())
+		if (currentDate.getTime() > expires.getTime())
 			return -1;
 
 		const thresholdDate = new Date(expires - delayBeforeExpiry);
-		return  thresholdDate - currentDate;
+		const remainingTime =  thresholdDate - currentDate;
+		return remainingTime < 0 ? 0 : remainingTime  ;
 	}
 
 	/**
@@ -107,7 +117,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	 * @protected
 	 */
 	protected computeTokenSafety(subscription: ISubscription<K>): number {
-		const minimumTokens: number =  this.userPreferences.warnIfTokensLessThan
+		const minimumTokens: number = this.userPreferences.warnIfTokensLessThan;
 		if (!subscription.tokens)
 			return 1;
 		return subscription.tokens - minimumTokens;
@@ -169,7 +179,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		return this._activeSubscription.starts;
 	}
 
-	get status(): "pending" | "paid" | "refused" | "error" {
+	get status(): 'pending' | 'paid' | 'refused' | 'error' {
 		return this._activeSubscription.status;
 	}
 

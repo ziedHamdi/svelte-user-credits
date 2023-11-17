@@ -1,5 +1,4 @@
 import type { IUserCredits, IMinimalId, ISubscription, IActivatedOffer } from '@user-credits/core';
-import type { ObjectId } from '../../../routes/init/+server';
 import { EntityDto } from './EntityDto';
 import { OfferGroupStatusSummary } from './OfferGroupStatusSummary';
 import { UserPreferences } from '../UserPreferences';
@@ -10,7 +9,7 @@ import { UserPreferences } from '../UserPreferences';
 export class UserCreditsDto<K extends IMinimalId> extends EntityDto<K, IUserCredits<K>> {
 	protected _summaryList: OfferGroupStatusSummary<K>[];
 
-	constructor(protected _userCredits: IUserCredits<ObjectId>, protected userPreferences: UserPreferences) {
+	constructor(protected _userCredits: IUserCredits<K>, protected userPreferences: UserPreferences) {
 		super(_userCredits);
 		this._summaryList = this.groupPurchasesByOfferGroup();
 	}
@@ -44,7 +43,7 @@ export class UserCreditsDto<K extends IMinimalId> extends EntityDto<K, IUserCred
 		return this._summaryList;
 	}
 
-	get userCredits(): IUserCredits<ObjectId> {
+	get userCredits(): IUserCredits<K> {
 		return this._userCredits;
 	}
 
