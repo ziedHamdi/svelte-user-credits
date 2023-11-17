@@ -8,8 +8,8 @@
 
 	// Subscribe to changes in the resolver store
 	export let offer;
-	// let offerProps: IOfferProps = $resolver.getObject<IOfferProps>({ type:'OfferProps' } as ResourceDomain, offer) as IOfferProps;
-	let offerDto = $resolver.getObject({ type: 'Offer' }, offer);
+	// let offerProps: IOfferProps = $resolver.buildDto<IOfferProps>({ type:'OfferProps' } as ResourceDomain, offer) as IOfferProps;
+	let offerDto = $resolver.buildDto({ type: 'Offer' }, offer);
 	let borderClass = offerDto.higlighted ? 'flex flex-col border-2 border-blue-600 text-center shadow-xl rounded-xl p-8 dark:border-blue-700' : 'flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700';
 	let buttonClass = offerDto.higlighted ? 'mt-5 inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800' : 'mt-5 inline-flex justify-center items-center gap-2 rounded-md border-2 border-blue-600 font-semibold text-blue-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:text-blue-500 dark:border-blue-600 dark:hover:border-blue-700';
 

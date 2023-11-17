@@ -30,6 +30,7 @@
 		"@sveltejs/adapter-netlify": "^2.0.8",
 		"@sveltejs/kit": "^1.27.4",
 		"@tsconfig/svelte": "^5.0.2",
+		"@types/node": "^20.9.1",
 		"@typescript-eslint/eslint-plugin": "^6.10.0",
 		"@typescript-eslint/parser": "^6.10.0",
 		"autoprefixer": "^10.4.16",

@@ -5,7 +5,7 @@
 	let resolver = getContext(RESOLVER); // To store the current value of resolver
 
 	export let data;
-	$: userCreditsDto = $resolver.getObject({type:"UserCredits"}, data.credits)
+	$: userCreditsDto = $resolver.buildDto({type:"UserCredits"}, data.credits)
 </script>
 
 <div>

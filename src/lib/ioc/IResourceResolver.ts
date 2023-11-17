@@ -17,7 +17,7 @@ export interface IResourceResolver {
 	 * @template <D> the type of possible objects (an enum like implementation)
 	 * return <T> the type the user expects as an output
 	 */
-	getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
+	buildDto<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
 
 	getSetting<D extends IResourceDomain>( domain: D );
 

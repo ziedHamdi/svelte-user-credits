@@ -12,10 +12,12 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
  * IMPROVEMENT move this file to @user-credits/core
  */
 export class OfferGroupStatusSummary<K extends IMinimalId> {
+
 	protected _statusSummary: Status;
 	protected _statusMessage: string;
 	protected _activeSubscription: ISubscription<K>;
-	protected consumption: Consumption;
+	protected _consumption: Consumption;
+	protected _name: string;
 
 	constructor(
 		protected _purchaseGroup: ISubscription<K>[],
@@ -50,7 +52,6 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 				// If any subscription meets the "ok" conditions, no more need to evaluate: return "ok"
 				this._statusSummary = 'ok';
 				this._statusMessage = 'Paid and active';
-				this.consumption = new Consumption( new Date(this._active.expires).getTime(), new Date(this.starts).getTime(), new Date().getTime())
 				return 'ok';
 			}
 
@@ -143,6 +144,10 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		return this._active.expires
 	}
 
+	get remainingTokens(): number {
+		return this._active.tokens
+	}
+
 	get activeSubscription(): ISubscription<K> {
 		return this._activeSubscription;
 	}
@@ -164,7 +169,19 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	}
 
 	get name(): string {
-		return this._activeSubscription.name;
+		return this._name;
+	}
+
+	set name( name: string ) {
+		this._name = name
+	}
+
+	get consumption(): Consumption {
+		return this._consumption;
+	}
+
+	set consumption(value: Consumption) {
+		this._consumption = value;
 	}
 
 	get offerGroup(): string {

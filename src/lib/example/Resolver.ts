@@ -11,7 +11,7 @@ import { UserPreferences } from '../core/UserPreferences';
 const DEFAULT_USER_PREFERENCES = new UserPreferences();
 
 export class Resolver implements IResourceResolver {
-	getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
+	buildDto<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
 		if (!data)
 			throw new Error('Data cannot be null: ' + data);
 		switch (domain.type) {
@@ -31,7 +31,7 @@ export class Resolver implements IResourceResolver {
 				return DEFAULT_USER_PREFERENCES;
 
 			default:
-				throw new Error('Cannot resolve DOMAIN ' + domain.type + ' : ' + data);
+				throw new Error('Cannot resolve DOMAIN ' + domain.type );
 		}
 
 	}
