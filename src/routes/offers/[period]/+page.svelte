@@ -20,9 +20,7 @@
 				const user = { _id: new ObjectId().toString(), name: 'John Doe' };
 				userJson = JSON.stringify(user);
 				window.localStorage.setItem('user', userJson);
-				window.alert('A user was created to represent you for this demo: ' + user.name);
-			} else {
-				window.alert('You are already logged as: ' + JSON.parse(userJson).name + ' for this demo.');
+				window.alert('A fictive user was created to represent you for this demo: ' + user.name);
 			}
 			const user = JSON.parse(userJson);
 			const createOrderResponse = await fetch(url + `/createOrder?userId=${user._id}&offerId=${detail.offer._id}`);
@@ -36,6 +34,6 @@
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save 2 months'
 							 on:modified={switchOffers} checked={data.period === "yearly"} />
-	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='offers' offerList={data.offers}/>
 	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='specialOffers' offerList={data.ebOffers} columns='3'/>
+	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='offers' offerList={data.offers} columns='4'/>
 </PricingPage>

@@ -23,6 +23,15 @@ export class ServiceProxy<K extends IMinimalId> {
 		return  new Response(JSON.stringify(order));
 	}
 
+	async payOrder({ url }): Promise<Response> {
+		const orderId = url.searchParams.get('orderId') ?? null;
+		if( !orderId )
+			throw new Error("orderId is mandatory")
+
+		const order = await this.service.payOrder(orderId);
+		return  new Response(JSON.stringify(order));
+	}
+
 	async loadOffers({ url }): Promise<Response> {
 		const userId = url.searchParams.get('userId') ?? null;
 		const reqEnvTagStr = url.searchParams.get('envTags') ?? null;

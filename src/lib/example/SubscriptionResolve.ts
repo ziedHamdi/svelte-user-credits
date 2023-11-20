@@ -22,7 +22,7 @@ function fillNames<K extends IMinimalId>(userCreditsDto: UserCreditsDto<K>): voi
 function offerGroupName( name: string ): string {
 	switch (name) {
 		case 'Free':
-			return 'Forever free';
+			return 'Forever Free';
 		case 'Startup':
 			return 'Startup';
 		case 'EbStartup':

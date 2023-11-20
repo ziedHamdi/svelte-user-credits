@@ -13,7 +13,7 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
 export class Resolver implements IResourceResolver {
 	buildDto<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
 		if (!data)
-			throw new Error('Data cannot be null: ' + data);
+			throw new Error('Data cannot be null: ' + data +' (domain: '+ JSON.stringify(domain) +')');
 		switch (domain.type) {
 			case 'Offer':
 				return resolveOffer<K, M>(data);

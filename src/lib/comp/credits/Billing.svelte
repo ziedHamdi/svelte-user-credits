@@ -1,5 +1,5 @@
 <script>
-	import Subscription from './Subscription.svelte';
+	import OfferGroup from './OfferGroup.svelte';
 
 	export let userCreditsDto;
 
@@ -71,7 +71,7 @@
 						</thead>
 						<tbody class='divide-y divide-gray-200 dark:divide-gray-700'>
 						{#each userCreditsDto.summaryList as purchase (purchase._id)}
-							<Subscription {purchase} />
+							<OfferGroup {purchase} on:purchaseRetryIntent/>
 						{/each}
 						</tbody>
 					</table>
