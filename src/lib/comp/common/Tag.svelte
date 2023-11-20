@@ -29,4 +29,6 @@
 											{label}
                     </span>
 	</div>
+	{:else}
+	{label}
 	{/if}
