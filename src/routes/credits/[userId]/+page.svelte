@@ -3,6 +3,7 @@
 	import { RESOLVER } from '../../../lib/ioc/resolverContext';
 	import Billing from '../../../lib/comp/credits/Billing.svelte';
 	import { goto } from '$app/navigation';
+	import Tag from '../../../lib/comp/common/Tag.svelte';
 
 	let resolver = getContext(RESOLVER); // To store the current value of resolver
 
@@ -20,6 +21,8 @@
 	{#if userCreditsDto}
 		<Billing {userCreditsDto} on:purchaseRetryIntent={purchaseRetryIntent}/>
 	{:else}
-		loading...
+		<div class='mx-auto w-fit my-20'>
+			<Tag status='error' label='nothing found'/>
+		</div>
 	{/if}
 </div>
