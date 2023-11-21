@@ -3,7 +3,6 @@ import { OfferDto } from '../core/dto/OfferDto';
 import type { IOffer } from '@user-credits/core';
 
 export function resolveOffer<K, M>(data: M): EntityDto<K, M> {
-	{
 		const offerDto: OfferDto<K> = new OfferDto<K>(data as unknown as IOffer<string>);
 		const toReturn: EntityDto<K, M> = offerDto as EntityDto<K, M>;
 
@@ -60,5 +59,4 @@ export function resolveOffer<K, M>(data: M): EntityDto<K, M> {
 			offerDto.highlightingMessage = 'ONLY 10 USERS';
 
 		return toReturn;
-	}
 }

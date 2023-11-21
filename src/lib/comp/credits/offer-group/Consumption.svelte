@@ -1,7 +1,7 @@
 <script>
-	import OfferGroup from './OfferGroup.svelte';
+	import HistoryItem from './HistoryItem.svelte';
 
-	export let userCreditsDto;
+	export let history;
 
 </script>
 
@@ -17,19 +17,12 @@
 					<table class='min-w-full divide-y divide-gray-200 dark:divide-gray-700'>
 						<thead class='bg-gray-50 dark:bg-slate-800'>
 						<tr>
-							<th scope='col' class='ps-6 py-3 text-start'>
-								<label for='hs-at-with-checkboxes-main' class='flex'>
-									<input type='checkbox'
-												 class='shrink-0 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800'
-												 id='hs-at-with-checkboxes-main'>
-									<span class='sr-only'>Checkbox</span>
-								</label>
-							</th>
+							<th scope='col' class='px-0'></th>
 
 							<th scope='col' class='ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start'>
 								<div class='flex items-center gap-x-2'>
                     <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
-                      Name
+                      Date
                     </span>
 								</div>
 							</th>
@@ -37,23 +30,7 @@
 							<th scope='col' class='px-6 py-3 text-start'>
 								<div class='flex items-center gap-x-2'>
                     <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
-                      Total
-                    </span>
-								</div>
-							</th>
-
-							<th scope='col' class='px-6 py-3 text-start'>
-								<div class='flex items-center gap-x-2'>
-                    <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
-                      Status
-                    </span>
-								</div>
-							</th>
-
-							<th scope='col' class='px-6 py-3 text-start'>
-								<div class='flex items-center gap-x-2'>
-                    <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
-                      Remaining
+                      Tokens
                     </span>
 								</div>
 							</th>
@@ -61,7 +38,7 @@
 							<th scope='col' class='px-6 py-3 text-start'>
 								<div class='flex items-center gap-x-2'>
                     <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 '>
-                      Date
+                      Transaction Id
                     </span>
 								</div>
 							</th>
@@ -70,8 +47,8 @@
 						</tr>
 						</thead>
 						<tbody class='divide-y divide-gray-200 dark:divide-gray-700'>
-						{#each userCreditsDto.summaryList as purchase (purchase._id)}
-							<OfferGroup {purchase} on:orderOperation/>
+						{#each history as item (item._id)}
+							<HistoryItem {item} on:orderOperation/>
 						{/each}
 						</tbody>
 					</table>

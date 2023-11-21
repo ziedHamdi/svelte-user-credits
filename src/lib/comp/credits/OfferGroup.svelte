@@ -1,15 +1,11 @@
 <script>
 	import Tag from '../common/Tag.svelte';
 	import Subscription from './Subscription.svelte';
+	import { formatDate } from '../../core/util';
 
 	export let purchase;
 	let detailOpen;
 
-	function formatDate(date) {
-		if( !date )
-			return null;
-		return new Intl.DateTimeFormat('en-US').format(new Date(date))
-	}
 
 	function progressColor(value) {
 		if( value > 50 )
@@ -82,6 +78,6 @@
 
 {#if detailOpen}
 		{#each purchase.purchaseGroup as subscription (subscription._id)}
-			<Subscription {subscription} on:purchaseRetryIntent/>
+			<Subscription {subscription} on:orderOperation/>
 		{/each}
 {/if}
