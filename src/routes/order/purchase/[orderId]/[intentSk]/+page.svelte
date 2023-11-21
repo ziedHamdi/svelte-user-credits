@@ -2,9 +2,11 @@
 	import PaymentComp from '../../../../../lib/comp/stripe/PaymentComp.svelte';
 	import PaymentFrame from '../../../../../lib/example/components/PaymentFrame.svelte';
 	import { goto } from '$app/navigation';
-	import { getUser } from '$lib/core/Session';
+	import { getUserStore } from '../../../../../lib/example/Session';
+	// import { getUser } from '$lib/example/Session';
 
 	export let data;
+	const user = getUserStore();
 
 	let error;
 	function paymentExecuted() {
@@ -14,10 +16,10 @@
 				error = detail.result.error.message;
 				await fetch(`/afterExecute?orderId=${orderId}`);
 			} else if (detail.status === 'cancel') {
-				await goto(`/credits/${getUser()?._id}`);
+				await goto(`/credits/${user.get()._id}`);
 			} else if (detail.status === 'success') {
 				await fetch(`/afterExecute?orderId=${orderId}`);
-				await goto(`/credits/${getUser()?._id}`);
+				await goto(`/credits/${user.get()._id}`);
 			} else {
 				console.error('not supported state: ', detail.status, '; ', detail);
 			}

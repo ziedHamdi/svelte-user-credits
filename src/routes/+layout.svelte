@@ -3,13 +3,26 @@
 	import '../app.postcss';
 	import { resolverContext } from '$lib/ioc/resolverContext';
 	import { Resolver } from '../lib/example/Resolver';
-	import { getUser } from '../lib/core/Session';
+	import { createFakeUser, getUserStore, userResolverContext } from '../lib/example/Session';
+	import { page } from '$app/stores';
 
 	const { setResolver } = resolverContext();
+	userResolverContext();
 
 	setResolver(new Resolver());
+	const user = getUserStore();
+	let currentRoute;
+	$: currentRoute = $page.url.pathname;
 
-	$: user = getUser();
+	// currentRoute has to be passed as a parameter to notify the svelte that the result will change
+	function selectionCssFor(currentRoute, route, exact = false) {
+		if(!currentRoute)
+			return ''
+		let highlight = currentRoute.startsWith(route);
+		if( highlight && exact )
+			highlight = currentRoute === route
+		return `font-medium ${highlight ? 'text-blue-600 dark:text-blue-500 hover:text-blue-400 dark:hover:text-blue-500' : 'text-gray-500 dark:text-gray-400 hover:text-gray-400 dark:hover:text-gray-500' } sm:py-6`
+	}
 </script>
 
 <main>
@@ -40,12 +53,12 @@
 					 class='hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block'>
 				<div
 					class='flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7'>
-					<a class='font-medium text-blue-600 sm:py-6 dark:text-blue-500' aria-current='page' href='/'>Landing</a>
-					<a class='font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500'
+					<a class={selectionCssFor(currentRoute, '/', true)} aria-current='page' href='/'>Landing</a>
+					<a class={selectionCssFor(currentRoute, '/offers/')}
 						 href='/offers/yearly'>Offers</a>
-					{#if user}
-						<a class='font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500'
-							 target='_blank' href={`/credits/${getUser()._id}`}>Credits</a>
+					{#if $user?._id}
+						<a class={selectionCssFor(currentRoute, '/credits')}
+							  href={`/credits/${$user._id}`}>Credits</a>
 					{/if}
 					<a class='font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500'
 						 target='_blank' href='https://medium.com/@zhamdi'>Blog</a>
@@ -57,10 +70,12 @@
 							<path
 								d='M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z' />
 						</svg>
-						{#if user}
-							{user.name}
+						{#if $user?._id}
+							{$user.name}
 						{:else}
+							<button on:click={createFakeUser}>
 							Log in
+							</button>
 						{/if}
 					</span>
 				</div>
@@ -72,4 +87,10 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+    button {
+        background: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
 </style>
