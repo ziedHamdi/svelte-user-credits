@@ -10,16 +10,23 @@
 	export let data;
 	$: userCreditsDto = data?.credits ? $resolver.buildDto({ type: 'UserCredits' }, data?.credits) : null;
 
-	async function purchaseRetryIntent({detail}) {
-		const createOrderResponse = await fetch(`/payOrder?orderId=${detail.orderId}`);
-		const order = await createOrderResponse.json();
-		await goto(`/order/purchase/${order._id}/${order.paymentIntentSecret}`);
+	async function orderOperation({detail}) {
+		if( detail.operation === "pay" ) {
+			const createOrderResponse = await fetch(`/payOrder?orderId=${detail.orderId}`);
+			const order = await createOrderResponse.json();
+			await goto(`/order/purchase/${order._id}/${order.paymentIntentSecret}`);
+		} else if( detail.operation === "delete" ) {
+			// const deleteOrderResponse = await fetch(`/deleteOrder?orderId=${detail.orderId}`);
+			// const order = await deleteOrderResponse.json();
+		} else if( detail.operation === "detail" ) {
+			await goto(`/credits/${data.credits.userId}/${detail.orderId}`);
+		}
 	}
 </script>
 
 <div>
 	{#if userCreditsDto}
-		<Billing {userCreditsDto} on:purchaseRetryIntent={purchaseRetryIntent}/>
+		<Billing {userCreditsDto} on:orderOperation={orderOperation}/>
 	{:else}
 		<div class='mx-auto w-fit my-20'>
 			<Tag status='error' label='nothing found'/>

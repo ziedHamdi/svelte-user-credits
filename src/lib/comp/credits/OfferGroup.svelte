@@ -1,15 +1,11 @@
 <script>
 	import Tag from '../common/Tag.svelte';
 	import Subscription from './Subscription.svelte';
+	import { formatDate } from '../../core/util';
 
 	export let purchase;
 	let detailOpen;
 
-	function formatDate(date) {
-		if( !date )
-			return null;
-		return new Intl.DateTimeFormat('en-US').format(new Date(date))
-	}
 
 	function progressColor(value) {
 		if( value > 50 )
@@ -55,6 +51,14 @@
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
 			<div class="flex items-center gap-x-3">
+				<span class="text-sm text-gray-500 font-semibold">{purchase.consumption?.value}/{purchase.consumption?.max}</span>
+			</div>
+		</div>
+	</td>
+
+	<td class="h-px w-px whitespace-nowrap">
+		<div class="px-6 py-3">
+			<div class="flex items-center gap-x-3">
 				<span class="text-xs text-gray-500">{Math.round(purchase.consumption?.percentage)}%</span>
 				<!-- preload used colors -->
 				<div class="flex w-full h-1.5 bg-teal-700 bg-amber-700 bg-red-700 bg-gray-200 rounded-full overflow-hidden dark:bg-teal-200 dark:bg-amber-200 dark:bg-red-200 dark:bg-gray-700">
@@ -82,6 +86,6 @@
 
 {#if detailOpen}
 		{#each purchase.purchaseGroup as subscription (subscription._id)}
-			<Subscription {subscription} on:purchaseRetryIntent/>
+			<Subscription {subscription} on:orderOperation/>
 		{/each}
 {/if}

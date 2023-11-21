@@ -30,9 +30,9 @@
 		return value;
 	}
 
-	function onPayOrder(orderId) {
+	function onPayOrder(orderId, operation) {
 		return async () => {
-			dispatch( "purchaseRetryIntent", {orderId} );
+			dispatch( "orderOperation", {orderId, operation} );
 		};
 	}
 </script>
@@ -94,8 +94,20 @@
 			{#if (subscription.status !== "paid")}
 				<button aria-roledescription='attempt payment again'
 					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
-					on:click={onPayOrder(subscription.orderId)}>
+					on:click={onPayOrder(subscription.orderId, "pay")}>
 					Pay now
+				</button>
+
+				<button aria-roledescription='cancel payment order'
+					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+					on:click={onPayOrder(subscription.orderId, "delete")}>
+					Cancel
+				</button>
+				{:else }
+				<button aria-roledescription='cancel payment order'
+					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+					on:click={onPayOrder(subscription.offerGroup, "detail")}>
+					History
 				</button>
 			{/if}
 		</div>

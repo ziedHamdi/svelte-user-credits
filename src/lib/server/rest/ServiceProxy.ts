@@ -11,9 +11,13 @@ export class ServiceProxy<K extends IMinimalId> {
 	set envTags(value: string[]) {
 		this._envTags = value;
 	}
-	// afterExecute(order: IOrder<K>): Promise<IUserCredits<K>> {
-	// 	return Promise.resolve(undefined);
-	// }
+	async tokensConsumed({url}): Promise<IUserCredits<K>> {
+		const userId = url.searchParams.get('userId') ?? null;
+		const offerGroup = url.searchParams.get('offerGroup') ?? null;
+		const count = url.searchParams.get('count') ?? null;
+		const row = await this.service.tokensConsumed(userId, offerGroup, count);
+		return  new Response(JSON.stringify(row));
+	}
 
 	async createOrder({ url }): Promise<Response> {
 		const offerId = url.searchParams.get('offerId') ?? null;

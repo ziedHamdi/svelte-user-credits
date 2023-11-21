@@ -12,12 +12,16 @@ const DEFAULT_USER_PREFERENCES = new UserPreferences();
  * IMPROVEMENT move this file to @user-credits/core
  */
 export class OfferGroupStatusSummary<K extends IMinimalId> {
+	get totalPurchasedTokens(): number {
+		return this._totalPurchasedTokens;
+	}
 
 	protected _statusSummary: Status;
 	protected _statusMessage: string;
 	protected _activeSubscription: ISubscription<K>;
 	protected _consumption: Consumption;
 	protected _name: string;
+	protected _totalPurchasedTokens: number = 0;
 
 	constructor(
 		protected _purchaseGroup: ISubscription<K>[],
@@ -39,12 +43,17 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		this._activeSubscription = this._purchaseGroup[0];
 
 		for (const subscription of this._purchaseGroup) {
+			if (subscription.status === 'paid') {
+				this._totalPurchasedTokens += subscription.tokens;
+			}
+		}
+
+		for (const subscription of this._purchaseGroup) {
 			if (subscription.status === 'paid' && !this._active)
 				console.error('Maybe a corrupted state: subscription ', subscription._id, ' is paid, but no active item found (this is maybe because the subscription is expired or finished the tokens, ignore this if it\'s the case): ', JSON.stringify(subscription));
 
 			// Check if any subscription has a status == "paid" and its expires date and tokens are beyond warning signals
-			if (
-				subscription.status === 'paid' &&
+			if (subscription.status === 'paid' &&
 				this.computeDateSafety() > 0 &&
 				this.computeTokenSafety(subscription) > 0
 			) {
@@ -61,7 +70,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 				this._activeSubscription = subscription;
 				// If any subscription meets the "warn" conditions, set status to "warn" but keep exploring other subscriptions
 				this._statusSummary = 'warn';
-				if(!this.statusSummary ) // avoid to override another warning
+				if (!this.statusSummary) // avoid to override another warning
 					this._statusMessage = 'not paid yet';
 			} else if ( // Check if any subscription has a status == "paid" and its expires date is within the threshold for a "warn" status
 				subscription.status === 'paid') {
@@ -108,8 +117,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 			return -1;
 
 		const thresholdDate = new Date(expires - delayBeforeExpiry);
-		const remainingTime =  thresholdDate - currentDate;
-		return remainingTime < 0 ? 0 : remainingTime  ;
+		const remainingTime = thresholdDate - currentDate;
+		return remainingTime < 0 ? 0 : remainingTime;
 	}
 
 	/**
@@ -141,11 +150,11 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	}
 
 	get expires(): Date {
-		return this._active?.expires
+		return this._active?.expires;
 	}
 
 	get remainingTokens(): number {
-		return this._active?.tokens
+		return this._active?.tokens;
 	}
 
 	get activeSubscription(): ISubscription<K> {
@@ -172,8 +181,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		return this._name;
 	}
 
-	set name( name: string ) {
-		this._name = name
+	set name(name: string) {
+		this._name = name;
 	}
 
 	get consumption(): Consumption {
