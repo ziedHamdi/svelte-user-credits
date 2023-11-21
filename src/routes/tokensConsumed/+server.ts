@@ -11,5 +11,5 @@ export const GET = async ({ url }) => {
 		ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
 		serviceProxy = ioc.resolve('serviceProxy');
 	}
-	return serviceProxy.loadOffers({ url });
+	return serviceProxy.tokensConsumed({ url });
 }
