@@ -51,6 +51,14 @@
 	<td class="h-px w-px whitespace-nowrap">
 		<div class="px-6 py-3">
 			<div class="flex items-center gap-x-3">
+				<span class="text-sm text-gray-500 font-semibold">{purchase.consumption?.value}/{purchase.consumption?.max}</span>
+			</div>
+		</div>
+	</td>
+
+	<td class="h-px w-px whitespace-nowrap">
+		<div class="px-6 py-3">
+			<div class="flex items-center gap-x-3">
 				<span class="text-xs text-gray-500">{Math.round(purchase.consumption?.percentage)}%</span>
 				<!-- preload used colors -->
 				<div class="flex w-full h-1.5 bg-teal-700 bg-amber-700 bg-red-700 bg-gray-200 rounded-full overflow-hidden dark:bg-teal-200 dark:bg-amber-200 dark:bg-red-200 dark:bg-gray-700">

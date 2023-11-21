@@ -4,7 +4,7 @@ export class Consumption {
 
 	get percentage(): number {
 		if( this.remainingMode)
-		return (this.max - this.value) / (this.max - this.min) * 100
+		return (this.value) / (this.max - this.min) * 100
 		else
 		return (this.value - this.min) / (this.max - this.min) * 100
 	}
