@@ -6,6 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0V3P0RJJ1Y"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-0V3P0RJJ1Y');
+	</script>
 	<body data-sveltekit-preload-data="hover">
 	<script>var exports = {};</script>
 		<div style="display: contents">%sveltekit.body%</div>
