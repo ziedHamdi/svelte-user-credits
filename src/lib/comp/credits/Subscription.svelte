@@ -41,7 +41,7 @@
 	}
 
 	function getRemaining() {
-		if (subscription._id === active.activeOrderId) {
+		if (active && subscription._id === active.activeOrderId) {
 			return safeString(active.value % subscription.tokens);
 		} else if (subscription.status === 'paid') {
 			return safeString(subscription.tokens);
