@@ -15,6 +15,13 @@ to allow flexible and technology-agnostic solutions for your billing offer needs
 While the primary implementation is in Svelte, the library is adaptable to other
 view technologies, making it a versatile choice for your projects.
 
+**Sorry I'm trying to reduce the button size, I like coffee but not to that extent.**
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-blue.png)](https://www.buymeacoffee.com/credits)
+
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-blue.png){:height="40px" width="180px"}](https://www.buymeacoffee.com/credits)
+
+
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
