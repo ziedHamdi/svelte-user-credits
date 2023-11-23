@@ -1,16 +1,12 @@
 <script>
 	import Tag from '../common/Tag.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { formatDate, safeString } from '../../core/util';
 
 	const dispatch = createEventDispatcher();
 
 	export let subscription;
-
-	function formatDate(date) {
-		if (!date)
-			return null;
-		return new Intl.DateTimeFormat('en-US').format(new Date(date));
-	}
+	export let active;
 
 	function progressColor(value) {
 		if (value > 50)
@@ -30,11 +26,26 @@
 		return value;
 	}
 
-	function onPayOrder(orderId, operation) {
-		return async () => {
-			dispatch( "orderOperation", {orderId, operation} );
+	function onOrderAction(orderId, operation) {
+		return () => {
+			dispatch('orderOperation', { orderId, operation });
 		};
 	}
+
+	function getConsumed() {
+		if (subscription._id === active.activeOrderId) {
+			return safeString(active.value);
+		} else if (subscription.status === 'paid') {
+			return safeString(subscription.tokens);
+		} else {
+			return 0;
+		}
+	}
+
+	function getRemainigPercentage() {
+		return Math.round((getConsumed()/subscription.tokens)*100)
+	}
+
 </script>
 
 <tr>
@@ -57,7 +68,7 @@
 			</div>
 		</div>
 	</td>
-	<td class='h-px w-72 whitespace-nowrap'>
+	<td class='h-px w-px whitespace-nowrap'>
 		<div class='px-6 py-3'>
 			<span class='block text-sm text-gray-800 dark:text-gray-200'>{subscription.total}</span>
 			<span class='block text-sm text-gray-500'>({subscription.quantity ?? 1}x)</span>
@@ -66,20 +77,26 @@
 	<td class='h-px w-px whitespace-nowrap'>
 		<Tag status={asTagStatus(subscription.status)} label={subscription.status} />
 	</td>
-	<td class='h-px w-px whitespace-nowrap'>
+	<td class='h-px w-72 whitespace-nowrap'>
 		<div class='px-6 py-3'>
 			<div class='flex items-center gap-x-3'>
-				<span class='text-xs text-gray-500'>{Math.round(subscription.consumption?.percentage)}%</span>
+				<span class='text-xs text-gray-500'>{getRemainigPercentage()}%</span>
 				<!-- preload used colors -->
 				<div
 					class='flex w-full h-1.5 bg-teal-700 bg-amber-700 bg-red-700 bg-gray-200 rounded-full overflow-hidden dark:bg-teal-200 dark:bg-amber-200 dark:bg-red-200 dark:bg-gray-700'>
 					<div
 						class={`flex flex-col justify-center overflow-hidden bg-${progressColor(subscription.consumption?.percentage)}-700 dark:bg-${progressColor(subscription.consumption?.percentage)}-200`}
 						role='progressbar' style={`width: ${subscription.consumption?.percentage}%`}
-						aria-valuenow={subscription.consumption?.value} aria-valuemin={subscription.consumption?.min}
-						aria-valuemax={subscription.consumption?.max}></div>
+						aria-valuenow={getConsumed()} aria-valuemin={0}
+						aria-valuemax={subscription.tokenCount}></div>
 				</div>
 			</div>
+		</div>
+	</td>
+	<td class='h-px w-px whitespace-nowrap'>
+		<div class='px-6 py-3'>
+			<span class='block text-sm text-gray-800 dark:text-gray-200'>{getConsumed()}
+				/{safeString(subscription.tokens)}</span>
 		</div>
 	</td>
 	<td class='h-px w-px whitespace-nowrap'>
@@ -93,20 +110,20 @@
 		<div class='px-6 py-1.5'>
 			{#if (subscription.status !== "paid")}
 				<button aria-roledescription='attempt payment again'
-					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
-					on:click={onPayOrder(subscription.orderId, "pay")}>
+								class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+								on:click={onOrderAction(subscription.orderId, "pay")}>
 					Pay now
 				</button>
 
 				<button aria-roledescription='cancel payment order'
-					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
-					on:click={onPayOrder(subscription.orderId, "delete")}>
+								class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+								on:click={onOrderAction(subscription.orderId, "delete")}>
 					Cancel
 				</button>
-				{:else }
+			{:else }
 				<button aria-roledescription='cancel payment order'
-					class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
-					on:click={onPayOrder(subscription.offerGroup, "detail")}>
+								class='cursor-pointer inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+								on:click={onOrderAction(subscription.offerGroup, "history")}>
 					History
 				</button>
 			{/if}

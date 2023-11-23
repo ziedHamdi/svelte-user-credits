@@ -6,7 +6,7 @@
 	function consume(offerGroup) {
 		const userId = userCredits.userId;
 		return async () => {
-			const count = Math.round( Math.random() * 10 );
+			const count = Math.floor(Math.random() * 10) + 1;
 			await fetch(`/tokensConsumed?userId=${userId}&offerGroup=${offerGroup}&count=${count}`);
 			location.reload();
 		}

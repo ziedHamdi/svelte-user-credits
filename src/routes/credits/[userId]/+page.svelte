@@ -20,6 +20,8 @@
 			// const order = await deleteOrderResponse.json();
 		} else if( detail.operation === "detail" ) {
 			await goto(`/credits/${data.credits.userId}/${detail.orderId}`);
+		} else if( detail.operation === "history" ) {
+			await goto(`/credits/${data.credits.userId}/${detail.orderId}`);
 		}
 	}
 </script>

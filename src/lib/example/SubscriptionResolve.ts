@@ -54,6 +54,7 @@ function fillConsumptionForPaid<K extends IMinimalId>(userCreditsDto: UserCredit
 }
 function buildDateConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 	return new Consumption(
+		summary.activeSubscription._id,
 		new Date(summary.expires).getTime(),
 		new Date(summary.starts).getTime(),
 		new Date().getTime(),
@@ -63,6 +64,7 @@ function buildDateConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 
 function buildTokenConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 	return new Consumption(
+		summary.activeSubscription._id,
 		summary.totalPurchasedTokens,
 		0,
 		summary.remainingTokens,

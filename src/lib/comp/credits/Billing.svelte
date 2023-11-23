@@ -53,19 +53,17 @@
 							<th scope='col' class='px-6 py-3 text-start'>
 								<div class='flex items-center gap-x-2'>
                     <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
-                      Tokens
-                    </span>
-								</div>
-							</th>
-
-							<th scope='col' class='px-6 py-3 text-start'>
-								<div class='flex items-center gap-x-2'>
-                    <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
                       Remaining
                     </span>
 								</div>
 							</th>
-
+							<th scope='col' class='px-6 py-3 text-start'>
+								<div class='flex items-center gap-x-2'>
+                    <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200'>
+                      Tokens
+                    </span>
+								</div>
+							</th>
 							<th scope='col' class='px-6 py-3 text-start'>
 								<div class='flex items-center gap-x-2'>
                     <span class='text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200 '>

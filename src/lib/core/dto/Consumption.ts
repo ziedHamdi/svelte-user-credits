@@ -1,5 +1,5 @@
 export class Consumption {
-	constructor(public max: number, public min: number, public value: number, public remainingMode:boolean = false){
+	constructor(public activeOrderId, public max: number, public min: number, public value: number, public remainingMode:boolean = false){
 	}
 
 	get percentage(): number {

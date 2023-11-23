@@ -17,7 +17,6 @@
 	<td class="h-px w-auto whitespace-nowrap">
 		<div class="px-6 py-2">
 			<span class="font-semibold text-sm text-gray-800 dark:text-gray-200">{item.tokens}</span>
-			<span class="text-xs text-gray-500">(+10%)</span>
 		</div>
 	</td>
 
