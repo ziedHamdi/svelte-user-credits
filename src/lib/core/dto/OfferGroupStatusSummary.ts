@@ -28,6 +28,8 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		protected _active: IActivatedOffer | null = null,
 		protected userPreferences: UserPreferences = DEFAULT_USER_PREFERENCES
 	) {
+
+		this._purchaseGroup = _purchaseGroup.sort((a:ISubscription<K>, b:ISubscription<K>) => new Date(a.starts ).getTime() - new Date(b.starts).getTime());
 		this.calculateStatus();
 	}
 

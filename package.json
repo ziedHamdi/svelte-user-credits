@@ -56,8 +56,8 @@
 	},
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
-		"@user-credits/core": "^0.15.1-alpha",
-		"@user-credits/stripe-mongoose": "^0.15.3-alpha",
+		"@user-credits/core": "link:..\\user-credits-core",
+		"@user-credits/stripe-mongoose": "link:..\\user-credits",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
 		"mongoose": "^8.0.0",
