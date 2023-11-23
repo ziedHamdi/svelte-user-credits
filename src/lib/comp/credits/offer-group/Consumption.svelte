@@ -46,6 +46,11 @@
 						{/each}
 						</tbody>
 					</table>
+					{#if ( history.length === 0)}
+						<div class="p-10 text-center text-gray-500 w-full colspan='5' scope='colgroup'">
+							No credit logs for now. You must have added or consumed credits to see data here.
+						</div>
+					{/if}
 
 					<slot name='footer'/>
 				</div>

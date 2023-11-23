@@ -42,7 +42,11 @@
 
 	function getRemaining() {
 		if (active && subscription._id === active.activeOrderId) {
-			return safeString(active.value % subscription.tokens);
+			let value = active.value % subscription.tokens;
+			// if fully charged, the modulo will return 0
+			if( active.value > 0 && value === 0 )
+				value = subscription.tokens;
+			return safeString( value.toString() );
 		} else if (subscription.status === 'paid') {
 			return safeString(subscription.tokens);
 		} else {

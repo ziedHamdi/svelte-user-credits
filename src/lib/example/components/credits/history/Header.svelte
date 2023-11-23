@@ -17,10 +17,10 @@
 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
 	<div>
 		<h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-			Credit history
+			Credit log
 		</h2>
 		<p class="text-sm text-gray-600 dark:text-gray-400">
-			Credit operations overview by date for {$page.params.offerGroup}
+			Your credit activity log for <b>{$page.params.offerGroup}</b>
 		</p>
 	</div>
 
