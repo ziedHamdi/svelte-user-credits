@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.3-beta",
+	"version": "0.9.4-beta",
 	"publishConfig": {
 		"access": "public"
 	},

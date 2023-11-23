@@ -4,8 +4,9 @@
 
 A demo of this library is [available at this link](https://user-credits.dev)
 
-**svelte-ui** is an open-source library designed to streamline the management 
-of user credits. It ships with user interface components for handling offers, 
+**[@user-credits/svelte-ui](https://www.npmjs.com/package/@user-credits/svelte-ui)** 
+is an open-source library designed to streamline the management 
+of user credits (pay-as-you-go models). It ships with user interface components for handling offers, 
 order management, payment tracking, and credit consumption in web applications.
 
 Whether you're developing a subscription-based service, a digital marketplace, 
@@ -28,13 +29,13 @@ view technologies, making it a versatile choice for your projects.
 
 ### Screens and Process Flows
 
-user-credits-ui includes screens and process flows for handling offers, offer groups, order management, payment tracking, and credit consumption. The library's flexibility allows it to be used with various view technologies, such as React, Vue, or others, empowering you to build UIs according to your preferred technology.
+user-credits-ui includes screens and process flows for handling offers, offer groups, order management, payment tracking, and credit consumption. The library is built with SvelteKit but may easily be translated to other view technologies like React, Vue or Angular.
 
 ### Offers and Offer Groups
 
-- **Offers:** With user-credits-ui, you can create and manage offers, allowing you to define different pricing models, discounts, and customizations. It includes features like offer overriding, enabling tailored pricing for specific user groups or offer groups.
+- **Offers:** With [@user-credits/stripe-mongoose](https://www.npmjs.com/package/@user-credits/stripe-mongoose), you can create and manage offers, allowing you to define different pricing models, discounts, and customizations. It includes features like offer overriding, enabling tailored pricing for specific user groups or offer groups. You can check the unit tests to see that in action.
 
-- **Offer Groups:** Examples of offer groups include monthly or yearly billing with sale prices for yearly billing or exclusive offers for users who subscribe to a specific offer group, such as "Insurance" or "Online Course."
+- **Offer Groups:** Examples of offer groups include monthly or yearly billing with advantageous or exclusive offers unlocks by purchasing a specific "offer" (offerGroup actually), such as "Insurance" or "Online Course."
 
 ### Order Management and Payment
 
