@@ -1,7 +1,7 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
 import { AwilixContainer } from 'awilix/lib/container';
 import type { IService, IUserCredits } from '@user-credits/core';
-import { ObjectId } from '../../init/+server';
+import { ObjectId } from '../../api/init/+server';
 
 export type CreditsInfo = {credits: IUserCredits<string>}
 

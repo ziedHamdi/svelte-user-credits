@@ -15,7 +15,6 @@ const baseRootOffer = {
   overridingKey: "free",
   price: 0,
   quantityLimit: null,
-  tokenCount: 100,
   weight: 0,
 } as unknown as IOffer<ObjectId>;
 
@@ -56,6 +55,7 @@ const MOCKS: MockType = {
   Free: {
     common: {
       quantityLimit: 1,
+      tokenCount: 10,
       tags: ["subscription", "standard", "monthly", "yearly"]
     },
   },
@@ -63,6 +63,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 49,
+      tokenCount: 49,
       tags: ["subscription", "standard", "monthly"]
     },
     yearly: {
@@ -74,6 +75,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 99,
+      tokenCount: 150,
       tags: ["subscription", "standard", "monthly"]
     },
     yearly: {
@@ -85,6 +87,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 249,
+      tokenCount: 400,
       tags: ["subscription", "standard", "monthly"]
     },
     yearly: {
@@ -96,6 +99,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 25,
+      tokenCount: 49,
       tags: ["subscription", "EarlyBird", "monthly"]
     },
     yearly: {
@@ -107,6 +111,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 49,
+      tokenCount: 150,
       tags: ["subscription", "EarlyBird", "monthly"]
     },
     yearly: {
@@ -118,6 +123,7 @@ const MOCKS: MockType = {
     common: {},
     monthly: {
       price: 99,
+      tokenCount: 400,
       tags: ["subscription", "EarlyBird", "monthly"]
     },
     yearly: {
@@ -194,6 +200,7 @@ async function preparePredefinedOffer(
   } else if (specific == "y") {
     otherFields = { ...otherFields, ...yearly };
     otherFields.cycle = "yearly";
+    otherFields.tokenCount = monthly.tokenCount * 12;
     otherFields.overridingKey = "yearly-" + offerGroup;
   } else {
     const fieldsToAdd = specific ? mockDef[specific] : null;

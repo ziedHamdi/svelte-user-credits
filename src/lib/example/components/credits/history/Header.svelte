@@ -7,7 +7,7 @@
 		const userId = userCredits.userId;
 		return async () => {
 			const count = Math.floor(Math.random() * 10) + 1;
-			await fetch(`/tokensConsumed?userId=${userId}&offerGroup=${offerGroup}&count=${count}`);
+			await fetch(`/api/tokensConsumed?userId=${userId}&offerGroup=${offerGroup}&count=${count}`);
 			location.reload();
 		}
 	}

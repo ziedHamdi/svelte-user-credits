@@ -1,7 +1,7 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
 import { AwilixContainer } from 'awilix/lib/container';
 import type { IOrder, IService, IUserCredits } from '@user-credits/core';
-import type { ObjectId } from '../../../init/+server';
+import type { ObjectId } from '../../../api/init/+server';
 
 export type AfterPurchaseInfo = {order: IOrder<string>, credits: IUserCredits<string>}
 

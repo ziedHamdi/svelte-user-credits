@@ -1,6 +1,6 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
 import { AwilixContainer } from 'awilix/lib/container';
-import type { ObjectId } from '../../init/+server';
+import type { ObjectId } from '../../api/init/+server';
 import type { IOffer, IService } from '@user-credits/core';
 
 let ioc: AwilixContainer<object>;

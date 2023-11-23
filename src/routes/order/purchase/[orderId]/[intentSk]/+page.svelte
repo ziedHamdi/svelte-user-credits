@@ -14,11 +14,11 @@
 		return async ({detail}) => {
 			if (detail.status === 'error') {
 				error = detail.result.error.message;
-				await fetch(`/afterExecute?orderId=${orderId}`);
+				await fetch(`/api/afterExecute?orderId=${orderId}`);
 			} else if (detail.status === 'cancel') {
 				await goto(`/credits/${user.get()._id}`);
 			} else if (detail.status === 'success') {
-				await fetch(`/afterExecute?orderId=${orderId}`);
+				await fetch(`/api/afterExecute?orderId=${orderId}`);
 				await goto(`/credits/${user.get()._id}`);
 			} else {
 				console.error('not supported state: ', detail.status, '; ', detail);

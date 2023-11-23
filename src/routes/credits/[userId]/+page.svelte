@@ -12,7 +12,7 @@
 
 	async function orderOperation({detail}) {
 		if( detail.operation === "pay" ) {
-			const createOrderResponse = await fetch(`/payOrder?orderId=${detail.orderId}`);
+			const createOrderResponse = await fetch(`/api/payOrder?orderId=${detail.orderId}`);
 			const order = await createOrderResponse.json();
 			await goto(`/order/purchase/${order._id}/${order.paymentIntentSecret}`);
 		} else if( detail.operation === "delete" ) {

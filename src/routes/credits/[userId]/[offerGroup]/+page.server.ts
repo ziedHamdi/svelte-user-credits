@@ -1,7 +1,7 @@
 import { MongooseStripeContainerSingleton } from '@user-credits/stripe-mongoose';
 import { AwilixContainer } from 'awilix/lib/container';
 import type { IService, IUserCredits } from '@user-credits/core';
-import { ObjectId } from '../../../init/+server';
+import { ObjectId } from '../../../api/init/+server';
 
 export type CreditsInfo = {credits: IUserCredits<string>}
 
@@ -22,5 +22,5 @@ export async function load({params}): Promise<CreditsInfo> {
 	const orderGroupConsumptionHistory = await service.getDaoFactory().getTokenTimetableDao().find({userId, offerGroup});
 	const history = orderGroupConsumptionHistory.map( (item ) => asPojo(item))
 	const credits = await service.getDaoFactory().getUserCreditsDao().findOne({userId});
-	return {credits:asPojo(credits) as unknown as IUserCredits<string>, history}
+	return {credits:asPojo(credits) as unknown as IUserCredits<string>, history} as CreditsInfo
 }
