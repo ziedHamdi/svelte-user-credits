@@ -234,6 +234,120 @@ Each step here can be configured. Let's dig a bit into the details:
  - `new PaymentService(mongooseDaoFactory, paymentClient, 'usd' )` is the instance it is decided that we are using mongoose and stripe with the lib.
  - `ServiceProxy` is the shadow implementation of [IService](https://github.com/ziedHamdi/user-credits-core/blob/master/src/service/IService.ts) but adapted to web requests (getting request and answering with Response). We also inject it to the container to make it available to the entire app.
 
+# The available services:
+## IService
+The IService interface is pretty self-explanatory, let's rapidly describe a sequence of calls you will typically make:
+ - loadOffers allows you to load different offers depending on the connected user, as the library @user-credits/core allows offers to be **unlocked** on other offer purchases 
+ - createOrder(offerId, userId) translates a user with the intention to purchase an offer, this saves the order in db, and allows you to remind the user of his intent later. When called, the library also calls Stripe and gets back to you with a **client-secret**; a code you will use the library to attempt to process a payment 
+ - afterExecute(order: IOrder<K>): When stripe responds, you can call this method to check what happened. You can also call this method from a webhook (check Stripe documentation). Anyway, this method only receives an orderId, and asks stripe by itself to be sure
+ - loadUserCredits(userId): this loads a synthesis of all user data, if a payment failed, he'll be able to find it there
+ - payOrder(orderId): can be called to attempt a payment for an order that failed previously
+ - tokensConsumed(userId,offerGroup,count): this is the very purpose of the entire library: to be able to consume tokens on the go. A User can always see his status by navigating through the object returned by loadUserCredits()
+ - getDaoFactory(): this allows you to access more finely grained operations with databases.
+```typescript
+import type { IDaoFactory } from "../db/dao/types";
+import type {
+IMinimalId,
+IOffer,
+IOrder,
+ITokenTimetable,
+IUserCredits,
+} from "../db/model/types";
+
+/**
+* This is the main interface for the UserCredits library, allowing clients to interact with pay-as-you-go features.
+*
+* ⚠️ **WARNING:** Before using any of these methods, ensure that you have thoroughly checked and validated user
+* permissions and rules. This documentation assumes that you are in a secure and controlled environment when executing
+* these calls.
+*
+* @template K - The type of foreign keys used throughout the library.
+  */
+  export interface IService<K extends IMinimalId> {
+  /**
+    * This method is called by the web client (or by the payment webhook server callback) after a payment has been
+    * executed by the client library, whether it was successful or not.
+    * It updates the user's credits based on the provided order status.
+    *
+    * @param {IOrder<K>} order - The order resulting from a payment transaction.
+    * @returns {Promise<IUserCredits<K>>} A promise that resolves to the updated user credits.
+      */
+      afterExecute(order: IOrder<K>): Promise<IUserCredits<K>>;
+
+/**
+* Creates an order for a user from a selected offer, saving the user's intention to purchase the offer.
+*
+* @param {unknown} offerId - The unique identifier of the selected offer.
+* @param {unknown} userId - The unique identifier of the user initiating the order.
+* @returns {Promise<IOrder<K>>} A promise that resolves to the created order.
+  */
+  createOrder(offerId: unknown, userId: unknown): Promise<IOrder<K>>;
+
+/**
+* You can define your own logic for key equality
+* @param {K} a - a key
+* @param {K} b - the other key
+* @returns {boolean} true if the keys are equal, false otherwise.
+  */
+  equals(a: K, b: K): boolean;
+
+/**
+* Provides access to the data access objects (DAOs) used to store data locally within the application.
+* This includes DAOs for offers, orders, token timetables, and user credits.
+*
+* @returns {IDaoFactory<K>} The DAO factory for accessing and manipulating local data.
+  */
+  getDaoFactory(): IDaoFactory<K>;
+
+/**
+* Retrieves a list of filtered anonymous offers and user-exclusive offers based on a user's unique identifier.
+* Exclusive offers become visible to users after they purchase a basic offer with the status 'paid'.
+* Exclusive offers can be overridden by other purchased offers using the `overridingKey` and `weight` properties,
+* allowing for customization of pricing and duration.
+*
+* Please read {@link /docs/offer_loading_explained.md} for a detailed explanation.
+*
+* @param {unknown} userId - The unique identifier of the user.
+* @param {string[]} envTags - The tags to filter the base offers with.
+* @returns {Promise<IOffer<K>[]>} A promise that resolves to an array of offers available to the user.
+  */
+  loadOffers(userId: unknown, envTags: string[]): Promise<IOffer<K>[]>;
+
+/**
+* Loads the current user credits status object
+* @param {K} userId - user id
+* @returns {Promise<IUserCredits<K> | null>} A promise that resolves to an {@link IUserCredits} instance if found, or `null` otherwise.
+  */
+  loadUserCredits(userId: K): Promise<IUserCredits<K>>;
+
+/**
+* Creates a payment intent for a user from a selected offer, saving the user's intention to purchase the offer.
+*
+* @param {K} orderId - The unique identifier of the selected order.
+* @returns {Promise<IOrder<K>>} A promise that resolves to the updated order.
+  */
+  payOrder(orderId: K): Promise<IOrder<K>>;
+
+/**
+* Consumes the count number of tokens for a specific offer group of the user.
+*
+* Please note that if the user is not subscribed to the offer, we will not throw an exception.
+* This is intentional to allow consuming before paying:
+* It's up to your code to check that a user is allowed to consume from an offerGroup before letting him pass.
+*
+* You can do that by scanning the {@link IUserCredits.offers} field in the object returned by {@link IService.loadUserCredits}
+*
+* @param {K} userId - The unique identifier of the user.
+* @param {string} offerGroup - The offer group for which to retrieve the remaining tokens.
+* @param {number} count - The number of tokens consumed.
+  */
+  tokensConsumed(
+  userId: K,
+  offerGroup: string,
+  count: number,
+  ): Promise<ITokenTimetable<K>>;
+  }
+```
 ## Contributing
 
 user-credits-ui is an open-source project, and we welcome contributions from the community. If you'd like to contribute, please follow the standard [contribution guidelines](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
