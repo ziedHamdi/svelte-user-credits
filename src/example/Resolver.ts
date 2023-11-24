@@ -1,12 +1,10 @@
 // You can initialize the resolver store here if needed.
 // For example:
-import type { IResourceResolver } from '../ioc/IResourceResolver';
+import type { IResourceResolver, IResourceDomain, EntityDto } from '$lib';
 import type { IBaseEntity, IMinimalId } from '@user-credits/core';
-import type { IResourceDomain } from '../ioc/IResourceDomain';
-import { EntityDto } from '../core/dto/EntityDto';
 import { resolveOffer } from './OfferResolve';
 import { resolveSubscription } from './SubscriptionResolve';
-import { UserPreferences } from '../core/UserPreferences';
+import { UserPreferences } from '$lib/core/UserPreferences';
 
 const DEFAULT_USER_PREFERENCES = new UserPreferences();
 

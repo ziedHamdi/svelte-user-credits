@@ -1,9 +1,9 @@
 <script>
 	import { goto } from '$app/navigation';
 	import Pricing from '../../../lib/comp/offer/Pricing.svelte';
-	import PricingPage from '../../../lib/example/components/PricingPage.svelte';
+	import PricingPage from '../../../example/components/PricingPage.svelte';
 	import OfferSwitch from '../../../lib/comp/offer/OfferSwitch.svelte';
-	import { getUserStore, createFakeUser } from '../../../lib/example/Session';
+	import { getUserStore, createFakeUser } from '../../../example/Session';
 
 	function switchOffers(event) {
 		goto(`/offers/${event.detail.checked ? 'yearly' : 'monthly'}`, { replaceState: true });
@@ -31,6 +31,6 @@
 <PricingPage>
 	<OfferSwitch slot='switch' leftLabel='Monthly' rightLabel='Annual' rightLabelNote='Save 2 months'
 							 on:modified={switchOffers} checked={data.period === "yearly"} />
-	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='specialOffers' offerList={data.ebOffers} columns='3'/>
-	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='offers' offerList={data.offers} columns='4'/>
+	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='specialOffers' offerList={data.ebOffers} gridCols='sm:grid-cols-2 lg:grid-cols-3'/>
+	<Pricing on:purchaseIntent={getPurchaseIntentFn()} slot='offers' offerList={data.offers} gridCols='sm:grid-cols-2 lg:grid-cols-4'/>
 </PricingPage>

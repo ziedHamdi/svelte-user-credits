@@ -1,7 +1,7 @@
 <script>
 	import Consumption from '../../../../lib/comp/credits/offer-group/Consumption.svelte';
 	import Navigation from '../../../../lib/comp/common/Navigation.svelte';
-	import Header from '../../../../lib/example/components/credits/history/Header.svelte';
+	import Header from '../../../../example/components/credits/history/Header.svelte';
 
 	export let data;
 

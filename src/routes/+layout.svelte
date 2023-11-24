@@ -2,8 +2,8 @@
 <script>
 	import '../app.postcss';
 	import { resolverContext } from '$lib/ioc/resolverContext';
-	import { Resolver } from '../lib/example/Resolver';
-	import { createFakeUser, getUserStore, userResolverContext } from '../lib/example/Session';
+	import { Resolver } from '../example/Resolver';
+	import { createFakeUser, getUserStore, userResolverContext } from '../example/Session';
 	import { page } from '$app/stores';
 
 	const { setResolver } = resolverContext();

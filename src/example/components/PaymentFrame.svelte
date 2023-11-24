@@ -1,5 +1,5 @@
 <script>
-	import Toast from '../../comp/common/Toast.svelte';
+	import Toast from '../../lib/comp/common/Toast.svelte';
 
 	export let error;
 </script>

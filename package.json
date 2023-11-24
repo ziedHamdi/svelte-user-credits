@@ -3,7 +3,17 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.4-beta",
+	"version": "0.9.6-beta",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	},
+	"svelte": "./dist/index.js",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -25,12 +35,13 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"prepublishOnly": "pnpm test & pnpm build"
+		"prepublishOnly": "pnpm test & svelte-package"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.39.0",
 		"@sveltejs/adapter-netlify": "^2.0.8",
 		"@sveltejs/kit": "^1.27.4",
+		"@sveltejs/package": "^2.2.3",
 		"@tsconfig/svelte": "^5.0.2",
 		"@types/node": "^20.9.1",
 		"@typescript-eslint/eslint-plugin": "^6.10.0",
@@ -43,8 +54,6 @@
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
-		"stripe": "^14.4.0",
-		"svelte": "^4.2.3",
 		"svelte-check": "^3.6.0",
 		"svelte-stripe": "^0.0.25",
 		"tailwindcss": "^3.3.5",
@@ -60,7 +69,10 @@
 		"@user-credits/stripe-mongoose": "^0.15.3-alpha",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
+		"esm-env": "^1.0.0",
 		"mongoose": "^8.0.0",
-		"preline": "^1.9.0"
+		"preline": "^1.9.0",
+		"svelte": "^4.2.7",
+		"stripe": "^14.5.0"
 	}
 }

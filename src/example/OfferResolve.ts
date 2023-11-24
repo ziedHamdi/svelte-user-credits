@@ -1,5 +1,4 @@
-import { EntityDto } from '../core/dto/EntityDto';
-import { OfferDto } from '../core/dto/OfferDto';
+import { EntityDto, OfferDto } from '$lib';
 import type { IOffer } from '@user-credits/core';
 
 export function resolveOffer<K, M>(data: M): EntityDto<K, M> {

@@ -1,8 +1,8 @@
 <script>
 	import PaymentComp from '../../../../../lib/comp/stripe/PaymentComp.svelte';
-	import PaymentFrame from '../../../../../lib/example/components/PaymentFrame.svelte';
+	import PaymentFrame from '../../../../../example/components/PaymentFrame.svelte';
 	import { goto } from '$app/navigation';
-	import { getUserStore } from '../../../../../lib/example/Session';
+	import { getUserStore } from '../../../../../example/Session';
 	// import { getUser } from '$lib/example/Session';
 
 	export let data;

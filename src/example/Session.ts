@@ -1,7 +1,7 @@
-import { browser } from '$app/environment';
+import { BROWSER } from 'esm-env';
 import ObjectId from 'bson-objectid';
 import { getContext, setContext } from 'svelte';
-import { ReadableStore } from '../core/ReadableStore';
+import { ReadableStore } from '$lib';
 
 export const LOGGED_USER = 'LOGGED_USER';
 // Create the resolver store
@@ -20,7 +20,7 @@ export const userResolverContext = () => {
 
 export function getUserStore(createIfNone: boolean = false): ReadableStore<IUser> {
 	const userStore = getContext(LOGGED_USER) as ReadableStore<IUser>;
-	if( browser && !userStore.get() ) {
+	if( BROWSER && !userStore.get() ) {
 		const found = loadFromLocalStorage();
 		if ( createIfNone && !found)
 			createFakeUser();
