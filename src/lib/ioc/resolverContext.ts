@@ -3,7 +3,7 @@
  */
 import { setContext } from 'svelte';
 import { writable } from 'svelte/store';
-import type { IResourceResolver } from './IResourceResolver';
+import type { IResourceResolver } from '@user-credits/base-ui';
 
 export const RESOLVER = "resolver"
 // Create the resolver store

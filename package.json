@@ -3,16 +3,18 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.7-beta",
+	"version": "0.9.8-beta",
 	"files": [
 		"dist"
 	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"main": "./dist/index.js"
+			"main": "./dist/index.js",
+			"svelte": "./dist/index.svelte.js"
 		}
 	},
+	"svelte": "./dist/index.svelte.js",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -34,7 +36,7 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"pkg": "svelte-package",
+		"pck": "svelte-package",
 		"prepublishOnly": "pnpm test & svelte-package"
 	},
 	"devDependencies": {
