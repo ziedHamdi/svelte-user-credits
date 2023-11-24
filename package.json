@@ -3,17 +3,18 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.6-beta",
+	"version": "0.9.7-beta",
 	"files": [
 		"dist"
 	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"main": "./dist/index.js",
+			"svelte": "./dist/index.svelte.js"
 		}
 	},
-	"svelte": "./dist/index.js",
+	"svelte": "./dist/index.svelte.js",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -35,6 +36,7 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
+		"pkg": "svelte-package",
 		"prepublishOnly": "pnpm test & svelte-package"
 	},
 	"devDependencies": {
@@ -55,8 +57,6 @@
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"svelte-check": "^3.6.0",
-		"svelte-stripe": "^0.0.25",
-		"tailwindcss": "^3.3.5",
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
 		"vite": "^4.5.0",
@@ -73,6 +73,8 @@
 		"mongoose": "^8.0.0",
 		"preline": "^1.9.0",
 		"svelte": "^4.2.7",
-		"stripe": "^14.5.0"
+		"stripe": "^14.5.0",
+		"svelte-stripe": "^0.0.25",
+		"tailwindcss": "^3.3.5"
 	}
 }

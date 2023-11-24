@@ -1,7 +1,7 @@
 import type { IActivatedOffer, IMinimalId, ISubscription } from '@user-credits/core';
 import { UserPreferences } from '../UserPreferences';
 import * as console from 'console';
-import { Consumption } from './Consumption';
+import { ConsumptionDto } from './ConsumptionDto';
 
 export type Status = 'ok' | 'warn' | 'error';
 const DEFAULT_USER_PREFERENCES = new UserPreferences();
@@ -19,7 +19,7 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 	protected _statusSummary: Status;
 	protected _statusMessage: string;
 	protected _activeSubscription: ISubscription<K>;
-	protected _consumption: Consumption;
+	protected _consumption: ConsumptionDto<K>;
 	protected _name: string;
 	protected _totalPurchasedTokens: number = 0;
 
@@ -187,11 +187,11 @@ export class OfferGroupStatusSummary<K extends IMinimalId> {
 		this._name = name;
 	}
 
-	get consumption(): Consumption {
+	get consumption(): ConsumptionDto<K> {
 		return this._consumption;
 	}
 
-	set consumption(value: Consumption) {
+	set consumption(value: ConsumptionDto<K>) {
 		this._consumption = value;
 	}
 

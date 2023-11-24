@@ -1,5 +1,5 @@
 import type { IBaseEntity, IMinimalId } from '@user-credits/core';
-import { EntityDto, UserCreditsDto, UserPreferences, Consumption, OfferGroupStatusSummary } from '$lib';
+import { EntityDto, UserCreditsDto, UserPreferences, ConsumptionDto, OfferGroupStatusSummary } from '$lib';
 
 export function resolveSubscription<K extends IMinimalId, M extends IBaseEntity<K>>(data: M, userPreferences: UserPreferences): EntityDto<K, M> {
 	const toReturn = new UserCreditsDto<K>(data, userPreferences);
@@ -48,8 +48,8 @@ function fillConsumptionForPaid<K extends IMinimalId>(userCreditsDto: UserCredit
 		}
 	});
 }
-function buildDateConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
-	return new Consumption(
+function buildDateConsumption<K extends IMinimalId>(summary: OfferGroupStatusSummary<K>) {
+	return new ConsumptionDto<K>(
 		summary.activeSubscription._id,
 		new Date(summary.expires).getTime(),
 		new Date(summary.starts).getTime(),
@@ -58,8 +58,8 @@ function buildDateConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
 	);
 }
 
-function buildTokenConsumption(summary: OfferGroupStatusSummary<IMinimalId>) {
-	return new Consumption(
+function buildTokenConsumption<K extends IMinimalId>(summary: OfferGroupStatusSummary<K>) {
+	return new ConsumptionDto<K>(
 		summary.activeSubscription._id,
 		summary.totalPurchasedTokens,
 		0,
