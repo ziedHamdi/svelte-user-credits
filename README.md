@@ -74,12 +74,41 @@ The components are written using preline, a cool library that uses tailwindcss. 
 You'll also need to implement the interface: `IResourceResolver`, as described below.
 ### Installing
 use your package manager to install
->`pnpm add @user-credits/base-ui @user-credits/svelte-ui`
+>pnpm add @user-credits/base-ui @user-credits/svelte-ui
 
->`yarn add @user-credits/base-ui @user-credits/svelte-ui`
+>yarn add @user-credits/base-ui @user-credits/svelte-ui
 
->`npm install @user-credits/base-ui @user-credits/svelte-ui`
+>npm install @user-credits/base-ui @user-credits/svelte-ui
 
+#### Choice:
+Then install one of 
+- Preline to use components and ready to copy screens
+>pnpm add -D preline
+
+- TailwindCss to keep working with raw classes 
+> npm add -D tailwindcss
+
+### configure
+TailwindCss needs to intervene at compile time, so the lib files must be included in the analysis. You that by adding them to the `content` tag
+>./node_modules/@user-credits/svelte-ui/dist/**/*.{html,js,svelte,ts}
+```javascript 
+/** @type {import('tailwindcss').Config}*/
+// tailwind.config.js (or cjs)
+const config = {
+content: ['./src/**/*.{html,js,svelte,ts}', "./node_modules/@user-credits/svelte-ui/dist/**/*.{html,js,svelte,ts}",],
+
+	theme: {
+		extend: {}
+	},
+
+	plugins: [
+		require('preline/plugin'),
+	],
+	darkMode: 'class',
+};
+
+module.exports = config;
+```
 
 ### Implementing `IResourceResolver`
 The interfaces defined in @user-credits/core that are returned by all 

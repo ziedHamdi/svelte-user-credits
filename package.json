@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.8-beta",
+	"version": "0.9.9-beta",
 	"files": [
 		"dist"
 	],
