@@ -1,5 +1,5 @@
 <script>
-	import { formatDate } from '../../../core/util';
+	import { formatDate } from '@user-credits/base-ui';
 
 	export let item;
 </script>

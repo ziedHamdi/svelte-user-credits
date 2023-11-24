@@ -1,2 +1,2 @@
-export * from '$lib/core/index.js'
-export * from '$lib/ioc/index.js'
+export {resolverContext, RESOLVER} from './ioc/resolverContext';
+export {ReadableStore} from './core/ReadableStore';

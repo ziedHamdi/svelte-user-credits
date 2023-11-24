@@ -1,10 +1,10 @@
 // You can initialize the resolver store here if needed.
 // For example:
-import type { IResourceResolver, IResourceDomain, EntityDto } from '$lib';
+import type { IResourceResolver, IResourceDomain, EntityDto } from '@user-credits/base-ui';
+import {UserPreferences } from '@user-credits/base-ui';
 import type { IBaseEntity, IMinimalId } from '@user-credits/core';
 import { resolveOffer } from './OfferResolve';
 import { resolveSubscription } from './SubscriptionResolve';
-import { UserPreferences } from '$lib/core/UserPreferences';
 
 const DEFAULT_USER_PREFERENCES = new UserPreferences();
 

@@ -1,5 +1,5 @@
 import type { IBaseEntity, IMinimalId } from '@user-credits/core';
-import { EntityDto, UserCreditsDto, UserPreferences, ConsumptionDto, OfferGroupStatusSummary } from '$lib';
+import { EntityDto, UserCreditsDto, UserPreferences, ConsumptionDto, OfferGroupStatusSummary } from '@user-credits/base-ui';
 
 export function resolveSubscription<K extends IMinimalId, M extends IBaseEntity<K>>(data: M, userPreferences: UserPreferences): EntityDto<K, M> {
 	const toReturn = new UserCreditsDto<K>(data, userPreferences);

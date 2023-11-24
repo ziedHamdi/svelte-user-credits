@@ -1,7 +1,7 @@
 <script>
 	import Tag from '../common/Tag.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { formatDate, safeString } from '../../core/util';
+	import { formatDate, safeString } from '@user-credits/base-ui';
 
 	const dispatch = createEventDispatcher();
 

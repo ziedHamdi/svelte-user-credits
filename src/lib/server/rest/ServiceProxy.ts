@@ -1,4 +1,5 @@
 import type { IMinimalId, IService } from '@user-credits/core';
+import {InvalidOrderError} from "@user-credits/core";
 
 export class ServiceProxy<K extends IMinimalId> {
 	constructor(protected service: IService<K>, protected _envTags: string[] = []) {
@@ -11,12 +12,12 @@ export class ServiceProxy<K extends IMinimalId> {
 	set envTags(value: string[]) {
 		this._envTags = value;
 	}
-	async tokensConsumed({url}): Promise<IUserCredits<K>> {
+	async tokensConsumed({url}): Promise<Response> {
 		const userId = url.searchParams.get('userId') ?? null;
 		const offerGroup = url.searchParams.get('offerGroup') ?? null;
 		const count = url.searchParams.get('count') ?? null;
 		const row = await this.service.tokensConsumed(userId, offerGroup, count);
-		return  new Response(JSON.stringify(row));
+		return new Response(JSON.stringify(row));
 	}
 
 	async createOrder({ url }): Promise<Response> {
@@ -56,6 +57,9 @@ export class ServiceProxy<K extends IMinimalId> {
 	async afterExecute({url}): Promise<Response> {
 		const orderId = url.searchParams.get('orderId') ?? null;
 		const order = await this.service.getDaoFactory().getOrderDao().findByIdStr(orderId);
+        if( order === null )
+            throw new InvalidOrderError("Order not found: "+ orderId);
+
 		const userCredits = await this.service.afterExecute(order);
 		return new Response( JSON.stringify(userCredits) );
 	}

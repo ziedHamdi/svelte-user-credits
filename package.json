@@ -10,11 +10,9 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"main": "./dist/index.js",
-			"svelte": "./dist/index.svelte.js"
+			"main": "./dist/index.js"
 		}
 	},
-	"svelte": "./dist/index.svelte.js",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -65,6 +63,7 @@
 	},
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
+		"@user-credits/base-ui": "0.0.2-alpha",
 		"@user-credits/core": "^0.15.1-alpha",
 		"@user-credits/stripe-mongoose": "^0.15.3-alpha",
 		"awilix": "^9.0.0",
@@ -72,8 +71,8 @@
 		"esm-env": "^1.0.0",
 		"mongoose": "^8.0.0",
 		"preline": "^1.9.0",
-		"svelte": "^4.2.7",
 		"stripe": "^14.5.0",
+		"svelte": "^4.2.7",
 		"svelte-stripe": "^0.0.25",
 		"tailwindcss": "^3.3.5"
 	}
