@@ -59,7 +59,7 @@ user-credits-ui allows you to display orders and prices in multiple currencies, 
 ## Getting Started
 
 ### Prerequisits:
-To be able to run this project, you'll have to provide a .env file with the following constants:
+To be able to use this project, you'll have to provide a .env file with the following constants (values are just examples):
 ```
 STRIPE_PUBLIC_KEY=pk_live_XYZ
 STRIPE_PRIVATE_KEY=sk_live_XYZ
@@ -69,14 +69,16 @@ DB_NAME=user-credits
 CURRENCY=usd
 ```
 
-To start using user-credits-ui in your project, you'll need to implement and inject two critical interfaces: `IResourceResolver` and `IElementBuilder`, as described below.
+The components are written using preline, a cool library that uses tailwindcss. To get the components to display the css correctly, install Preline [as described](https://medium.com/@FArcieri/install-praline-ui-on-sveltekit-9af72b988744) in this guide.
+
+You'll also need to implement the interface: `IResourceResolver`, as described below.
 ### Installing
 use your package manager to install
->`pnpm add @user-credits/svelte-ui`
+>`pnpm add @user-credits/base-ui @user-credits/svelte-ui`
 
->`yarn add @user-credits/svelte-ui`
+>`yarn add @user-credits/base-ui @user-credits/svelte-ui`
 
->`npm install @user-credits/svelte-ui`
+>`npm install @user-credits/base-ui @user-credits/svelte-ui`
 
 
 ### Implementing `IResourceResolver`
@@ -84,23 +86,23 @@ The interfaces defined in @user-credits/core that are returned by all
 @user-credits implementations only specify the strict necessary fields
 to be able to apply its logical operation. For example, the `IOffer` interface
 only contains a `name` field that is actually a unique name that allows you to
-recognize the offer and compete it with relevant related resources as description, 
+identify an offer and be able to compete it with relevant resources like: description, 
 icons, features it proposes, etc.... 
 
 > Some fields are designed to be interpreted or used as is. For example, the `IOffer` 
 > interface includes the fields `currency` and `price`. The resolver has the possibility 
 > to use that data to handle converting the price to your website visitor's currency.
 
-Therefore you'll need to create your own implementation of the `IResourceResolver` interface. 
+You'll need to create your own implementations of the `IResourceResolver` interface. 
 
-For example, `IResourceResolver` converts an offer from an `IOffer` instance containing `name`,`currency` and `price` and returns OfferDto which is our view specifications of an offer like follows:
+For example, `IResourceResolver` converts an offer from an `IOffer` instance containing `name`,`currency` and `price` and returns `OfferDto` (found in the base-ui package) on which the components in this library rely to display information :
 
 ```typescript
 export class OfferDto<K extends IMinimalId> extends EntityDto<K, IOffer<K>> {
-	description: string;
-	advantages: Map<string, string>;
-	callToAction: string;
-	highlightingMessage: string;
+	description: string; // offer short description
+	advantages: Map<string, string>; // only the keys are used by the component, but you can hide details in the value
+	callToAction: string; // the button label
+	highlightingMessage: string; // if it's a special or recommended offer
 	constructor(offer: IOffer<K>) {
 		super(offer);
 	}
@@ -113,31 +115,124 @@ export class OfferDto<K extends IMinimalId> extends EntityDto<K, IOffer<K>> {
 		return this.delegate.price
 	}
 
-	get higlighted(): boolean {
+	get higlighted(): boolean { // if true, displays as highlighted
 		return this.delegate.weight > 0;
 	}
 
 }
 ```
 
-You may decide to extend `OfferDto` and build your own Svelte representation of an offer.
+As for any component in this lib, you may decide to extend `OfferDto` and build your own Svelte representation of an offer.
 
 So `IResourceResolver` is kept simple: it receives any data instance from `@user-credits/core/db/model` and transforms it into one of the available `@user-credits/svelte-ui/lib/core/dto/EntityDto` child classes or to your child class dedicated to display it
 ```typescript
-export interface IResourceResolver {
-    getObject<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K,M>;
+interface IResourceResolver {
+	/**
+	 * Returns an object to describe a domain as view ready values. For example it will convert and append the right currency to the price, find a language specific title, name, description and return a structured object with these values
+	 *
+	 * @param domain a key that describes what we expect (which entity to represent)
+	 * @param data a raw data object
+	 * @template <T> the actual object containing the data to represent, for example @IOfferProps
+	 * @template <D> the type of possible objects (an enum like implementation)
+	 * return <T> the type the user expects as an output
+	 */
+	buildDto<
+		D extends IResourceDomain,
+		K extends IMinimalId,
+		M extends IBaseEntity<K>,
+		>(
+		domain: D,
+		data: M,
+	): EntityDto<K, M>;
+
+
+	/**
+	 * returns a setting or resolves an ioc instance
+	 * @param domain the resource key 
+	 */
+	getSetting<D extends IResourceDomain>(domain: D): unknown;
 }
+
+```
+
+For basic screens, you only need to fill 2 types of objects to represent:
+```typescript
+import { OfferDto, UserCreditsDto } from '@user-credits/base-ui';
+```
+
+ - offers: OfferDto (where you will map an IOffer.name with the other fields to display: description, icons, etc...)
+ - credits: UserCreditsDto which already has advanced default behavior
+
+In the demo, the Resolver is pretty forward:
+```typescript
+	buildDto<D extends IResourceDomain, K extends IMinimalId, M extends IBaseEntity<K>>(domain: D, data: M): EntityDto<K, M> {
+		if (!data)
+			throw new Error('Data cannot be null: ' + data +' (domain: '+ JSON.stringify(domain) +')');
+		switch (domain.type) {
+			case 'Offer':
+				return resolveOffer<K, M>(data);
+			case 'UserCredits':
+				return resolveSubscription<K, M>(data, this.getSetting({ type: 'UserPreferences' }) as UserPreferences);
+
+			default:
+				throw new Error('Cannot resolve DOMAIN ' + domain.type + ' : ' + data);
+		}
+	}
 ```
 
 ### Displaying screens:
-Once your data is transformed and ready for display, you can use the according 
-component to represent it, or build/compose your own. 
 
-A set of components is available under `lib/comp`
+| Components | that display DTOs in `@user-credits/base-ui` |
+|-----------|-----------|
+| ![img.png](static/components.png)  |  Once your data is transformed into DTOs, you can use the provided components to represent it, or build/compose your own. |
 
-> A more advanced project still as a draft introduces an additional abstraction layer between your DTO and your view, allowing to build a common base from multiple view technologies
-> The project is still under construction and called [user-credits-ui](https://github.com/ziedHamdi/user-credits-ui)
+## Filling data:
+Inserting an offer is pretty direct as you see the code below. But to construct your offers wisely, check [this article](https://medium.com/@zhamdi). 
 
+```typescript
+import type { IOffer, IOfferDao, IDaoFactory } from "@user-credits/core";
+import { ObjectId } from 'bson';
+
+const offerToInsert: IOffer<ObjectId>
+
+export async function prefillOffersForTests(daoFactory: IDaoFactory<ObjectId>) {
+	const offerDao = daoFactory.getOfferDao();
+	await offerDao.create(offerToInsert); // or await offerDao.build(offerToInsert).save();
+}
+```
+
+If you're wondering from where to get the `daoFactory` instance, for now it is only implemented for MongoDB.
+
+In the [demo code](https://github.com/ziedHamdi/svelte-user-credits/blob/master/src/hooks/init.ts) of this library, there's a hook in src/hooks.server.ts that calls the init function at server startup. The init function instantiates the Mongoose DaoFactory after 
+
+```typescript
+import { MongooseStripeContainerSingleton, connectToDb, disconnectFromDb, resolveConfigReader, resolveStripeClient, MongooseDaoFactory } from '@user-credits/stripe-mongoose';
+import { ServiceProxy } from '../lib/server/rest/ServiceProxy';
+import { AwilixContainer } from "awilix/lib/container";
+
+async function init(): Promise<void> {
+	console.log('Initializing container...');
+	iConfigReader = await resolveConfigReader();
+	ioc = await MongooseStripeContainerSingleton.getInstance() as unknown as AwilixContainer<object>;
+	// Connect to MongoDB
+	const connection: Connection = await connectToDb(iConfigReader.dbUrl, iConfigReader.dbName);
+	const mongooseDaoFactory = new MongooseDaoFactory(connection);
+	const paymentClient = await resolveStripeClient();
+	service = new PaymentService(mongooseDaoFactory, paymentClient, iConfigReader.currency ?? 'usd') as unknown as IService<Types.ObjectId>;
+	ioc.register({ service: asValue(service) });
+	serviceProxy = new ServiceProxy<Types.ObjectId>(service);
+	ioc.register({ serviceProxy: asValue(serviceProxy) });
+	console.log('Connected to MongoDB');
+}
+```
+
+Each step here can be configured. Let's dig a bit into the details:
+ - `resolveConfigReader` is imported from '@user-credits/stripe-mongoose' as a simple .env config file reader. Your project might have another way to store configs. This is the place where you can override that: just implement the `IConfigReader` imported from the same project and pass it instead.
+ - `MongooseStripeContainerSingleton` is, as it name suggests, a singleton that intiates mongoose and stripe. However, it relies on the default config reader. It is also an opinionated solution as it relies on the Awilix IOC container. If you need to implement your own `IConfigReader`, then you will need to create your own singleton. The only job it does is to create the instances and store them in the Awilix container.
+ - `connectToDb` doesn't need to explain, then we can create the 'MongooseDaoFactory' with that connection. If your business has multiple connections to different databases, MongooseDaoFactory handles that, but you will have to check the code in `@user-credits/stripe-mongoose`
+ - 'resolveStripeClient()' simply reads back from `MongooseStripeContainerSingleton` saved in the Awilix container
+ - `new PaymentService(mongooseDaoFactory, paymentClient, 'usd' )` is the instance it is decided that we are using mongoose and stripe with the lib.
+ - `ServiceProxy` is the shadow implementation of [IService](https://github.com/ziedHamdi/user-credits-core/blob/master/src/service/IService.ts) but adapted to web requests (getting request and answering with Response). We also inject it to the container to make it available to the entire app.
 
 ## Contributing
 
