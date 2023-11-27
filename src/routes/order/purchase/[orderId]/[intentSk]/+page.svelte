@@ -73,13 +73,17 @@
 				and the <a class='underline' href='https://stripe.com/docs/testing#regulatory-cards'>test scenarios</a> .
 			</div>
 		{:else}
-		<div class='py-6 font-bold text-center'>
-			You were successfully subscribed to {data.order.offerGroup}
-		</div>
-			<div class='py-6 flex justify-center'><a class='mt-5 inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800' href={`/credits/${user.get()?._id}`}>Credits</a></div>
+			<div class='py-6 font-bold text-center'>
+				You were successfully subscribed to {data.order.offerGroup}
+			</div>
+			<div class='py-6 flex justify-center'><a
+				class='mt-5 inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800'
+				href={`/credits/${user.get()?._id}`}>Credits</a></div>
 		{/if}
 	</div>
-	{#if data.order.total > 0}
-		<PaymentComp slot='stripe' clientSecret={data.intentSk} on:payment={paymentExecuted()} />
-	{/if}
+	<div slot='stripe'>
+		{#if data.order.total > 0}
+			<PaymentComp clientSecret={data.intentSk} on:payment={paymentExecuted()} />
+		{/if}
+	</div>
 </PaymentFrame>
