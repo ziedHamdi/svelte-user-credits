@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "0.9.9-beta",
+	"version": "1.0.0-beta",
 	"files": [
 		"dist"
 	],
@@ -65,9 +65,9 @@
 	},
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
-		"@user-credits/base-ui": "0.0.2-alpha",
-		"@user-credits/core": "link:..\\user-credits-core",
-		"@user-credits/stripe-mongoose": "link:..\\user-credits",
+		"@user-credits/base-ui": "^1.0.0-beta",
+		"@user-credits/core": "^0.16.0-beta",
+		"@user-credits/stripe-mongoose": "^0.16.0-beta",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
 		"esm-env": "^1.0.0",
