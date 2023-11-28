@@ -3,7 +3,8 @@
 ## Introduction
 
 A demo of this library is [available at this link](https://user-credits.dev)
-
+![img.png](static/offers.png)
+![img.png](static/credits.png)
 **[@user-credits/svelte-ui](https://www.npmjs.com/package/@user-credits/svelte-ui)** 
 is an open-source library designed to streamline the management 
 of user credits (pay-as-you-go models). It ships with user interface components for handling offers, 
@@ -15,6 +16,8 @@ relies on its implementations' server side (like [@user-credits/stripe-mongoose]
 to allow flexible and technology-agnostic solutions for your billing offer needs.
 While the primary implementation is in Svelte, the library is adaptable to other
 view technologies, making it a versatile choice for your projects.
+
+
 
 **Sorry I don't know how reduce the button size, I like coffee but not to that extent.**
 [![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-blue.png)](https://www.buymeacoffee.com/credits)
