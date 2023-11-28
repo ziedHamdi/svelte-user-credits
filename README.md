@@ -384,6 +384,18 @@ IUserCredits,
 
 user-credits-ui is an open-source project, and we welcome contributions from the community. If you'd like to contribute, please follow the standard [contribution guidelines](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
 
+Use the [issue tracker](https://github.com/ziedHamdi/svelte-user-credits/issues) and/or open [pull requests](https://github.com/ziedHamdi/svelte-user-credits/pulls)!
+
+Useful Build Commands
+- `pnpm i` Download all necessary npm packages
+- `pnpm lint` Lint the javascript files
+- `pnpm test` Run tests (both playwright and vitest tests a run), check package.json for individual launches
+- `pnpm build` Build the dev version
+- `pnpm preview` preview the dev version
+- `pnpm pck` package as a ready to use svelte library
+
+The project is built for netlify where it is published. You can change the adapter in svelte.config.js to run it on other platforms.
+
 ## License
 
 user-credits-ui is licensed under the MIT License. You can find the full license details in the [LICENSE](LICENSE) file.
@@ -401,3 +413,6 @@ Some code will be moved to a [front-end agnostic library project](https://github
 [comment]: <> ([API Documentation]&#40;https://user-credits-ui-docs.com/api&#41;)
 
 [comment]: <> ([User Guide]&#40;https://user-credits-ui-docs.com/guide&#41;)
+
+#Credits
+[Preline.co](https://preline.co/) from where I took ready to use screens and components with css for all screen sizes and even with dark mode 
