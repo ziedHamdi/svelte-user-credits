@@ -5,13 +5,6 @@
 	import { Resolver } from '../example/Resolver';
 	import { createFakeUser, getUserStore, userResolverContext } from '../example/Session';
 	import { page } from '$app/stores';
-	import { afterNavigate } from "$app/navigation";
-	import { HSDropdown } from "preline"
-
-	// preline needs this to be called: https://preline.co/docs/frameworks-svelte.html
-	afterNavigate(() => {
-		HSDropdown.autoInit();
-	});
 
 	const { setResolver } = resolverContext();
 	userResolverContext();
