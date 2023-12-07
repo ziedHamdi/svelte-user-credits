@@ -26,7 +26,7 @@
 	"homepage": "http://user-credits.dev",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "pnpm onNetlifyBeforeBuild && vite build",
 		"preview": "vite preview",
 		"test": "pnpm test:integration && pnpm test:unit",
 		"vitest": "vitest",
@@ -37,7 +37,8 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"pck": "svelte-package",
-		"prepublishOnly": "pnpm test & svelte-package"
+		"prepublishOnly": "pnpm test & svelte-package",
+		"onNetlifyBeforeBuild": "rm -rf dist && mkdir dist && rsync -rv * dist --exclude ./dist"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.39.0",

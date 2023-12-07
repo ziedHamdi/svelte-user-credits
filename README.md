@@ -416,3 +416,11 @@ Some code will be moved to a [front-end agnostic library project](https://github
 
 #Credits
 [Preline.co](https://preline.co/) from where I took ready to use screens and components with css for all screen sizes and even with dark mode 
+
+
+#Troubleshooting
+The demo is run on Netlify, to be able to [keep the dependencies on deploy,](https://stackoverflow.com/questions/54527465/no-node-modules-from-netlify-deploy) the node_modules have to be copied before the build
+This script was added in package.json to do that:
+
+`"onNetlifyBeforeBuild": "rm -rf dist && mkdir dist && rsync -rv * dist --exclude ./dist"
+`
