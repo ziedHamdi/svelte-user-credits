@@ -1,5 +1,6 @@
-import type { IOffer, IOfferDao, IDaoFactory } from "@user-credits/core";
+import type { IOffer, IOfferDao, IDaoFactory, ICombinedOffer } from "@user-credits/core";
 import { Types } from "mongoose";
+import * as console from 'console';
 
 export type ObjectId = Types.ObjectId;
 
@@ -30,7 +31,7 @@ export const enum OFFER_GROUP {
   EbEnterprise = "EbEnterprise",
   EbScaleUp = "EbScaleUp",
   // Exclusive offers unlocked on certain subscriptions
-  VipEventTalk = "VipEventTalk",
+  AiTokens = "AiTokens",
   VipSeoBackLinks = "VipSeoBackLinks",
 }
 
@@ -39,6 +40,11 @@ type MockType = {
     [subKey: string]: any;
   };
 };
+
+
+function asCombined(offer: IOffer<ObjectId>, quantity: number): ICombinedOffer<ObjectId> {
+  return {offerGroup: offer.offerGroup, offerId: offer._id, quantity } as unknown as ICombinedOffer<ObjectId>
+}
 
 /**
  * A little tricky:  Captures the value types union of T and uses them as UnionFromMockType (instead of T)
@@ -131,29 +137,35 @@ const MOCKS: MockType = {
       tags: ["subscription", "EarlyBird", "yearly"]
     }
   },
-  VipEventTalk: {
+  AiTokens: {
     common: {
       cycle: "yearly", // ends at the end of the year
       offerGroup: "VIP_TALK",
       tags: ["vip"]
     },
-    _1talk: {
-      name: "1-VIP-event",
-      overridingKey: "1vip",
-      price: 160,
-      tokenCount: 1 // one event
+    _20tokens: {
+      name: "_20tokens",
+      overridingKey: "_20tokens",
+      price: 5,
+      tokenCount: 20
     },
-    _3talks: {
-      name: "3-VIP-events",
-      overridingKey: "1vip",
-      price: 320,
-      tokenCount: 3 // one event
+    _100tokens: {
+      name: "_100tokens",
+      overridingKey: "_100tokens",
+      price: 20,
+      tokenCount: 100
     },
-    _7talks: {
-      name: "7-VIP-events",
-      overridingKey: "1vip",
-      price: 640,
-      tokenCount: 7 // one event
+    _300tokens: {
+      name: "_300tokens",
+      overridingKey: "_300tokens",
+      price: 40,
+      tokenCount: 300 // 30% free or save $20
+    },
+    _700tokens: {
+      name: "_700tokens",
+      overridingKey: "_700tokens",
+      price: 80,
+      tokenCount: 700 // 300 free or save $60
     }
   },
   VipSeoBackLinks: {
@@ -171,7 +183,7 @@ const MOCKS: MockType = {
     _2_articles: {
       name: "2-articles-month",
       overridingKey: "2links",
-      price: 1280,
+      price: 1000,
       tokenCount: 2 // one event
     }
   }
@@ -250,6 +262,17 @@ async function preparePredefinedOffer(
 export async function prefillOffersForTests(daoFactory: IDaoFactory<ObjectId>) {
   const offerDao = daoFactory.getOfferDao();
   /* eslint-disable */
+
+  // -------------------- Atomic offers -------------------
+  const _20tokens = await preparePredefinedOffer(offerDao, OFFER_GROUP.AiTokens, "_20tokens");
+  const _100tokens = await preparePredefinedOffer(offerDao, OFFER_GROUP.AiTokens, "_100tokens");
+  const _300tokens = await preparePredefinedOffer(offerDao, OFFER_GROUP.AiTokens, "_300tokens");
+  const _700tokens = await preparePredefinedOffer(offerDao, OFFER_GROUP.AiTokens, "_700tokens");
+
+  const vipSeoBackLinks_1_article = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipSeoBackLinks, "_1_article");
+  const vipSeoBackLinks_2_articles = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipSeoBackLinks, "_2_articles");
+
+
   // -------------------- free forever-basic subscription -------------------
   const free = await preparePredefinedOffer(offerDao, OFFER_GROUP.Free);
 // -------------------- standard subscriptions -------------------
@@ -267,40 +290,57 @@ export async function prefillOffersForTests(daoFactory: IDaoFactory<ObjectId>) {
   const ebScaleUpM = await preparePredefinedOffer(offerDao, OFFER_GROUP.EbScaleUp, "m");
   const ebScaleUpY = await preparePredefinedOffer(offerDao, OFFER_GROUP.EbScaleUp, "y");
 
-  // -------------------- VIP exclusive offers -------------------
-  const vipEventTalk_1talk = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipEventTalk, "_1talk");
-  const vipEventTalk_3talks = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipEventTalk, "_3talks");
-  const vipEventTalk_7talks = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipEventTalk, "_7talks");
-
-  const vipSeoBackLinks_1_article = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipSeoBackLinks, "_1_article");
-  const vipSeoBackLinks_2_articles = await preparePredefinedOffer(offerDao, OFFER_GROUP.VipSeoBackLinks, "_2_articles");
 
   const vipDependsOnOffers = [scaleUpM, scaleUpY, ebStartupM, ebStartupY, ebEnterpriseM, ebEnterpriseY, ebScaleUpM, ebScaleUpY];
-  // -------------------- VIP exclusive offers Talks-------------------
-  const vipEventTalkOfferGroups = vipEventTalk_1talk.asUnlockingOffers(vipDependsOnOffers);
-  vipEventTalk_3talks.asUnlockingOffers(vipDependsOnOffers);
-  vipEventTalk_7talks.asUnlockingOffers(vipDependsOnOffers);
+  // // -------------------- VIP exclusive offers Talks-------------------
+  // const vipEventTalkOfferGroups = _100tokens.asUnlockingOffers(vipDependsOnOffers);
+  // _300tokens.asUnlockingOffers(vipDependsOnOffers);
+  // _700tokens.asUnlockingOffers(vipDependsOnOffers);
   // -------------------- VIP exclusive offers BackLinks-------------------
   const vipSeoBackLinkOfferGroups = vipSeoBackLinks_1_article.asUnlockingOffers(vipDependsOnOffers);
   vipSeoBackLinks_2_articles.asUnlockingOffers(vipDependsOnOffers);
 
+  const atomicOffers = {_20tokens, _100tokens, _300tokens, _700tokens,
+    vipSeoBackLinks_1_article, vipSeoBackLinks_2_articles}
+
   const allOffers = {
-    free, enterpriseM, enterpriseY, startupM, startupY, vipEventTalk_1talk, vipEventTalk_3talks,
-    scaleUpM, scaleUpY, ebStartupM, ebStartupY, ebEnterpriseM, ebEnterpriseY, ebScaleUpM, ebScaleUpY,
-    vipEventTalk_7talks, vipSeoBackLinks_1_article, vipSeoBackLinks_2_articles};
+    free, enterpriseM, enterpriseY, startupM, startupY,
+    scaleUpM, scaleUpY, ebStartupM, ebStartupY, ebEnterpriseM, ebEnterpriseY, ebScaleUpM, ebScaleUpY};
   /* eslint-enable */
 
   // now save all the prepared data
   await Promise.all(
+    Object.values(atomicOffers).map(async (offer) => {
+      console.log("inserting atomic ", offer.name);
+      await offer.save();
+    }),
+  );
+
+  free.combinedItems = [ asCombined( _20tokens, 1 ) ];
+  startupM.combinedItems = [ asCombined( _100tokens, 1 ) ];
+  startupY.combinedItems = [ asCombined( _100tokens, 14 ) ];
+  enterpriseM.combinedItems = [ asCombined( _300tokens, 1 ), asCombined( vipSeoBackLinks_1_article, 1 ) ];
+  enterpriseY.combinedItems = [ asCombined( _300tokens, 14 ), asCombined( vipSeoBackLinks_1_article, 12 ) ];
+  scaleUpM.combinedItems = [ asCombined( _700tokens, 1 ), asCombined( vipSeoBackLinks_1_article, 2 ) ];
+  scaleUpY.combinedItems = [ asCombined( _700tokens, 14 ), asCombined( vipSeoBackLinks_1_article, 40 ) ];
+  ebStartupM.combinedItems = [ asCombined( _100tokens, 2 ) ];
+  ebStartupY.combinedItems = [ asCombined( _100tokens, 28 ) ];
+  ebEnterpriseM.combinedItems = [ asCombined( _300tokens, 2 ), asCombined( vipSeoBackLinks_1_article, 2 ) ];
+  ebEnterpriseY.combinedItems = [ asCombined( _300tokens, 28 ), asCombined( vipSeoBackLinks_1_article, 24 ) ];
+  ebScaleUpM.combinedItems = [ asCombined( _700tokens, 2 ), asCombined( vipSeoBackLinks_1_article, 4 ) ];
+  ebScaleUpY.combinedItems = [ asCombined( _700tokens, 28 ), asCombined( vipSeoBackLinks_1_article, 80 ) ];
+
+  await Promise.all(
     Object.values(allOffers).map(async (offer) => {
+      console.log("inserting ", offer.name);
       await offer.save();
     }),
   );
 
   // console.log("Inserted offers:", await offerDao.find({}));
   return {
-    allOffers,
-    vipEventTalkOfferGroups,
+    allOffers: { ...atomicOffers, ...allOffers },
     vipSeoBackLinkOfferGroups,
   };
 }
+
