@@ -6,11 +6,11 @@
 	import { createFakeUser, getUserStore, userResolverContext } from '../example/Session';
 	import { page } from '$app/stores';
 	import { afterNavigate } from "$app/navigation";
-	import { HSStaticMethods } from "preline"
+	import { HSDropdown } from "preline"
 
 	// preline needs this to be called: https://preline.co/docs/frameworks-svelte.html
 	afterNavigate(() => {
-		HSStaticMethods.autoInit();
+		HSDropdown.autoInit();
 	});
 
 	const { setResolver } = resolverContext();
