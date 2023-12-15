@@ -140,8 +140,8 @@ const MOCKS: MockType = {
   AiTokens: {
     common: {
       cycle: "yearly", // ends at the end of the year
-      offerGroup: "VIP_TALK",
-      tags: ["vip"]
+      offerGroup: "Ai_tokens",
+      tags: ["ai"]
     },
     _20tokens: {
       name: "_20tokens",
