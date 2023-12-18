@@ -3,7 +3,7 @@
 	"author": "Zied Hamdi",
 	"type": "module",
 	"license": "MIT",
-	"version": "1.1.1-beta",
+	"version": "1.1.2-beta",
 	"files": [
 		"dist"
 	],
@@ -66,7 +66,7 @@
 	},
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
-		"@user-credits/base-ui": "^1.0.0-beta",
+		"@user-credits/base-ui": "^1.0.1-beta",
 		"@user-credits/core": "^1.0.5-beta",
 		"@user-credits/stripe-mongoose": "^1.0.4-beta",
 		"awilix": "^9.0.0",
