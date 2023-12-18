@@ -139,6 +139,7 @@ const MOCKS: MockType = {
   },
   AiTokens: {
     common: {
+      appendDate: true,
       cycle: "yearly", // ends at the end of the year
       offerGroup: "Ai_tokens",
       tags: ["ai"]
