@@ -67,8 +67,8 @@
 	"dependencies": {
 		"@stripe/stripe-js": "^2.1.11",
 		"@user-credits/base-ui": "^1.0.0-beta",
-		"@user-credits/core": "^1.0.4-beta",
-		"@user-credits/stripe-mongoose": "^1.0.3-beta",
+		"@user-credits/core": "link:..\\user-credits-core",
+		"@user-credits/stripe-mongoose": "link:..\\user-credits",
 		"awilix": "^9.0.0",
 		"bson-objectid": "^2.0.4",
 		"esm-env": "^1.0.0",
